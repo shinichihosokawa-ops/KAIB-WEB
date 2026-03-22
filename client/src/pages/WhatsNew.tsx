@@ -2,26 +2,20 @@ import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MapPin, Clock, Users, ExternalLink } from "lucide-react";
-import { useEffect } from "react";
+import { useSEO } from "@/_core/hooks/useSEO";
 
 export default function WhatsNew() {
   const { language, setLanguage, t, localePath } = useLanguage();
 
-  useEffect(() => {
-    if (language === 'en') {
-      document.title = "KAIB First Monthly Meeting | News";
-      document.querySelector('meta[name="description"]')?.setAttribute(
-        'content',
-        'KAIB First Monthly Meeting on April 3, 2026. Special speech by KAIB Chairman Shinichi Hosokawa on "Thoughts on Kagawa and Its Potential".'
-      );
-    } else {
-      document.title = "KAIB第1回月例会 | ニュース";
-      document.querySelector('meta[name="description"]')?.setAttribute(
-        'content',
-        'KAIB第1回月例会は4月3日開催。KAIB会長・細川慎一による特別スピーチ「香川にかける思いと、香川の可能性」'
-      );
-    }
-  }, [language]);
+  useSEO(language === 'en' ? {
+    title: "KAIB First Monthly Meeting | News",
+    description: 'KAIB First Monthly Meeting on April 3, 2026. Special speech by KAIB Chairman Shinichi Hosokawa on "Thoughts on Kagawa and Its Potential".',
+    path: "/en/whatsnew",
+  } : {
+    title: "KAIB第1回月例会 | ニュース",
+    description: "KAIB第1回月例会は4月3日開催。KAIB会長・細川慎一による特別スピーチ「香川にかける思いと、香川の可能性」",
+    path: "/whatsnew",
+  });
 
   return (
     <div className="min-h-screen bg-white">
