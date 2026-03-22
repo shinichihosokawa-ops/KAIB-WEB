@@ -5,7 +5,7 @@ import { ArrowRight, Users, Globe, TrendingUp, LinkIcon, Mail, Phone, Network, Z
 import { useEffect } from "react";
 
 export default function Home() {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t, localePath } = useLanguage();
 
   useEffect(() => {
     if (language === 'en') {
@@ -46,18 +46,18 @@ export default function Home() {
             <a href="#services" className="text-sm text-foreground hover:text-primary transition">
               {t('nav.services')}
             </a>
-            <a href="/whatsnew" className="text-sm text-foreground hover:text-primary transition">
+            <a href={localePath("/whatsnew")} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.news')}
             </a>
-            <a href="/contact" className="text-sm text-foreground hover:text-primary transition">
+            <a href={localePath("/contact")} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.contact')}
             </a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfse888pkXKIR7S7CkP_MSCC6WBAG5KNX2Z7IYZQx-I7vRYAQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground hover:text-primary transition">
               {t('nav.register')}
             </a>
             <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
-              <button
-                onClick={() => setLanguage('ja')}
+              <a
+                href="/"
                 className={`px-2 py-1 text-sm font-medium rounded transition ${
                   language === 'ja'
                     ? 'bg-primary text-white'
@@ -65,9 +65,9 @@ export default function Home() {
                 }`}
               >
                 日本語
-              </button>
-              <button
-                onClick={() => setLanguage('en')}
+              </a>
+              <a
+                href="/en"
                 className={`px-2 py-1 text-sm font-medium rounded transition ${
                   language === 'en'
                     ? 'bg-primary text-white'
@@ -75,7 +75,7 @@ export default function Home() {
                 }`}
               >
                 English
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -570,12 +570,12 @@ export default function Home() {
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="/whatsnew" className="hover:underline">
+                  <a href={localePath("/whatsnew")} className="hover:underline">
                     {language === 'en' ? 'News' : 'ニュース'}
                   </a>
                 </li>
                 <li>
-                  <a href="/contact" className="hover:underline">
+                  <a href={localePath("/contact")} className="hover:underline">
                     {language === 'en' ? 'Contact' : 'お問い合わせ'}
                   </a>
                 </li>

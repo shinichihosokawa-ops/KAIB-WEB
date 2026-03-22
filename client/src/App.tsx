@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import EnglishRoute from "./components/EnglishRoute";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Home from "./pages/Home";
@@ -13,10 +14,16 @@ import WhatsNew from "./pages/WhatsNew";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
-    <Switch>      <Route path={"/?"} component={Home} />
+    <Switch>
+      <Route path={"/?"} component={Home} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/interest"} component={Interest} />
       <Route path={"/whatsnew"} component={WhatsNew} />
+      {/* English routes */}
+      <Route path={"/en"}>{() => <EnglishRoute component={Home} />}</Route>
+      <Route path={"/en/contact"}>{() => <EnglishRoute component={Contact} />}</Route>
+      <Route path={"/en/interest"}>{() => <EnglishRoute component={Interest} />}</Route>
+      <Route path={"/en/whatsnew"}>{() => <EnglishRoute component={WhatsNew} />}</Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
