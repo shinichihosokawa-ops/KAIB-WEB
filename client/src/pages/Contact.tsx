@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLanguage } from "@/_core/hooks/useLanguage";
+import { useSEO } from "@/_core/hooks/useSEO";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Phone, MapPin, ExternalLink } from "lucide-react";
@@ -15,21 +16,15 @@ export default function Contact() {
   });
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
-  useEffect(() => {
-    if (language === 'en') {
-      document.title = "Contact KAIB | Kagawa Innovation Base";
-      document.querySelector('meta[name="description"]')?.setAttribute(
-        'content',
-        'Contact Kagawa Innovation Base (KAIB). Get in touch with us for inquiries and questions about our community and events.'
-      );
-    } else {
-      document.title = "お問い合わせ | KAIB - 香川イノベーションベース";
-      document.querySelector('meta[name="description"]')?.setAttribute(
-        'content',
-        'KAIB（香川イノベーションベース）へのお問い合わせ。ご質問やご不明な点がございましたら、お気軽にお問い合わせください。'
-      );
-    }
-  }, [language]);
+  useSEO(language === 'en' ? {
+    title: "Contact KAIB | Kagawa Innovation Base",
+    description: "Contact Kagawa Innovation Base (KAIB). Get in touch with us for inquiries and questions about our community and events.",
+    path: "/en/contact",
+  } : {
+    title: "お問い合わせ | KAIB - 香川イノベーションベース",
+    description: "KAIB（香川イノベーションベース）へのお問い合わせ。ご質問やご不明な点がございましたら、お気軽にお問い合わせください。",
+    path: "/contact",
+  });
 
   const contactMutation = trpc.contact.submit.useMutation({
     onSuccess: () => {

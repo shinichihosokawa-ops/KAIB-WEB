@@ -2,26 +2,20 @@ import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Users, Globe, TrendingUp, LinkIcon, Mail, Phone, Network, Zap } from "lucide-react";
-import { useEffect } from "react";
+import { useSEO } from "@/_core/hooks/useSEO";
 
 export default function Home() {
   const { language, setLanguage, t, localePath } = useLanguage();
 
-  useEffect(() => {
-    if (language === 'en') {
-      document.title = "KAIB - Kagawa Innovation Base | Entrepreneur Community";
-      document.querySelector('meta[name="description"]')?.setAttribute(
-        'content',
-        'KAIB (Kagawa Innovation Base) is an entrepreneur and business leader community in Kagawa Prefecture. Fostering new entrepreneurial spirit through Social × Global × Web3.'
-      );
-    } else {
-      document.title = "KAIB - 香川イノベーションベース | 起業家コミュニティ";
-      document.querySelector('meta[name="description"]')?.setAttribute(
-        'content',
-        'KAIB（香川イノベーションベース）は、香川県の起業家・経営者向けコミュニティ。ソーシャル×グローバル×Web3で、新しい起業家精神を育てます。'
-      );
-    }
-  }, [language]);
+  useSEO(language === 'en' ? {
+    title: "KAIB - Kagawa Innovation Base | Entrepreneur Community",
+    description: "KAIB (Kagawa Innovation Base) is an entrepreneur and business leader community in Kagawa Prefecture. Fostering new entrepreneurial spirit through Social × Global × Web3.",
+    path: "/en",
+  } : {
+    title: "KAIB - 香川イノベーションベース | 起業家コミュニティ",
+    description: "KAIB（香川イノベーションベース）は、香川県の起業家・経営者向けコミュニティ。ソーシャル×グローバル×Web3で、新しい起業家精神を育てます。",
+    path: "/",
+  });
 
   return (
     <div className="min-h-screen bg-white">

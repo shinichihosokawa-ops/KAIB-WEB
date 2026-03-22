@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, Mail, Phone, MapPin } from "lucide-react";
 import { useLocation } from "wouter";
+import { useSEO } from "@/_core/hooks/useSEO";
 
-/**
- * Interest Registration Page
- * Design: Modern Minimalism with Regional Identity + Web3 Integration
- * Form submission to shin@mrlauncher.com
- */
 export default function Interest() {
+  useSEO({
+    title: "参加意向登録 | KAIB - 香川イノベーションベース",
+    description: "KAIB（香川イノベーションベース）の第1期メンバー募集。2026年4月発足予定。香川から世界へ、新しい起業家精神を育てるコミュニティ。",
+    path: "/interest",
+  });
   const [, setLocation] = useLocation();
   const [formData, setFormData] = useState({
     email: "",
