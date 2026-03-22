@@ -48,7 +48,7 @@ export default function Interest() {
           name: formData.name,
           company: formData.company,
           message: formData.message,
-          _to: "shin@mrlauncher.com",
+          _to: "info@kaib.jp",
         }),
       });
 
