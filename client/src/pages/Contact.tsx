@@ -1,202 +1,328 @@
+import { useState, useEffect } from "react";
+import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Separator } from "@/components/ui/separator";
-import { Link } from "wouter";
-import { MapPin, Mail, ArrowLeft, Send, CheckCircle } from "lucide-react";
-import { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Phone, MapPin, ExternalLink } from "lucide-react";
+import { trpc } from "@/lib/trpc";
 
 export default function Contact() {
+  const { language, setLanguage, t } = useLanguage();
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
+    name: "",
     subject: "",
     message: "",
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  useEffect(() => {
+    if (language === 'en') {
+      document.title = "Contact KAIB | Kagawa Innovation Base";
+      document.querySelector('meta[name="description"]')?.setAttribute(
+        'content',
+        'Contact Kagawa Innovation Base (KAIB). Get in touch with us for inquiries and questions about our community and events.'
+      );
+    } else {
+      document.title = "お問い合わせ | KAIB - 香川イノベーションベース";
+      document.querySelector('meta[name="description"]')?.setAttribute(
+        'content',
+        'KAIB（香川イノベーションベース）へのお問い合わせ。ご質問やご不明な点がございましたら、お気軽にお問い合わせください。'
+      );
+    }
+  }, [language]);
+
+  const contactMutation = trpc.contact.submit.useMutation({
+    onSuccess: () => {
+      setSubmitStatus("success");
+      setFormData({ email: "", name: "", subject: "", message: "" });
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
+    },
+    onError: (error) => {
+      console.error("Error submitting form:", error);
+      setSubmitStatus("error");
+    },
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
+    setSubmitStatus("idle");
     try {
-      const response = await fetch("/api/trpc/contact.submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ json: formData }),
+      await contactMutation.mutateAsync({
+        email: formData.email,
+        name: formData.name,
+        subject: formData.subject,
+        message: formData.message,
       });
-
-      if (response.ok) {
-        setSubmitted(true);
-      } else {
-        alert("送信に失敗しました。もう一度お試しください。");
-      }
-    } catch {
-      alert("送信に失敗しました。もう一度お試しください。");
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus("error");
     }
   };
 
-  if (submitted) {
-    return (
-      <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center px-4">
-        <Card className="max-w-md w-full text-center bg-white">
-          <CardContent className="py-12 space-y-6">
-            <div className="w-16 h-16 mx-auto bg-[#2ECC71]/10 rounded-full flex items-center justify-center">
-              <CheckCircle size={32} className="text-[#2ECC71]" />
-            </div>
-            <h2 className="text-2xl font-bold text-[#2C3E50]">送信完了</h2>
-            <p className="text-[#2C3E50]/70">
-              お問い合わせありがとうございます。<br />
-              内容を確認の上、折り返しご連絡いたします。
-            </p>
-            <Link href="/">
-              <Button className="bg-[#0B5394] hover:bg-[#0B5394]/90">
-                <ArrowLeft size={16} className="mr-2" />
-                トップに戻る
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-[#F5F7FA]">
-      <nav className="bg-white border-b shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16 gap-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#0B5394] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">K</span>
-              </div>
-              <span className="font-bold text-lg text-[#2C3E50]">KAIB</span>
-            </Link>
-            <Separator orientation="vertical" className="h-6" />
-            <span className="text-sm text-[#2C3E50]/60">お問い合わせ</span>
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
+        <div className="container flex items-center justify-between h-16">
+          <a href="/">
+            <img
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663255440915/pZrMXUTAEjDsCOGE.jpg"
+              alt="KAIB Logo"
+              className="h-12 cursor-pointer"
+            />
+          </a>
+          <div className="hidden md:flex items-center gap-8">
+            <a href="/#about" className="text-sm text-foreground hover:text-primary transition">
+              {t('nav.about')}
+            </a>
+            <a href="/#solution" className="text-sm text-foreground hover:text-primary transition">
+              {t('nav.solution')}
+            </a>
+            <a href="/#services" className="text-sm text-foreground hover:text-primary transition">
+              {t('nav.services')}
+            </a>
+            <a href="/whatsnew" className="text-sm text-foreground hover:text-primary transition">
+              {t('nav.news')}
+            </a>
+            <a href="/contact" className="text-sm text-primary font-semibold transition">
+              {t('nav.contact')}
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfse888pkXKIR7S7CkP_MSCC6WBAG5KNX2Z7IYZQx-I7vRYAQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground hover:text-primary transition">
+              {t('nav.register')}
+            </a>
+            <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
+              <button
+                onClick={() => setLanguage('ja')}
+                className={`px-2 py-1 text-sm font-medium rounded transition ${
+                  language === 'ja'
+                    ? 'bg-primary text-white'
+                    : 'text-foreground hover:bg-secondary/20'
+                }`}
+              >
+                日本語
+              </button>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-2 py-1 text-sm font-medium rounded transition ${
+                  language === 'en'
+                    ? 'bg-primary text-white'
+                    : 'text-foreground hover:bg-secondary/20'
+                }`}
+              >
+                English
+              </button>
+            </div>
           </div>
         </div>
       </nav>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <Link href="/" className="inline-flex items-center gap-1 text-sm text-[#0B5394] hover:underline mb-8">
-          <ArrowLeft size={14} />
-          トップに戻る
-        </Link>
+      {/* Contact Section */}
+      <section className="py-20 bg-white">
+        <div className="container max-w-2xl">
+          <h1 className="text-4xl font-bold text-primary mb-4">
+            {language === 'en' ? 'Contact Us' : 'お問い合わせ'}
+          </h1>
+          <p className="text-lg text-muted-foreground mb-12">
+            {language === 'en'
+              ? 'If you have any questions or inquiries, please feel free to contact us using the form below.'
+              : 'ご質問やご不明な点がございましたら、下記のフォームからお気軽にお問い合わせください。'
+            }
+          </p>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
-            <Card className="bg-white">
-              <CardHeader>
-                <CardTitle className="text-2xl text-[#2C3E50]">お問い合わせ</CardTitle>
-                <CardDescription>
-                  KAIBについてのご質問やご相談がございましたら、以下のフォームからお気軽にお問い合わせください。
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-[#2C3E50]">お名前 *</label>
-                      <Input
-                        required
-                        placeholder="山田 太郎"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-[#2C3E50]">メールアドレス *</label>
-                      <Input
-                        required
-                        type="email"
-                        placeholder="example@email.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-[#2C3E50]">件名 *</label>
-                    <Input
-                      required
-                      placeholder="お問い合わせの件名"
-                      value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-[#2C3E50]">メッセージ *</label>
-                    <Textarea
-                      required
-                      placeholder="お問い合わせ内容をご記入ください"
-                      rows={6}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-[#0B5394] hover:bg-[#0B5394]/90"
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      "送信中..."
-                    ) : (
-                      <>
-                        <Send size={16} className="mr-2" />
-                        送信する
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
+          <Card className="p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-2">
+                  {language === 'en' ? 'Email Address' : 'メールアドレス'} <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground"
+                  placeholder="your@email.com"
+                />
+              </div>
+              <div>
+                <label htmlFor="name" className="block text-sm font-semibold text-foreground mb-2">
+                  {language === 'en' ? 'Name' : 'お名前'} <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground"
+                  placeholder={language === 'en' ? 'John Doe' : '山田太郎'}
+                />
+              </div>
+              <div>
+                <label htmlFor="subject" className="block text-sm font-semibold text-foreground mb-2">
+                  {language === 'en' ? 'Subject' : '題名'} <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground"
+                  placeholder={language === 'en' ? 'Enter subject' : '題名をご入力ください'}
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-semibold text-foreground mb-2">
+                  {language === 'en' ? 'Message' : 'メッセージ本文'} <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={6}
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground resize-none"
+                  placeholder={language === 'en' ? 'Enter your message...' : 'お問い合わせ内容をご入力ください...'}
+                />
+              </div>
 
-          <div className="space-y-6">
-            <Card className="bg-white">
-              <CardHeader>
-                <CardTitle className="text-lg text-[#2C3E50]">連絡先情報</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <MapPin size={18} className="text-[#0B5394] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-sm font-medium text-[#2C3E50]">所在地</p>
-                    <p className="text-sm text-[#2C3E50]/60">香川県さぬき市（詳細未定）</p>
-                  </div>
+              {submitStatus === "success" && (
+                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-green-800 font-semibold">
+                    ✓ {language === 'en' ? 'Your message has been sent successfully.' : 'お問い合わせを送信いたしました。'}
+                  </p>
+                  <p className="text-green-700 text-sm mt-1">
+                    {language === 'en' ? 'Thank you for contacting us. We will get back to you soon.' : 'ご返信までお待ちください。'}
+                  </p>
                 </div>
-                <div className="flex items-start gap-3">
-                  <Mail size={18} className="text-[#0B5394] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-sm font-medium text-[#2C3E50]">メール</p>
-                    <p className="text-sm text-[#2C3E50]/60">フォームよりお問い合わせください</p>
-                  </div>
+              )}
+              {submitStatus === "error" && (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-800 font-semibold">
+                    ✗ {language === 'en' ? 'Failed to send message.' : '送信に失敗しました。'}
+                  </p>
+                  <p className="text-red-700 text-sm mt-1">
+                    {language === 'en'
+                      ? 'Please try again or contact us directly.'
+                      : 'もう一度お試しいただくか、直接お問い合わせください。'
+                    }
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
+              )}
 
-            <Card className="bg-gradient-to-br from-[#0B5394] to-[#4A90E2] text-white">
-              <CardContent className="py-6 space-y-4">
-                <h3 className="font-semibold">参加をお考えですか？</h3>
-                <p className="text-sm text-white/80">
-                  KAIBの活動にご興味がある方は、まず参加意向登録をお勧めします。
-                </p>
-                <Link href="/interest">
-                  <Button size="sm" className="bg-white text-[#0B5394] hover:bg-white/90 w-full">
-                    参加意向登録
-                  </Button>
-                </Link>
-              </CardContent>
+              <Button
+                type="submit"
+                disabled={contactMutation.isPending}
+                className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3"
+              >
+                {contactMutation.isPending
+                  ? language === 'en' ? 'Sending...' : '送信中...'
+                  : language === 'en' ? 'Send' : '送付'
+                }
+              </Button>
+            </form>
+          </Card>
+
+          <div className="mt-12 grid md:grid-cols-2 gap-6">
+            <Card className="p-6 text-center">
+              <Phone className="w-8 h-8 text-primary mx-auto mb-3" />
+              <h3 className="font-semibold text-foreground mb-2">
+                {language === 'en' ? 'Phone' : '電話'}
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                {language === 'en' ? 'Coming Soon' : '未定'}
+              </p>
+            </Card>
+            <Card className="p-6 text-center">
+              <MapPin className="w-8 h-8 text-primary mx-auto mb-3" />
+              <h3 className="font-semibold text-foreground mb-2">
+                {language === 'en' ? 'Address' : '住所'}
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                {language === 'en' ? 'Sanuki City, Kagawa Prefecture' : '香川県さぬき市'}
+              </p>
             </Card>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-foreground text-background py-12 mt-12">
+        <div className="container">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <img
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663255440915/pZrMXUTAEjDsCOGE.jpg"
+                alt="KAIB Logo"
+                className="h-10 mb-4"
+              />
+              <p className="text-background/70 text-sm">
+                {language === 'en'
+                  ? 'A practical community for entrepreneurs and business leaders based in Kagawa Prefecture. Nurturing new entrepreneurial spirit through Social × Global × Web3.'
+                  : '香川県を拠点に活動する起業家・経営者のための実践的なコミュニティ。ソーシャル × グローバル × Web3で、新しい起業家精神を育てます。'
+                }
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">
+                {language === 'en' ? 'Menu' : 'メニュー'}
+              </h4>
+              <ul className="space-y-2 text-sm text-background/70">
+                <li><a href="/#about" className="hover:text-background transition">{t('nav.about')}</a></li>
+                <li><a href="/#solution" className="hover:text-background transition">{t('nav.solution')}</a></li>
+                <li><a href="/#services" className="hover:text-background transition">{t('nav.services')}</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">
+                {language === 'en' ? 'Network' : 'ネットワーク'}
+              </h4>
+              <p className="text-sm text-background/70 mb-2">
+                {language === 'en'
+                  ? 'KAIB is part of xIB JAPAN'
+                  : 'KAIB は xIB JAPAN ネットワークの一部です。'
+                }
+              </p>
+              <a
+                href="https://xibase.jp/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-background/70 hover:text-background font-semibold inline-flex items-center gap-1 transition"
+              >
+                {language === 'en' ? 'Learn More' : '詳しく'}
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">
+                {language === 'en' ? 'Address' : '住所'}
+              </h4>
+              <p className="text-sm text-background/70">
+                {language === 'en' ? 'Sanuki City, Kagawa Prefecture, Japan' : '香川県さぬき市'}
+              </p>
+            </div>
+          </div>
+          <div className="border-t border-background/10 pt-8 text-center text-sm text-background/70">
+            <p>© 2026 Kagawa Innovation Base (KAIB). {language === 'en' ? 'All rights reserved.' : 'すべての権利を保有します。'}</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
