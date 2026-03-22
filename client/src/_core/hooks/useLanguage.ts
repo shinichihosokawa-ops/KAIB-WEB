@@ -128,5 +128,13 @@ export function useLanguage() {
     return entry[language] || entry["ja"] || key;
   };
 
-  return { language, setLanguage, t };
+  /** Returns a path with /en prefix when in English mode */
+  const localePath = (path: string): string => {
+    if (language === "en") {
+      return path === "/" ? "/en" : `/en${path}`;
+    }
+    return path;
+  };
+
+  return { language, setLanguage, t, localePath };
 }

@@ -6,7 +6,7 @@ import { Phone, MapPin, ExternalLink } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
 export default function Contact() {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t, localePath } = useLanguage();
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -74,7 +74,7 @@ export default function Contact() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
         <div className="container flex items-center justify-between h-16">
-          <a href="/">
+          <a href={localePath("/")}>
             <img
               src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663255440915/pZrMXUTAEjDsCOGE.jpg"
               alt="KAIB Logo"
@@ -82,27 +82,27 @@ export default function Contact() {
             />
           </a>
           <div className="hidden md:flex items-center gap-8">
-            <a href="/#about" className="text-sm text-foreground hover:text-primary transition">
+            <a href={`${localePath("/")}#about`} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.about')}
             </a>
-            <a href="/#solution" className="text-sm text-foreground hover:text-primary transition">
+            <a href={`${localePath("/")}#solution`} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.solution')}
             </a>
-            <a href="/#services" className="text-sm text-foreground hover:text-primary transition">
+            <a href={`${localePath("/")}#services`} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.services')}
             </a>
-            <a href="/whatsnew" className="text-sm text-foreground hover:text-primary transition">
+            <a href={localePath("/whatsnew")} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.news')}
             </a>
-            <a href="/contact" className="text-sm text-primary font-semibold transition">
+            <a href={localePath("/contact")} className="text-sm text-primary font-semibold transition">
               {t('nav.contact')}
             </a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfse888pkXKIR7S7CkP_MSCC6WBAG5KNX2Z7IYZQx-I7vRYAQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground hover:text-primary transition">
               {t('nav.register')}
             </a>
             <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
-              <button
-                onClick={() => setLanguage('ja')}
+              <a
+                href="/contact"
                 className={`px-2 py-1 text-sm font-medium rounded transition ${
                   language === 'ja'
                     ? 'bg-primary text-white'
@@ -110,9 +110,9 @@ export default function Contact() {
                 }`}
               >
                 日本語
-              </button>
-              <button
-                onClick={() => setLanguage('en')}
+              </a>
+              <a
+                href="/en/contact"
                 className={`px-2 py-1 text-sm font-medium rounded transition ${
                   language === 'en'
                     ? 'bg-primary text-white'
@@ -120,7 +120,7 @@ export default function Contact() {
                 }`}
               >
                 English
-              </button>
+              </a>
             </div>
           </div>
         </div>
