@@ -249,12 +249,33 @@ export default function WhatsNew() {
                     <span className="text-primary font-semibold">
                       {language === 'en' ? 'Free' : '無料'}
                     </span>
-                    <br />
-                    {language === 'en'
-                      ? '※Networking reception participation fee applies'
-                      : '※2次会（懇親会）にご参加される方は実費負担をお願いいたします。'
-                    }
                   </p>
+                  <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-md">
+                    <p className="text-sm text-foreground font-semibold mb-1">
+                      {language === 'en' ? 'Networking Reception (After-party)' : '２次会（懇親会）'}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {language === 'en'
+                        ? 'Adults: ¥5,500 / High school students and under: Free'
+                        : '大人1名 ¥5,500 ／ 高校生以下 無料'
+                      }
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {language === 'en'
+                        ? 'Advance payment is required.'
+                        : '事前決済をお願いしております。'
+                      }
+                    </p>
+                    <a
+                      href="https://square.link/u/m8OllYG4"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-primary/80 text-sm font-semibold flex items-center gap-1 mt-2 transition"
+                    >
+                      {language === 'en' ? 'Pay here (Square)' : 'お支払いはこちらから'}
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
                 </div>
               </div>
               <div className="flex gap-4">
