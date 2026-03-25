@@ -113,8 +113,8 @@ export default function WhatsNew() {
               </p>
               <p className="text-foreground leading-relaxed mb-4">
                 {language === 'en'
-                  ? 'We are pleased to announce the first monthly meeting on April 3rd at Milano no Okazu-ya san.'
-                  : '記念すべき「第1回 月例会」を、4月3日に『ミラノのおかず屋さん』にて開催する運びとなりました。'
+                  ? 'We are pleased to announce the first monthly meeting on April 3rd at Board game cafe bar Alternative.'
+                  : '記念すべき「第1回 月例会」を、4月3日に『Board game cafe bar Alternative』にて開催する運びとなりました。'
                 }
               </p>
               <p className="text-foreground leading-relaxed">
@@ -226,10 +226,10 @@ export default function WhatsNew() {
                     {language === 'en' ? 'Venue' : '会場'}
                   </h4>
                   <p className="text-muted-foreground text-sm mb-2">
-                    {language === 'en' ? 'Milano no Okazu-ya san' : 'ミラノのおかず屋さん'}
+                    Board game cafe bar Alternative
                   </p>
                   <a
-                    href="https://maps.app.goo.gl/oAtDUej2VZz4FH5z5"
+                    href="https://maps.app.goo.gl/kCQsZKJwU3udMgkVA"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:text-primary/80 text-sm font-semibold flex items-center gap-1 transition"
