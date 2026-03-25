@@ -266,6 +266,12 @@ export default function WhatsNew() {
                         : '事前決済をお願いしております。'
                       }
                     </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {language === 'en'
+                        ? 'If you need a separate receipt, please contact us.'
+                        : '※別途領収書が必要な場合は、大変お手数ですがご連絡ください。'
+                      }
+                    </p>
                     <a
                       href="https://square.link/u/m8OllYG4"
                       target="_blank"
