@@ -122,7 +122,7 @@ export default function Membership() {
             <div className="flex items-center gap-3 mb-4">
               <div className="w-1 h-12 bg-primary rounded-full" />
               <h1 className="text-4xl font-bold text-foreground">
-                {language === 'en' ? 'Membership (Tentative)' : '会員制度（仮）'}
+                {language === 'en' ? 'Membership' : '会員制度'}
               </h1>
             </div>
             <p className="text-lg text-muted-foreground">
