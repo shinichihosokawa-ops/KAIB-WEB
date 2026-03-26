@@ -86,6 +86,9 @@ export default function Contact() {
             <a href={`${localePath("/")}#services`} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.services')}
             </a>
+            <a href={localePath("/membership")} className="text-sm text-foreground hover:text-primary transition">
+              {t('nav.membership')}
+            </a>
             <a href={localePath("/whatsnew")} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.news')}
             </a>
