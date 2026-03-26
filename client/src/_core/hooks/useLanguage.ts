@@ -13,6 +13,10 @@ const translations: Record<string, Record<string, string>> = {
     ja: "サービス",
     en: "Services",
   },
+  "nav.membership": {
+    ja: "会員制度",
+    en: "Membership",
+  },
   "nav.news": {
     ja: "ニュース",
     en: "News",

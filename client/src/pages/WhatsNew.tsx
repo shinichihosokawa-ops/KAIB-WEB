@@ -39,6 +39,9 @@ export default function WhatsNew() {
             <a href={`${localePath("/")}#services`} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.services')}
             </a>
+            <a href={localePath("/membership")} className="text-sm text-foreground hover:text-primary transition">
+              {t('nav.membership')}
+            </a>
             <a href={localePath("/whatsnew")} className="text-sm text-primary font-semibold transition">
               {t('nav.news')}
             </a>
@@ -264,6 +267,12 @@ export default function WhatsNew() {
                       {language === 'en'
                         ? 'Advance payment is required.'
                         : '事前決済をお願いしております。'
+                      }
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {language === 'en'
+                        ? 'If you need a separate receipt, please contact us.'
+                        : '※別途領収書が必要な場合は、大変お手数ですがご連絡ください。'
                       }
                     </p>
                     <a
