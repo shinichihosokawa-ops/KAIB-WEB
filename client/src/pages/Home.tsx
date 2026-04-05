@@ -2,6 +2,7 @@ import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Users, Globe, TrendingUp, LinkIcon, Mail, Phone, Network, Zap } from "lucide-react";
+import Navigation from "@/components/Navigation";
 import { useSEO } from "@/_core/hooks/useSEO";
 
 export default function Home() {
@@ -19,64 +20,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
-        <div className="container flex items-center justify-between h-16">
-          <div className="flex items-center gap-3">
-            <img
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663255440915/pZrMXUTAEjDsCOGE.jpg"
-              alt="KAIB Logo"
-              className="h-12 cursor-pointer"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            />
-          </div>
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#about" className="text-sm text-foreground hover:text-primary transition">
-              {t('nav.about')}
-            </a>
-            <a href="#solution" className="text-sm text-foreground hover:text-primary transition">
-              {t('nav.solution')}
-            </a>
-            <a href="#services" className="text-sm text-foreground hover:text-primary transition">
-              {t('nav.services')}
-            </a>
-            <a href={localePath("/membership")} className="text-sm text-foreground hover:text-primary transition">
-              {t('nav.membership')}
-            </a>
-            <a href={localePath("/whatsnew")} className="text-sm text-foreground hover:text-primary transition">
-              {t('nav.news')}
-            </a>
-            <a href={localePath("/contact")} className="text-sm text-foreground hover:text-primary transition">
-              {t('nav.contact')}
-            </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeN8mTf8hDxMpRcUCbmHnImCfVxCfCmMUK56fxtlrYHxawu2Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground hover:text-primary transition">
-              {t('nav.register')}
-            </a>
-            <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
-              <a
-                href="/"
-                className={`px-2 py-1 text-sm font-medium rounded transition ${
-                  language === 'ja'
-                    ? 'bg-primary text-white'
-                    : 'text-foreground hover:bg-secondary/20'
-                }`}
-              >
-                日本語
-              </a>
-              <a
-                href="/en"
-                className={`px-2 py-1 text-sm font-medium rounded transition ${
-                  language === 'en'
-                    ? 'bg-primary text-white'
-                    : 'text-foreground hover:bg-secondary/20'
-                }`}
-              >
-                English
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation activePage="home" />
 
       {/* Event Announcement Banner */}
       <div className="bg-gradient-to-r from-accent via-yellow-400 to-orange-400 text-foreground py-4 px-4 sticky top-16 z-40 shadow-lg">
