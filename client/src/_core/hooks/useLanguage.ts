@@ -26,8 +26,8 @@ const translations: Record<string, Record<string, string>> = {
     en: "Contact",
   },
   "nav.register": {
-    ja: "参加意向登録",
-    en: "Register Interest",
+    ja: "参加申込書",
+    en: "Application Form",
   },
   "contact.title": {
     ja: "お問い合わせ",

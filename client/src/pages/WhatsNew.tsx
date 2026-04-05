@@ -48,7 +48,7 @@ export default function WhatsNew() {
             <a href={localePath("/contact")} className="text-sm text-foreground hover:text-primary transition">
               {t('nav.contact')}
             </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfse888pkXKIR7S7CkP_MSCC6WBAG5KNX2Z7IYZQx-I7vRYAQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground hover:text-primary transition">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeN8mTf8hDxMpRcUCbmHnImCfVxCfCmMUK56fxtlrYHxawu2Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground hover:text-primary transition">
               {t('nav.register')}
             </a>
             <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
