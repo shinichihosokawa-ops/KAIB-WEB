@@ -1,6 +1,6 @@
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Card } from "@/components/ui/card";
-import { Info } from "lucide-react";
+import { Info, FileText, ExternalLink } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useSEO } from "@/_core/hooks/useSEO";
 
@@ -138,8 +138,37 @@ export default function Membership() {
             </div>
           </Card>
 
+          {/* Membership Agreement */}
+          <Card className="p-6 mb-8 bg-primary/5 border-2 border-primary">
+            <div className="flex items-center gap-4">
+              <div className="flex-shrink-0 w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                <FileText className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-foreground text-lg mb-1">
+                  {language === 'en' ? 'Membership Agreement' : '会員規約'}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {language === 'en'
+                    ? 'Please review the membership agreement before applying.'
+                    : '入会をご検討の方は、会員規約をご確認ください。'
+                  }
+                </p>
+              </div>
+              <a
+                href="https://drive.google.com/file/d/1T6Cz_E4Qcor6PRqPehIlMSOjSNuGyHky/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition text-sm"
+              >
+                {language === 'en' ? 'View Agreement' : '規約を見る'}
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+          </Card>
+
           {/* Upgrade Note */}
-          <Card className="p-6 bg-blue-50 border border-blue-200">
+          <Card className="p-6 bg-blue-50 border border-blue-200 mb-8">
             <div className="flex gap-3">
               <Info className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
@@ -158,6 +187,19 @@ export default function Membership() {
               </div>
             </div>
           </Card>
+
+          {/* CTA Button */}
+          <div className="text-center">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSeN8mTf8hDxMpRcUCbmHnImCfVxCfCmMUK56fxtlrYHxawu2Q/viewform?usp=dialog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-bold rounded-lg hover:bg-accent/90 transition text-lg shadow-lg"
+            >
+              {language === 'en' ? 'Apply for Membership' : '参加申込書はこちら'}
+              <ExternalLink className="w-5 h-5" />
+            </a>
+          </div>
         </div>
       </section>
     </div>
