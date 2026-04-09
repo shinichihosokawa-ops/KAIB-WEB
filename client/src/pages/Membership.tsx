@@ -51,6 +51,7 @@ export default function Membership() {
         { ja: '月例会参加', en: 'Monthly meeting attendance' },
         { ja: '学生向け特別プログラム', en: 'Special programs for students' },
         { ja: 'メンター紹介', en: 'Mentor introductions' },
+        { ja: '正会員への移行優遇（※下記参照）', en: 'Preferential upgrade to Regular Member (see below)' },
       ],
     },
   ];
@@ -174,16 +175,30 @@ export default function Membership() {
               <div>
                 <h3 className="font-bold text-blue-900 mb-1">
                   {language === 'en'
-                    ? 'Preferential Upgrade from Associate to Regular Member'
-                    : '準会員から正会員への移行優遇'
+                    ? 'Preferential Upgrade to Regular Member'
+                    : '正会員への移行優遇'
                   }
                 </h3>
-                <p className="text-sm text-blue-800">
-                  {language === 'en'
-                    ? 'Associate members who have been active for six months or more will have their admission fee waived when upgrading to Regular Member.'
-                    : '半年以上準会員として活動した方は、正会員への移行時に入会金が免除されます。'
-                  }
-                </p>
+                <ul className="text-sm text-blue-800 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-1">&#9679;</span>
+                    <span>
+                      {language === 'en'
+                        ? 'Associate members who have been active for six months or more will have their admission fee waived when upgrading to Regular Member.'
+                        : '半年以上準会員として活動した方は、正会員への移行時に入会金が免除されます。'
+                      }
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-1">&#9679;</span>
+                    <span>
+                      {language === 'en'
+                        ? 'Student members who have been active for six months or more will have their admission fee waived when upgrading to Regular Member.'
+                        : '半年以上学生会員として活動した方は、正会員への移行時に入会金が免除されます。'
+                      }
+                    </span>
+                  </li>
+                </ul>
               </div>
             </div>
           </Card>
