@@ -9,12 +9,12 @@ export default function WhatsNew() {
   const { language, setLanguage, t, localePath } = useLanguage();
 
   useSEO(language === 'en' ? {
-    title: "KAIB First Monthly Meeting | News",
-    description: 'KAIB First Monthly Meeting on April 3, 2026. Special speech by KAIB Chairman Shinichi Hosokawa on "Thoughts on Kagawa and Its Potential".',
+    title: "KAIB Monthly Meetings | News",
+    description: 'KAIB 2nd Monthly Meeting on June 5, 2026. Special lecture by Takeshi Izuka on "The Reality of Cutting-Edge AI-Driven Management".',
     path: "/en/whatsnew",
   } : {
-    title: "KAIB第1回月例会 | ニュース",
-    description: "KAIB第1回月例会は4月3日開催。KAIB会長・細川慎一による特別スピーチ「香川にかける思いと、香川の可能性」",
+    title: "KAIB月例会 | ニュース",
+    description: "KAIB第2回月例会は6月5日開催。猪塚武氏による特別講演「最先端のAI駆動経営の実際」",
     path: "/whatsnew",
   });
 
@@ -35,19 +35,137 @@ export default function WhatsNew() {
             }
           </p>
 
-          {/* First Event Card */}
+          {/* Second Event Card */}
           <Card className="p-8 mb-8 border-l-4 border-l-primary">
             <div className="flex items-start justify-between mb-6">
               <div>
                 <h2 className="text-3xl font-bold text-primary mb-2">
+                  {language === 'en' ? '2nd Monthly Meeting' : '第2回 月例会'}
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  {language === 'en' ? 'June 5, 2026' : '2026年6月5日（金）開催'}
+                </p>
+              </div>
+              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-semibold rounded-full text-sm">
+                {language === 'en' ? 'Upcoming' : '開催予定'}
+              </span>
+            </div>
+
+            {/* Event Introduction */}
+            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+              <p className="text-foreground leading-relaxed mb-4">
+                {language === 'en'
+                  ? 'The KAIB 2nd Monthly Meeting will be held on June 5th!'
+                  : 'KAIB第2回月例会を6月5日に開催いたします！'
+                }
+              </p>
+              <p className="text-foreground leading-relaxed">
+                {language === 'en'
+                  ? 'We are honored to welcome Mr. Takeshi Izuka as our guest speaker. The theme is '
+                  : '今回は特別講師として猪塚武氏をお迎えし、テーマは'
+                }
+                <span className="font-semibold text-primary">
+                  {language === 'en'
+                    ? '"The Reality of Cutting-Edge AI-Driven Management"'
+                    : '『最先端のAI駆動経営の実際』'
+                  }
+                </span>
+                {language === 'en'
+                  ? '. He will share concrete examples of future management methods utilizing AI.'
+                  : 'です。AIを活用した将来の具体的な経営方法の実際を具体的に紹介していただきます。'
+                }
+              </p>
+            </div>
+
+            {/* Speaker Profile */}
+            <div className="mb-8 p-6 bg-card border border-border rounded-lg">
+              <h3 className="text-xl font-semibold text-foreground mb-4">
+                {language === 'en' ? 'Speaker Profile' : '講師プロフィール'}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-primary text-lg">
+                    {language === 'en' ? 'Takeshi Izuka' : '猪塚武'}
+                  </p>
+                  <a
+                    href="https://izuka.net/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 text-sm flex items-center gap-1 transition"
+                  >
+                    {language === 'en' ? 'Website' : 'Webサイト'}
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Event Details */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="flex gap-4">
+                <Clock className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-semibold text-foreground mb-2">
+                    {language === 'en' ? 'Date & Time' : '日時'}
+                  </h4>
+                  <p className="text-muted-foreground text-sm">
+                    {language === 'en' ? 'Friday, June 5, 2026' : '6月5日（金）'}
+                    <br />
+                    <span className="text-foreground font-semibold">
+                      {language === 'en' ? '7:00 PM -' : '19:00～'}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <MapPin className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-semibold text-foreground mb-2">
+                    {language === 'en' ? 'Venue' : '会場'}
+                  </h4>
+                  <p className="text-muted-foreground text-sm mb-2">
+                    Board game cafe bar Alternative
+                  </p>
+                  <a
+                    href="https://maps.app.goo.gl/kCQsZKJwU3udMgkVA"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 text-sm font-semibold flex items-center gap-1 transition"
+                  >
+                    {language === 'en' ? 'View on Google Maps' : 'Google Map で見る'}
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Apply Button */}
+            <div className="mt-8">
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeN8mTf8hDxMpRcUCbmHnImCfVxCfCmMUK56fxtlrYHxawu2Q/viewform?usp=dialog"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
+                  {language === 'en' ? 'Register Now' : '今すぐ申し込む'}
+                </Button>
+              </a>
+            </div>
+          </Card>
+
+          {/* First Event Card */}
+          <Card className="p-8 mb-8 border-l-4 border-l-muted-foreground/30">
+            <div className="flex items-start justify-between mb-6">
+              <div>
+                <h2 className="text-3xl font-bold text-muted-foreground mb-2">
                   {language === 'en' ? 'First Monthly Meeting' : '第1回 月例会'}
                 </h2>
                 <p className="text-sm text-muted-foreground">
                   {language === 'en' ? 'April 3, 2026' : '2026年4月3日（金）開催'}
                 </p>
               </div>
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-semibold rounded-full text-sm">
-                {language === 'en' ? 'Upcoming' : '開催予定'}
+              <span className="inline-block px-4 py-2 bg-muted text-muted-foreground font-semibold rounded-full text-sm">
+                {language === 'en' ? 'Ended' : '開催済み'}
               </span>
             </div>
 
