@@ -100,6 +100,19 @@ export default function WhatsNew() {
               </div>
             </div>
 
+            {/* Apply Button */}
+            <div className="mb-8">
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLScq-b1H70tvVLS_g2Fa0Qj1TvpjfgBPs8spCEnKm0xQOqmqDQ/viewform?usp=publish-editor"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
+                  {language === 'en' ? 'Apply for Monthly Meeting' : '月例会に申し込む'}
+                </Button>
+              </a>
+            </div>
+
             {/* Event Details */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div className="flex gap-4">
@@ -195,18 +208,6 @@ export default function WhatsNew() {
               </div>
             </div>
 
-            {/* Apply Button */}
-            <div className="mt-8">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeN8mTf8hDxMpRcUCbmHnImCfVxCfCmMUK56fxtlrYHxawu2Q/viewform?usp=dialog"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
-                  {language === 'en' ? 'Register Now' : '今すぐ申し込む'}
-                </Button>
-              </a>
-            </div>
           </Card>
 
           {/* First Event Card */}
