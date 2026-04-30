@@ -148,12 +148,10 @@ export default function WhatsNew() {
                       <p className="text-sm text-foreground font-semibold mb-2">
                         {language === 'en' ? 'Members' : '会員'}
                       </p>
-                      <p className="text-sm text-muted-foreground">
-                        {language === 'en'
-                          ? '¥5,000 / Student members: Free'
-                          : '5,000円（学生会員は無料）'
-                        }
-                      </p>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>{language === 'en' ? 'Regular / Associate members: ¥5,000' : '正会員・準会員：5,000円'}</li>
+                        <li className="text-primary font-semibold">{language === 'en' ? 'Student members: Free' : '学生会員：無料'}</li>
+                      </ul>
                       <a
                         href="https://square.link/u/rxwCWD3p"
                         target="_blank"
@@ -168,9 +166,10 @@ export default function WhatsNew() {
                       <p className="text-sm text-foreground font-semibold mb-2">
                         {language === 'en' ? 'Non-Members' : '非会員'}
                       </p>
-                      <p className="text-sm text-muted-foreground">
-                        {language === 'en' ? '¥8,000' : '8,000円'}
-                      </p>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>{language === 'en' ? 'General: ¥8,000' : '一般：8,000円'}</li>
+                        <li>{language === 'en' ? 'Students (non-member): ¥5,000' : '学生（非会員）：5,000円'}</li>
+                      </ul>
                       <a
                         href="https://square.link/u/MRXdy4Bd"
                         target="_blank"
