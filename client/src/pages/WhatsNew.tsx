@@ -143,44 +143,53 @@ export default function WhatsNew() {
                   <h4 className="font-semibold text-foreground mb-2">
                     {language === 'en' ? 'Networking Reception' : '懇親会'}
                   </h4>
-                  <div className="space-y-3">
-                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-md">
-                      <p className="text-sm text-foreground font-semibold mb-2">
-                        {language === 'en' ? 'Members' : '会員'}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {language === 'en'
-                          ? '¥5,000 / Student members: Free'
-                          : '5,000円（学生会員は無料）'
-                        }
-                      </p>
-                      <a
-                        href="https://square.link/u/rxwCWD3p"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:text-primary/80 text-sm font-semibold flex items-center gap-1 mt-2 transition"
-                      >
-                        {language === 'en' ? 'Pay here (Square)' : '会員のお支払いはこちら'}
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    </div>
-                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-md">
-                      <p className="text-sm text-foreground font-semibold mb-2">
-                        {language === 'en' ? 'Non-Members' : '非会員'}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {language === 'en' ? '¥8,000' : '8,000円'}
-                      </p>
-                      <a
-                        href="https://square.link/u/MRXdy4Bd"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:text-primary/80 text-sm font-semibold flex items-center gap-1 mt-2 transition"
-                      >
-                        {language === 'en' ? 'Pay here (Square)' : '非会員のお支払いはこちら'}
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    </div>
+                  <div className="mb-3 text-sm text-muted-foreground">
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr className="border-b border-amber-300">
+                          <th className="text-left py-1.5 pr-4 text-foreground font-semibold">{language === 'en' ? 'Category' : '区分'}</th>
+                          <th className="text-right py-1.5 text-foreground font-semibold">{language === 'en' ? 'Fee' : '金額'}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-amber-100">
+                          <td className="py-1.5 pr-4">{language === 'en' ? 'Regular / Associate members' : '正会員・準会員'}</td>
+                          <td className="text-right py-1.5 font-semibold text-foreground">¥5,000</td>
+                        </tr>
+                        <tr className="border-b border-amber-100">
+                          <td className="py-1.5 pr-4">{language === 'en' ? 'Student members' : '学生会員'}</td>
+                          <td className="text-right py-1.5 font-semibold text-primary">{language === 'en' ? 'Free' : '無料'}</td>
+                        </tr>
+                        <tr className="border-b border-amber-100">
+                          <td className="py-1.5 pr-4">{language === 'en' ? 'Non-members (general)' : '非会員（一般）'}</td>
+                          <td className="text-right py-1.5 font-semibold text-foreground">¥8,000</td>
+                        </tr>
+                        <tr>
+                          <td className="py-1.5 pr-4">{language === 'en' ? 'Non-members (students)' : '非会員（学生）'}</td>
+                          <td className="text-right py-1.5 font-semibold text-foreground">¥5,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="space-y-2">
+                    <a
+                      href="https://square.link/u/rxwCWD3p"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-primary text-white font-semibold rounded-md hover:bg-primary/90 transition text-sm"
+                    >
+                      {language === 'en' ? '¥5,000 Payment (Members / Student non-members)' : '5,000円のお支払い（会員・学生非会員の方）'}
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                    <a
+                      href="https://square.link/u/MRXdy4Bd"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-primary text-white font-semibold rounded-md hover:bg-primary/90 transition text-sm"
+                    >
+                      {language === 'en' ? '¥8,000 Payment (Non-members)' : '8,000円のお支払い（一般非会員の方）'}
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
                   </div>
                 </div>
               </div>
