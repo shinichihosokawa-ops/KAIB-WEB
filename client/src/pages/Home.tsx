@@ -143,6 +143,25 @@ export default function Home() {
                   {language === 'en' ? 'Currently in preparation.' : '現在、設立準備中です。'}
                 </p>
               </div>
+              <div className="mt-4 p-4 bg-gray-50 border border-border rounded">
+                <h4 className="text-sm font-semibold text-foreground mb-2">
+                  {language === 'en' ? 'Organization' : '組織情報'}
+                </h4>
+                <dl className="text-sm space-y-1">
+                  <div className="flex gap-2">
+                    <dt className="text-muted-foreground min-w-[100px]">{language === 'en' ? 'Co-Presidents' : '共同理事長'}</dt>
+                    <dd className="text-foreground">{language === 'en' ? 'Takeshi Izuka, Shinichi Hosokawa' : '猪塚武、細川慎一'}</dd>
+                  </div>
+                  <div className="flex gap-2">
+                    <dt className="text-muted-foreground min-w-[100px]">{language === 'en' ? 'Chairman' : '会長'}</dt>
+                    <dd className="text-foreground">{language === 'en' ? 'Shinichi Hosokawa' : '細川慎一'}</dd>
+                  </div>
+                  <div className="flex gap-2">
+                    <dt className="text-muted-foreground min-w-[100px]">{language === 'en' ? 'Address' : '住所'}</dt>
+                    <dd className="text-foreground">{language === 'en' ? '1615 Kamimae, Sangawa-cho, Sanuki City, Kagawa 769-2323, Japan' : '〒769-2323 香川県さぬき市寒川町神前1615'}</dd>
+                  </div>
+                </dl>
+              </div>
             </div>
             <div className="bg-card p-8 rounded-lg border border-border">
               <div className="space-y-6">
