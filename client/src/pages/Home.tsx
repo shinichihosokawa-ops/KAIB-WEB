@@ -120,7 +120,7 @@ export default function Home() {
               <p className="text-lg text-foreground mb-4 leading-relaxed">
                 {language === 'en'
                   ? 'KAIB (Kagawa Innovation Base) is a hub where entrepreneurs gather, learn, and accelerate their challenges.'
-                  : 'KAIB（Kagawa Innovation Base）は、起業家が集い、学び、挑戦を加速させる拠点です。'
+                  : 'KAIB（香川イノベーションベース）は、起業家が集い、学び、挑戦を加速させる拠点です。'
                 }
               </p>
               <p className="text-lg text-foreground mb-4 leading-relaxed">
@@ -135,15 +135,7 @@ export default function Home() {
                   : '一般社団法人として設立し、地域に根ざしながらも、グローバルな視点と社会課題への意識を持つ起業家ネットワークの形成を目指します。'
                 }
               </p>
-              <div className="mt-6 p-4 bg-blue-50 border-l-4 border-primary rounded">
-                <p className="text-sm font-semibold text-primary">
-                  📅 {language === 'en' ? 'Scheduled Launch: April 1, 2026' : '2026年4月1日 発足予定'}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {language === 'en' ? 'Currently in preparation.' : '現在、設立準備中です。'}
-                </p>
-              </div>
-              <div className="mt-4 p-4 bg-gray-50 border border-border rounded">
+              <div className="mt-6 p-4 bg-gray-50 border border-border rounded">
                 <h4 className="text-sm font-semibold text-foreground mb-2">
                   {language === 'en' ? 'Organization' : '組織情報'}
                 </h4>
