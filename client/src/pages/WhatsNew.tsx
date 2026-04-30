@@ -97,20 +97,19 @@ export default function WhatsNew() {
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
+                <p className="text-sm text-muted-foreground font-semibold">
+                  {language === 'en'
+                    ? 'KAIB Co-President / Serial Entrepreneur'
+                    : 'KAIB共同理事長 / シリアルアントレプレナー'
+                  }
+                </p>
+                <p className="text-foreground leading-relaxed text-sm">
+                  {language === 'en'
+                    ? 'After majoring in physics at graduate school, he ventured into politics and then founded businesses in Japan, Singapore, and Cambodia. He founded Digital Forest Inc. (Visionalist), which was acquired by NTT Communications. He also established a university in Cambodia and operates the Sanuki Peer Learning Hub in Kagawa Prefecture. A serial entrepreneur with a unique career spanning global business, education, and technology.'
+                    : '大学院で物理を専攻した後、政治家に挑戦。その後、日本・シンガポール・カンボジアで起業。アクセス解析ツール「Visionalist」を提供するデジタルフォレスト社を創業し、NTTコミュニケーションズに事業売却。カンボジアでは大学を設立し、香川県では「さぬきピアラーニングハブ」を運営。グローバルビジネス・教育・テクノロジーを横断する異色の経歴を持つシリアルアントレプレナー。'
+                  }
+                </p>
               </div>
-            </div>
-
-            {/* Apply Button */}
-            <div className="mb-8">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScq-b1H70tvVLS_g2Fa0Qj1TvpjfgBPs8spCEnKm0xQOqmqDQ/viewform?usp=publish-editor"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
-                  {language === 'en' ? 'Apply for Monthly Meeting' : '月例会に申し込む'}
-                </Button>
-              </a>
             </div>
 
             {/* Event Details */}
@@ -150,9 +149,26 @@ export default function WhatsNew() {
                   </a>
                 </div>
               </div>
-              <div className="flex gap-4 md:col-span-2">
+            </div>
+
+            {/* Apply Button */}
+            <div className="mb-8">
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLScq-b1H70tvVLS_g2Fa0Qj1TvpjfgBPs8spCEnKm0xQOqmqDQ/viewform?usp=publish-editor"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
+                  {language === 'en' ? 'Apply for Monthly Meeting' : '月例会に申し込む'}
+                </Button>
+              </a>
+            </div>
+
+            {/* Networking Reception */}
+            <div className="mb-8">
+              <div className="flex gap-4">
                 <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                <div>
+                <div className="flex-1">
                   <h4 className="font-semibold text-foreground mb-2">
                     {language === 'en' ? 'Networking Reception' : '懇親会'}
                   </h4>
