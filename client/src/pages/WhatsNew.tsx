@@ -1,7 +1,7 @@
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { MapPin, Clock, Users, ExternalLink } from "lucide-react";
+import { MapPin, Clock, Users, ExternalLink, Instagram } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useSEO } from "@/_core/hooks/useSEO";
 
@@ -135,6 +135,53 @@ export default function WhatsNew() {
                     {language === 'en' ? 'View on Google Maps' : 'Google Map で見る'}
                     <ExternalLink className="w-3 h-3" />
                   </a>
+                </div>
+              </div>
+              <div className="flex gap-4 md:col-span-2">
+                <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-semibold text-foreground mb-2">
+                    {language === 'en' ? 'Networking Reception' : '懇親会'}
+                  </h4>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-md">
+                      <p className="text-sm text-foreground font-semibold mb-2">
+                        {language === 'en' ? 'Members' : '会員'}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {language === 'en'
+                          ? '¥5,000 / Student members: Free'
+                          : '5,000円（学生会員は無料）'
+                        }
+                      </p>
+                      <a
+                        href="https://square.link/u/rxwCWD3p"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-primary/80 text-sm font-semibold flex items-center gap-1 mt-2 transition"
+                      >
+                        {language === 'en' ? 'Pay here (Square)' : '会員のお支払いはこちら'}
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-md">
+                      <p className="text-sm text-foreground font-semibold mb-2">
+                        {language === 'en' ? 'Non-Members' : '非会員'}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {language === 'en' ? '¥8,000' : '8,000円'}
+                      </p>
+                      <a
+                        href="https://square.link/u/MRXdy4Bd"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-primary/80 text-sm font-semibold flex items-center gap-1 mt-2 transition"
+                      >
+                        {language === 'en' ? 'Pay here (Square)' : '非会員のお支払いはこちら'}
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -409,6 +456,29 @@ export default function WhatsNew() {
                 </Button>
               </a>
             </div>
+          </Card>
+
+          {/* Instagram */}
+          <Card className="p-6 mb-8 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200">
+            <a
+              href="https://www.instagram.com/kaibkagawa/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 group"
+            >
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Instagram className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-foreground group-hover:text-primary transition">
+                  {language === 'en' ? 'Follow KAIB on Instagram' : 'KAIB公式Instagram'}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  @kaibkagawa
+                </p>
+              </div>
+              <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
+            </a>
           </Card>
 
           {/* xIB JAPAN Network Info */}
