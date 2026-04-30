@@ -1,7 +1,7 @@
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Users, Globe, TrendingUp, LinkIcon, Mail, Phone, Network, Zap } from "lucide-react";
+import { ArrowRight, Users, Globe, TrendingUp, LinkIcon, Mail, Phone, Network, Zap, Instagram } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useSEO } from "@/_core/hooks/useSEO";
 
@@ -546,11 +546,11 @@ export default function Home() {
                 {language === 'en' ? 'Follow Us' : 'フォローする'}
               </h4>
               <div className="flex gap-4">
-                <a href="#" className="hover:opacity-80">
-                  <Mail className="w-5 h-5" />
+                <a href="https://www.instagram.com/kaibkagawa/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
+                  <Instagram className="w-5 h-5" />
                 </a>
-                <a href="#" className="hover:opacity-80">
-                  <Phone className="w-5 h-5" />
+                <a href={localePath("/contact")} className="hover:opacity-80">
+                  <Mail className="w-5 h-5" />
                 </a>
               </div>
             </div>
