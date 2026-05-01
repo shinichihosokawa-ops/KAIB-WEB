@@ -100,7 +100,7 @@ export default function WhatsNew() {
                 <p className="text-sm text-muted-foreground font-semibold">
                   {language === 'en'
                     ? 'KAIB Co-President / Serial Entrepreneur'
-                    : 'KAIB共同理事長 / シリアルアントレプレナー'
+                    : 'KAIB共同代表理事 / シリアルアントレプレナー'
                   }
                 </p>
                 <p className="text-foreground leading-relaxed text-sm">
