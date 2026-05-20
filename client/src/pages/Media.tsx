@@ -52,27 +52,6 @@ export default function Media() {
             <div className="space-y-4">
               {[
                 {
-                  href: 'https://www.shikoku-np.co.jp/dg/article.aspx?id=K2026051500000001900',
-                  outlet: { en: 'Shikoku Shimbun', ja: '四国新聞' },
-                  title: { en: '', ja: '' },
-                  icon: <FileText className="w-5 h-5 text-primary" />,
-                  iconBg: 'bg-primary/10',
-                },
-                {
-                  href: 'https://takamatsu.keizai.biz/mapnews/1499/',
-                  outlet: { en: 'Takamatsu Keizai Shimbun', ja: '高松経済新聞' },
-                  title: { en: '', ja: '' },
-                  icon: <FileText className="w-5 h-5 text-primary" />,
-                  iconBg: 'bg-primary/10',
-                },
-                {
-                  href: 'https://news.yahoo.co.jp/articles/a41c847983e02907758909e8c33e6b66c23ee008',
-                  outlet: { en: 'Yahoo News', ja: 'Yahoo News' },
-                  title: { en: '', ja: '' },
-                  icon: <FileText className="w-5 h-5 text-primary" />,
-                  iconBg: 'bg-primary/10',
-                },
-                {
                   href: 'https://news.ntv.co.jp/n/rnc/category/society/rne502855c6e2d4b0295b1d154eaa3f951',
                   outlet: { en: 'RNC NEWS NNN (TV)', ja: 'RNC NEWS NNN（テレビ）' },
                   title: {
@@ -81,6 +60,36 @@ export default function Media() {
                   },
                   icon: <Tv className="w-5 h-5 text-accent" />,
                   iconBg: 'bg-accent/10',
+                },
+                {
+                  href: 'https://www.shikoku-np.co.jp/dg/article.aspx?id=K2026051500000001900',
+                  outlet: { en: 'Shikoku Shimbun', ja: '四国新聞' },
+                  title: {
+                    en: 'New organization launched to nurture entrepreneurs — Kagawa Innovation Base holds study sessions with guest lecturers and member networking',
+                    ja: '起業家育てる組織発足　香川イノベーションベース　講師招き勉強会、会員同士の交流も',
+                  },
+                  icon: <FileText className="w-5 h-5 text-primary" />,
+                  iconBg: 'bg-primary/10',
+                },
+                {
+                  href: 'https://news.yahoo.co.jp/articles/a41c847983e02907758909e8c33e6b66c23ee008',
+                  outlet: { en: 'Yahoo News', ja: 'Yahoo News' },
+                  title: {
+                    en: 'Kagawa Innovation Base launches to nurture entrepreneurs — kicks off in Sanuki City',
+                    ja: '起業家育成へ香川イノベーションベース始動　さぬき市でキックオフ',
+                  },
+                  icon: <FileText className="w-5 h-5 text-primary" />,
+                  iconBg: 'bg-primary/10',
+                },
+                {
+                  href: 'https://takamatsu.keizai.biz/mapnews/1499/',
+                  outlet: { en: 'Takamatsu Keizai Shimbun', ja: '高松経済新聞' },
+                  title: {
+                    en: 'Kagawa Innovation Base launches to nurture entrepreneurs — kicks off in Sanuki City',
+                    ja: '起業家育成へ香川イノベーションベース始動　さぬき市でキックオフ',
+                  },
+                  icon: <FileText className="w-5 h-5 text-primary" />,
+                  iconBg: 'bg-primary/10',
                 },
               ].map((item, i) => (
                 <a
