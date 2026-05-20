@@ -3,7 +3,7 @@ import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Menu, X } from "lucide-react";
 
 interface NavigationProps {
-  activePage?: "home" | "membership" | "whatsnew" | "contact";
+  activePage?: "home" | "membership" | "whatsnew" | "contact" | "media";
 }
 
 export default function Navigation({ activePage = "home" }: NavigationProps) {
@@ -19,6 +19,7 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
     { href: `${homePrefix}#services`, label: t("nav.services"), active: false },
     { href: localePath("/membership"), label: t("nav.membership"), active: activePage === "membership" },
     { href: localePath("/whatsnew"), label: t("nav.news"), active: activePage === "whatsnew" },
+    { href: localePath("/media"), label: t("nav.media"), active: activePage === "media" },
     { href: localePath("/contact"), label: t("nav.contact"), active: activePage === "contact" },
     {
       href: "https://docs.google.com/forms/d/e/1FAIpQLSeN8mTf8hDxMpRcUCbmHnImCfVxCfCmMUK56fxtlrYHxawu2Q/viewform?usp=dialog",
@@ -28,11 +29,9 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
     },
   ];
 
-  const currentPagePath = activePage === "home"
-    ? language === "ja" ? "/" : "/en"
-    : language === "ja" ? `/${activePage === "whatsnew" ? "whatsnew" : activePage}` : `/en/${activePage === "whatsnew" ? "whatsnew" : activePage}`;
-  const jaPath = activePage === "home" ? "/" : `/${activePage === "whatsnew" ? "whatsnew" : activePage}`;
-  const enPath = activePage === "home" ? "/en" : `/en/${activePage === "whatsnew" ? "whatsnew" : activePage}`;
+  const pageSlug = activePage === "home" ? "" : activePage;
+  const jaPath = activePage === "home" ? "/" : `/${pageSlug}`;
+  const enPath = activePage === "home" ? "/en" : `/en/${pageSlug}`;
 
   const logoHref = isHome ? undefined : localePath("/");
 

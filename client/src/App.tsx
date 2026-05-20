@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import Interest from "./pages/Interest";
 import WhatsNew from "./pages/WhatsNew";
 import Membership from "./pages/Membership";
+import Media from "./pages/Media";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -21,12 +22,14 @@ function Router() {
       <Route path={"/interest"} component={Interest} />
       <Route path={"/whatsnew"} component={WhatsNew} />
       <Route path={"/membership"} component={Membership} />
+      <Route path={"/media"} component={Media} />
       {/* English routes */}
       <Route path={"/en"}>{() => <EnglishRoute component={Home} />}</Route>
       <Route path={"/en/contact"}>{() => <EnglishRoute component={Contact} />}</Route>
       <Route path={"/en/interest"}>{() => <EnglishRoute component={Interest} />}</Route>
       <Route path={"/en/whatsnew"}>{() => <EnglishRoute component={WhatsNew} />}</Route>
       <Route path={"/en/membership"}>{() => <EnglishRoute component={Membership} />}</Route>
+      <Route path={"/en/media"}>{() => <EnglishRoute component={Media} />}</Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
