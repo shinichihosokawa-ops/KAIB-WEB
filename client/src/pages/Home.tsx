@@ -150,6 +150,10 @@ export default function Home() {
             </h4>
             <dl className="text-sm space-y-1">
               <div className="flex gap-2">
+                <dt className="text-muted-foreground min-w-[100px]">{language === 'en' ? 'Name' : '名称'}</dt>
+                <dd className="text-foreground">{language === 'en' ? 'General Incorporated Association Kagawa Innovation Base' : '一般社団法人香川イノベーションベース'}</dd>
+              </div>
+              <div className="flex gap-2">
                 <dt className="text-muted-foreground min-w-[100px]">{language === 'en' ? 'Co-Representative Directors' : '共同代表理事'}</dt>
                 <dd className="text-foreground">{language === 'en' ? 'Takeshi Izuka, Shinichi Hosokawa' : '猪塚武、細川慎一'}</dd>
               </div>
