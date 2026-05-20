@@ -44,12 +44,12 @@ export default function Contact() {
                 : '下記のボタンを押すとメールアプリが起動します。'
               }
             </p>
-            <a href={`mailto:${getEmail()}`}>
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-semibold">
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white font-semibold">
+              <a href={`mailto:${getEmail()}`}>
                 <Mail className="w-4 h-4 mr-2" />
                 {language === 'en' ? 'Send Email' : 'メールで問い合わせる'}
-              </Button>
-            </a>
+              </a>
+            </Button>
           </Card>
         </div>
       </section>
