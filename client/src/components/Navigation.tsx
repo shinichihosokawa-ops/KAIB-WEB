@@ -15,7 +15,6 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
 
   const navLinks = [
     { href: `${homePrefix}#about`, label: t("nav.about"), active: false },
-    { href: `${homePrefix}#solution`, label: t("nav.solution"), active: false },
     { href: `${homePrefix}#services`, label: t("nav.services"), active: false },
     { href: localePath("/membership"), label: t("nav.membership"), active: activePage === "membership" },
     { href: localePath("/whatsnew"), label: t("nav.news"), active: activePage === "whatsnew" },
