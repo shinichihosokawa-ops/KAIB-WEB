@@ -22,37 +22,6 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <Navigation activePage="home" />
 
-      {/* Event Announcement Banner */}
-      <div className="bg-gradient-to-r from-accent via-yellow-400 to-orange-400 text-foreground py-4 px-4 sticky top-16 z-40 shadow-lg">
-        <div className="container flex items-center justify-between gap-4">
-          <div className="flex-1">
-            <p className="text-sm md:text-base font-semibold">
-              {language === 'en' ? 'KAIB 2026 KICK OFF! Event Confirmed' : 'KAIB 2026 KICK OFF! 開催決定'}
-            </p>
-            <p className="text-xs md:text-sm text-foreground/80 mt-1">
-              {language === 'en'
-                ? 'May 14, 2026 (Thursday) in Sanuki City, Kagawa. The forefront of innovation.'
-                : '2026年5月14日（木）香川県さぬき市で開催。イノベーションの最前線へ。'
-              }
-            </p>
-          </div>
-          <a
-            href="https://www.globalforum.jp/ja/sanuki/2026/kaib"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-shrink-0 whitespace-nowrap"
-          >
-            <Button
-              size="sm"
-              className="bg-foreground text-accent hover:bg-foreground/90 font-semibold"
-            >
-              {language === 'en' ? 'Learn More' : '詳細を見る'}
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </a>
-        </div>
-      </div>
-
       {/* Hero Section */}
       <section className="relative h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent"></div>
