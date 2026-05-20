@@ -151,26 +151,13 @@ export default function WhatsNew() {
               </div>
             </div>
 
-            {/* Apply Button */}
-            <div className="mb-8">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScq-b1H70tvVLS_g2Fa0Qj1TvpjfgBPs8spCEnKm0xQOqmqDQ/viewform?usp=publish-editor"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
-                  {language === 'en' ? 'Apply for Monthly Meeting' : '月例会に申し込む'}
-                </Button>
-              </a>
-            </div>
-
-            {/* Networking Reception */}
+            {/* Fee Table (Monthly Meeting including Networking Reception) */}
             <div className="mb-8">
               <div className="flex gap-4">
                 <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div className="flex-1">
                   <h4 className="font-semibold text-foreground mb-2">
-                    {language === 'en' ? 'Networking Reception' : '懇親会'}
+                    {language === 'en' ? 'Fee (including Networking Reception)' : '参加費（懇親会込み）'}
                   </h4>
                   <div className="mb-3 text-sm text-muted-foreground">
                     <table className="w-full border-collapse">
@@ -200,28 +187,21 @@ export default function WhatsNew() {
                       </tbody>
                     </table>
                   </div>
-                  <div className="space-y-2">
-                    <a
-                      href="https://square.link/u/rxwCWD3p"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-primary text-white font-semibold rounded-md hover:bg-primary/90 transition text-sm"
-                    >
-                      {language === 'en' ? '¥5,000 Payment (Members / Student non-members)' : '5,000円のお支払い（会員・学生非会員の方）'}
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                    <a
-                      href="https://square.link/u/MRXdy4Bd"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-primary text-white font-semibold rounded-md hover:bg-primary/90 transition text-sm"
-                    >
-                      {language === 'en' ? '¥8,000 Payment (Non-members)' : '8,000円のお支払い（一般非会員の方）'}
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
                 </div>
               </div>
+            </div>
+
+            {/* Apply Button */}
+            <div className="mb-8">
+              <a
+                href="https://kaib20260605.peatix.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
+                  {language === 'en' ? 'Apply for Monthly Meeting (Peatix)' : '月例会に申し込む（Peatix）'}
+                </Button>
+              </a>
             </div>
 
           </Card>
