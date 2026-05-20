@@ -4,19 +4,15 @@ import { useSEO } from "@/_core/hooks/useSEO";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
-import { Phone, MapPin, ExternalLink } from "lucide-react";
-import { trpc } from "@/lib/trpc";
+import { ExternalLink, Mail } from "lucide-react";
 
 export default function Contact() {
   const { language, setLanguage, t, localePath } = useLanguage();
   const [formData, setFormData] = useState({
-    email: "",
     name: "",
     subject: "",
     message: "",
   });
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
-
   useSEO(language === 'en' ? {
     title: "Contact KAIB | Kagawa Innovation Base",
     description: "Contact Kagawa Innovation Base (KAIB). Get in touch with us for inquiries and questions about our community and events.",
@@ -27,20 +23,6 @@ export default function Contact() {
     path: "/contact",
   });
 
-  const contactMutation = trpc.contact.submit.useMutation({
-    onSuccess: () => {
-      setSubmitStatus("success");
-      setFormData({ email: "", name: "", subject: "", message: "" });
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 2000);
-    },
-    onError: (error) => {
-      console.error("Error submitting form:", error);
-      setSubmitStatus("error");
-    },
-  });
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -49,20 +31,13 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitStatus("idle");
-    try {
-      await contactMutation.mutateAsync({
-        email: formData.email,
-        name: formData.name,
-        subject: formData.subject,
-        message: formData.message,
-      });
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      setSubmitStatus("error");
-    }
+    const subject = encodeURIComponent(formData.subject);
+    const body = encodeURIComponent(
+      `${formData.message}\n\n---\n${language === 'en' ? 'Name' : 'お名前'}: ${formData.name}`
+    );
+    window.location.href = `mailto:info@kaib.jp?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -84,21 +59,6 @@ export default function Contact() {
 
           <Card className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-2">
-                  {language === 'en' ? 'Email Address' : 'メールアドレス'} <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground"
-                  placeholder="your@email.com"
-                />
-              </div>
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-foreground mb-2">
                   {language === 'en' ? 'Name' : 'お名前'} <span className="text-red-500">*</span>
@@ -145,63 +105,22 @@ export default function Contact() {
                 />
               </div>
 
-              {submitStatus === "success" && (
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-green-800 font-semibold">
-                    ✓ {language === 'en' ? 'Your message has been sent successfully.' : 'お問い合わせを送信いたしました。'}
-                  </p>
-                  <p className="text-green-700 text-sm mt-1">
-                    {language === 'en' ? 'Thank you for contacting us. We will get back to you soon.' : 'ご返信までお待ちください。'}
-                  </p>
-                </div>
-              )}
-              {submitStatus === "error" && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-red-800 font-semibold">
-                    ✗ {language === 'en' ? 'Failed to send message.' : '送信に失敗しました。'}
-                  </p>
-                  <p className="text-red-700 text-sm mt-1">
-                    {language === 'en'
-                      ? 'Please try again or contact us directly.'
-                      : 'もう一度お試しいただくか、直接お問い合わせください。'
-                    }
-                  </p>
-                </div>
-              )}
-
               <Button
                 type="submit"
-                disabled={contactMutation.isPending}
                 className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3"
               >
-                {contactMutation.isPending
-                  ? language === 'en' ? 'Sending...' : '送信中...'
-                  : language === 'en' ? 'Send' : '送付'
-                }
+                <Mail className="w-4 h-4 mr-2" />
+                {language === 'en' ? 'Send Email to info@kaib.jp' : 'info@kaib.jp にメールを送る'}
               </Button>
+              <p className="text-xs text-muted-foreground text-center">
+                {language === 'en'
+                  ? 'Clicking the button will open your email app with the message pre-filled.'
+                  : 'ボタンを押すとメールアプリが開き、入力内容が自動で反映されます。'
+                }
+              </p>
             </form>
           </Card>
 
-          <div className="mt-12 grid md:grid-cols-2 gap-6">
-            <Card className="p-6 text-center">
-              <Phone className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold text-foreground mb-2">
-                {language === 'en' ? 'Phone' : '電話'}
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                {language === 'en' ? 'Coming Soon' : '未定'}
-              </p>
-            </Card>
-            <Card className="p-6 text-center">
-              <MapPin className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold text-foreground mb-2">
-                {language === 'en' ? 'Address' : '住所'}
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                {language === 'en' ? 'Sanuki City, Kagawa Prefecture' : '香川県さぬき市'}
-              </p>
-            </Card>
-          </div>
         </div>
       </section>
 
