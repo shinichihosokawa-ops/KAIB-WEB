@@ -49,7 +49,7 @@ export default function Interest() {
           name: formData.name,
           company: formData.company,
           message: formData.message,
-          _to: "info@kaib.jp",
+          _to: ['info', 'kaib.jp'].join('@'),
         }),
       });
 

@@ -31,13 +31,15 @@ export default function Contact() {
     }));
   };
 
+  const getEmail = () => ['info', 'kaib', 'jp'].join('@').replace('@jp', '.jp');
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const subject = encodeURIComponent(formData.subject);
     const body = encodeURIComponent(
       `${formData.message}\n\n---\n${language === 'en' ? 'Name' : 'お名前'}: ${formData.name}`
     );
-    window.location.href = `mailto:info@kaib.jp?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${getEmail()}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -110,7 +112,7 @@ export default function Contact() {
                 className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3"
               >
                 <Mail className="w-4 h-4 mr-2" />
-                {language === 'en' ? 'Send Email to info@kaib.jp' : 'info@kaib.jp にメールを送る'}
+                {language === 'en' ? 'Send Email' : 'メールで送信する'}
               </Button>
               <p className="text-xs text-muted-foreground text-center">
                 {language === 'en'
