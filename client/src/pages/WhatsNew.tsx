@@ -1,7 +1,7 @@
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { MapPin, Clock, Users, ExternalLink, Instagram } from "lucide-react";
+import { MapPin, Clock, Users, ExternalLink, Instagram, Newspaper, Mail } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useSEO } from "@/_core/hooks/useSEO";
 
@@ -151,26 +151,13 @@ export default function WhatsNew() {
               </div>
             </div>
 
-            {/* Apply Button */}
-            <div className="mb-8">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScq-b1H70tvVLS_g2Fa0Qj1TvpjfgBPs8spCEnKm0xQOqmqDQ/viewform?usp=publish-editor"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
-                  {language === 'en' ? 'Apply for Monthly Meeting' : '月例会に申し込む'}
-                </Button>
-              </a>
-            </div>
-
-            {/* Networking Reception */}
+            {/* Fee Table (Monthly Meeting including Networking Reception) */}
             <div className="mb-8">
               <div className="flex gap-4">
                 <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div className="flex-1">
                   <h4 className="font-semibold text-foreground mb-2">
-                    {language === 'en' ? 'Networking Reception' : '懇親会'}
+                    {language === 'en' ? 'Fee (including Networking Reception)' : '参加費（懇親会込み）'}
                   </h4>
                   <div className="mb-3 text-sm text-muted-foreground">
                     <table className="w-full border-collapse">
@@ -200,28 +187,21 @@ export default function WhatsNew() {
                       </tbody>
                     </table>
                   </div>
-                  <div className="space-y-2">
-                    <a
-                      href="https://square.link/u/rxwCWD3p"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-primary text-white font-semibold rounded-md hover:bg-primary/90 transition text-sm"
-                    >
-                      {language === 'en' ? '¥5,000 Payment (Members / Student non-members)' : '5,000円のお支払い（会員・学生非会員の方）'}
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                    <a
-                      href="https://square.link/u/MRXdy4Bd"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-primary text-white font-semibold rounded-md hover:bg-primary/90 transition text-sm"
-                    >
-                      {language === 'en' ? '¥8,000 Payment (Non-members)' : '8,000円のお支払い（一般非会員の方）'}
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
                 </div>
               </div>
+            </div>
+
+            {/* Apply Button */}
+            <div className="mb-8">
+              <a
+                href="https://kaib20260605.peatix.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
+                  {language === 'en' ? 'Apply for Monthly Meeting (Peatix)' : '月例会に申し込む（Peatix）'}
+                </Button>
+              </a>
             </div>
 
           </Card>
@@ -479,6 +459,104 @@ export default function WhatsNew() {
               >
                 <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
                   {language === 'en' ? 'Register Now' : '今すぐ申し込む'}
+                </Button>
+              </a>
+            </div>
+          </Card>
+
+          {/* Media Coverage - KICK OFF Event */}
+          <Card className="p-8 mb-8 border-l-4 border-l-secondary">
+            <div className="flex items-center gap-3 mb-6">
+              <Newspaper className="w-7 h-7 text-secondary" />
+              <h2 className="text-2xl font-bold text-foreground">
+                {language === 'en' ? 'Media Coverage' : 'メディア掲載'}
+              </h2>
+            </div>
+            <p className="text-muted-foreground mb-6 text-sm">
+              {language === 'en'
+                ? 'KAIB 2026 KICK OFF! (held on May 14, 2026 in Sanuki City, Kagawa) was featured in the following media.'
+                : 'KAIB 2026 KICK OFF!（2026年5月14日 香川県さぬき市にて開催）が各メディアに取り上げられました。'
+              }
+            </p>
+            <div className="space-y-4">
+              <a
+                href="https://www.shikoku-np.co.jp/dg/article.aspx?id=K2026051500000001900"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
+              >
+                <div className="flex-1">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition text-sm">
+                    {language === 'en' ? 'Shikoku Shimbun' : '四国新聞'}
+                  </p>
+                </div>
+                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
+              </a>
+              <a
+                href="https://takamatsu.keizai.biz/mapnews/1499/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
+              >
+                <div className="flex-1">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition text-sm">
+                    {language === 'en' ? 'Takamatsu Keizai Shimbun' : '高松経済新聞'}
+                  </p>
+                </div>
+                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
+              </a>
+              <a
+                href="https://news.yahoo.co.jp/articles/a41c847983e02907758909e8c33e6b66c23ee008"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
+              >
+                <div className="flex-1">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition text-sm">
+                    Yahoo News
+                  </p>
+                </div>
+                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
+              </a>
+              <a
+                href="https://news.ntv.co.jp/n/rnc/category/society/rne502855c6e2d4b0295b1d154eaa3f951"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
+              >
+                <div className="flex-1">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition text-sm">
+                    {language === 'en' ? 'RNC NEWS NNN (TV)' : 'RNC NEWS NNN（テレビ）'}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {language === 'en'
+                      ? 'New organization founded by Kagawa-linked entrepreneurs to support startups (May 14, 2026)'
+                      : '起業を支援　香川県ゆかりの経営による新団体発足（2026年5月14日掲載）'
+                    }
+                  </p>
+                </div>
+                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
+              </a>
+            </div>
+
+            {/* Media Inquiry */}
+            <div className="mt-8 p-6 bg-gray-50 border border-border rounded-lg">
+              <div className="flex items-center gap-3 mb-3">
+                <Mail className="w-5 h-5 text-primary" />
+                <h3 className="font-semibold text-foreground">
+                  {language === 'en' ? 'Press & Media Inquiries' : '取材・メディアに関するお問い合わせ'}
+                </h3>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                {language === 'en'
+                  ? 'For interview requests, media coverage, and press inquiries, please contact us through the form below.'
+                  : '取材のご依頼、メディア掲載に関するお問い合わせは、下記よりご連絡ください。'
+                }
+              </p>
+              <a href={localePath("/contact")}>
+                <Button variant="outline" size="sm">
+                  {language === 'en' ? 'Contact Us' : 'お問い合わせフォームへ'}
+                  <ExternalLink className="ml-2 w-3.5 h-3.5" />
                 </Button>
               </a>
             </div>
