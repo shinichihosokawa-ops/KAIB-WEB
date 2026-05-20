@@ -391,39 +391,21 @@ export default function WhatsNew() {
                         : '※別途領収書が必要な場合は、大変お手数ですがご連絡ください。'
                       }
                     </p>
-                    <a
-                      href="https://square.link/u/m8OllYG4"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:text-primary/80 text-sm font-semibold flex items-center gap-1 mt-2 transition"
-                    >
-                      {language === 'en' ? 'Pay here (Square)' : 'お支払いはこちらから'}
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                    <p className="text-sm text-muted-foreground font-semibold mt-2">
+                      {language === 'en' ? 'Payment closed' : '受付終了'}
+                    </p>
                   </div>
                 </div>
               </div>
               <div className="flex gap-4">
-                <ExternalLink className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <ExternalLink className="w-6 h-6 text-muted-foreground flex-shrink-0 mt-1" />
                 <div>
                   <h4 className="font-semibold text-foreground mb-2">
                     {language === 'en' ? 'Registration' : 'お申し込み'}
                   </h4>
-                  <p className="text-muted-foreground text-sm mb-2">
-                    {language === 'en'
-                      ? 'Please register using the form below:'
-                      : '下記のフォームよりお申し込みをお願いいたします。'
-                    }
+                  <p className="text-muted-foreground text-sm font-semibold">
+                    {language === 'en' ? 'Registration closed' : '受付終了'}
                   </p>
-                  <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLScGGduXIS6rABE9DcczOu00NcbhSRTSi6p5eP2a6FENIvvcgA/viewform?usp=dialog"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:text-primary/80 text-sm font-semibold flex items-center gap-1 transition"
-                  >
-                    {language === 'en' ? 'Registration Form' : '申し込みフォーム'}
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
                 </div>
               </div>
             </div>
@@ -450,17 +432,11 @@ export default function WhatsNew() {
               </p>
             </div>
 
-            {/* Apply Button */}
+            {/* Registration Closed */}
             <div className="mt-8">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScGGduXIS6rABE9DcczOu00NcbhSRTSi6p5eP2a6FENIvvcgA/viewform?usp=dialog"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
-                  {language === 'en' ? 'Register Now' : '今すぐ申し込む'}
-                </Button>
-              </a>
+              <Button size="lg" disabled className="w-full">
+                {language === 'en' ? 'Registration Closed' : '受付終了'}
+              </Button>
             </div>
           </Card>
 

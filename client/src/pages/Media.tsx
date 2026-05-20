@@ -132,12 +132,12 @@ export default function Media() {
                 : '取材のご依頼、メディア掲載に関するお問い合わせは、下記よりご連絡ください。'
               }
             </p>
-            <a href={`mailto:${['info', 'kaib.jp'].join('@')}`}>
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+              <a href={`mailto:${['info', 'kaib.jp'].join('@')}`}>
                 {language === 'en' ? 'Contact Us by Email' : 'メールで問い合わせる'}
                 <ExternalLink className="ml-2 w-4 h-4" />
-              </Button>
-            </a>
+              </a>
+            </Button>
           </Card>
         </div>
       </section>
