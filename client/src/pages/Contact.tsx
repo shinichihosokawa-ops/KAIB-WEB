@@ -1,18 +1,13 @@
-import { useState } from "react";
 import { useLanguage } from "@/_core/hooks/useLanguage";
-import { useSEO } from "@/_core/hooks/useSEO";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import { ExternalLink, Mail } from "lucide-react";
+import { useSEO } from "@/_core/hooks/useSEO";
 
 export default function Contact() {
   const { language, setLanguage, t, localePath } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: "",
-    subject: "",
-    message: "",
-  });
+
   useSEO(language === 'en' ? {
     title: "Contact KAIB | Kagawa Innovation Base",
     description: "Contact Kagawa Innovation Base (KAIB). Get in touch with us for inquiries and questions about our community and events.",
@@ -23,30 +18,12 @@ export default function Contact() {
     path: "/contact",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const getEmail = () => ['info', 'kaib', 'jp'].join('@').replace('@jp', '.jp');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = encodeURIComponent(formData.subject);
-    const body = encodeURIComponent(
-      `${formData.message}\n\n---\n${language === 'en' ? 'Name' : 'お名前'}: ${formData.name}`
-    );
-    window.location.href = `mailto:${getEmail()}?subject=${subject}&body=${body}`;
-  };
+  const getEmail = () => ['info', 'kaib.jp'].join('@');
 
   return (
     <div className="min-h-screen bg-white">
       <Navigation activePage="contact" />
 
-      {/* Contact Section */}
       <section className="py-20 bg-white">
         <div className="container max-w-2xl">
           <h1 className="text-4xl font-bold text-primary mb-4">
@@ -54,82 +31,32 @@ export default function Contact() {
           </h1>
           <p className="text-lg text-muted-foreground mb-12">
             {language === 'en'
-              ? 'If you have any questions or inquiries, please feel free to contact us using the form below.'
-              : 'ご質問やご不明な点がございましたら、下記のフォームからお気軽にお問い合わせください。'
+              ? 'If you have any questions or inquiries, please feel free to contact us.'
+              : 'ご質問やご不明な点がございましたら、お気軽にお問い合わせください。'
             }
           </p>
 
-          <Card className="p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-semibold text-foreground mb-2">
-                  {language === 'en' ? 'Name' : 'お名前'} <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground"
-                  placeholder={language === 'en' ? 'John Doe' : '山田太郎'}
-                />
-              </div>
-              <div>
-                <label htmlFor="subject" className="block text-sm font-semibold text-foreground mb-2">
-                  {language === 'en' ? 'Subject' : '題名'} <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground"
-                  placeholder={language === 'en' ? 'Enter subject' : '題名をご入力ください'}
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-foreground mb-2">
-                  {language === 'en' ? 'Message' : 'メッセージ本文'} <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground resize-none"
-                  placeholder={language === 'en' ? 'Enter your message...' : 'お問い合わせ内容をご入力ください...'}
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3"
-              >
+          <Card className="p-8 text-center">
+            <Mail className="w-12 h-12 text-primary mx-auto mb-4" />
+            <p className="text-lg text-foreground mb-6">
+              {language === 'en'
+                ? 'Click the button below to send us an email.'
+                : '下記のボタンを押すとメールアプリが起動します。'
+              }
+            </p>
+            <a href={`mailto:${getEmail()}`}>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-semibold">
                 <Mail className="w-4 h-4 mr-2" />
-                {language === 'en' ? 'Send Email' : 'メールで送信する'}
+                {language === 'en' ? 'Send Email' : 'メールで問い合わせる'}
               </Button>
-              <p className="text-xs text-muted-foreground text-center">
-                {language === 'en'
-                  ? 'Clicking the button will open your email app with the message pre-filled.'
-                  : 'ボタンを押すとメールアプリが開き、入力内容が自動で反映されます。'
-                }
-              </p>
-            </form>
+            </a>
           </Card>
-
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-foreground text-background py-12 mt-12">
         <div className="container">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <img
                 src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663255440915/pZrMXUTAEjDsCOGE.jpg"
@@ -138,8 +65,8 @@ export default function Contact() {
               />
               <p className="text-background/70 text-sm">
                 {language === 'en'
-                  ? 'A practical community for entrepreneurs and business leaders based in Kagawa Prefecture. Nurturing new entrepreneurial spirit through Social × Global × Web3.'
-                  : '香川県を拠点に活動する起業家・経営者のための実践的なコミュニティ。ソーシャル × グローバル × Web3で、新しい起業家精神を育てます。'
+                  ? 'An entrepreneur community in Kagawa. Growing businesses beyond ¥100M revenue through EO methods and the xIB network.'
+                  : '香川の起業家コミュニティ。EOの成長メソッドとxIBネットワークで年商1億円を超える経営者を育てます。'
                 }
               </p>
             </div>
@@ -148,9 +75,9 @@ export default function Contact() {
                 {language === 'en' ? 'Menu' : 'メニュー'}
               </h4>
               <ul className="space-y-2 text-sm text-background/70">
-                <li><a href="/#about" className="hover:text-background transition">{t('nav.about')}</a></li>
-                <li><a href="/#solution" className="hover:text-background transition">{t('nav.solution')}</a></li>
-                <li><a href="/#services" className="hover:text-background transition">{t('nav.services')}</a></li>
+                <li><a href={localePath("/#about")} className="hover:text-background transition">{t('nav.about')}</a></li>
+                <li><a href={localePath("/#services")} className="hover:text-background transition">{t('nav.services')}</a></li>
+                <li><a href={localePath("/membership")} className="hover:text-background transition">{t('nav.membership')}</a></li>
               </ul>
             </div>
             <div>
@@ -160,7 +87,7 @@ export default function Contact() {
               <p className="text-sm text-background/70 mb-2">
                 {language === 'en'
                   ? 'KAIB is part of xIB JAPAN'
-                  : 'KAIB は xIB JAPAN ネットワークの一部です。'
+                  : 'KAIB は xIB JAPAN ネットワークの一員です。'
                 }
               </p>
               <a
@@ -172,14 +99,6 @@ export default function Contact() {
                 {language === 'en' ? 'Learn More' : '詳しく'}
                 <ExternalLink className="w-3 h-3" />
               </a>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">
-                {language === 'en' ? 'Address' : '住所'}
-              </h4>
-              <p className="text-sm text-background/70">
-                {language === 'en' ? 'Sanuki City, Kagawa Prefecture, Japan' : '香川県さぬき市'}
-              </p>
             </div>
           </div>
           <div className="border-t border-background/10 pt-8 text-center text-sm text-background/70">
