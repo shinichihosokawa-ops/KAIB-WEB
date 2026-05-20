@@ -2,16 +2,12 @@ import { useLanguage as useLanguageContext } from "@/contexts/LanguageContext";
 
 const translations: Record<string, Record<string, string>> = {
   "nav.about": {
-    ja: "KAIBとは",
+    ja: "KAIBについて",
     en: "About",
   },
-  "nav.solution": {
-    ja: "解決策",
-    en: "Solutions",
-  },
   "nav.services": {
-    ja: "サービス",
-    en: "Services",
+    ja: "活動内容",
+    en: "Programs",
   },
   "nav.membership": {
     ja: "会員制度",
