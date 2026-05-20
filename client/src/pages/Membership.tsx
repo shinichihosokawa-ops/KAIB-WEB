@@ -1,6 +1,6 @@
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Card } from "@/components/ui/card";
-import { Info, FileText, ExternalLink } from "lucide-react";
+import { Info, FileText, ExternalLink, CheckCircle, TrendingUp, Users, MessageCircle, UserCheck, Globe, Target, BookOpen, Network } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useSEO } from "@/_core/hooks/useSEO";
 
@@ -77,6 +77,91 @@ export default function Membership() {
                 : '多様なニーズに応える柔軟な会員区分'
               }
             </p>
+          </div>
+
+          {/* Value Proposition */}
+          <div className="mb-16">
+            <div className="mb-10 p-8 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-primary/20">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                {language === 'en' ? 'For Those Considering Membership' : '入会をご検討中の方へ'}
+              </h2>
+              <p className="text-foreground leading-relaxed mb-3">
+                {language === 'en'
+                  ? 'KAIB is an entrepreneur community where business leaders in Kagawa learn from each other, support each other, and accelerate business growth.'
+                  : 'KAIBは、香川で挑戦する起業家・経営者が学び合い、支え合い、事業成長を加速させるための起業家コミュニティです。'
+                }
+              </p>
+              <p className="text-foreground leading-relaxed mb-3">
+                {language === 'en'
+                  ? 'We are not just a networking group or study circle. Our goal is to produce growth companies from Kagawa that create employment and revitalize the regional economy.'
+                  : '単なる交流会や勉強会ではありません。目指しているのは、香川から成長企業を生み出し、雇用をつくり、地域経済を活性化させることです。'
+                }
+              </p>
+              <p className="text-foreground leading-relaxed font-semibold text-primary">
+                {language === 'en'
+                  ? 'Your growth as an entrepreneur drives the future of Kagawa.'
+                  : '経営者一人ひとりの成長が、香川の未来をつくる。'
+                }
+              </p>
+            </div>
+
+            {/* Benefits Summary Table */}
+            <h3 className="text-xl font-bold text-foreground mb-6">
+              {language === 'en' ? 'What You Gain by Joining' : '入会することで得られる主なメリット'}
+            </h3>
+            <div className="grid gap-4 mb-10">
+              {[
+                { icon: <Users className="w-5 h-5 text-primary" />, label: { en: 'Monthly Meetings', ja: '月例会' }, desc: { en: 'Learn directly from growth company leaders', ja: '成長企業の経営者から直接学べる' } },
+                { icon: <MessageCircle className="w-5 h-5 text-secondary" />, label: { en: 'Forum', ja: 'フォーラム' }, desc: { en: 'Share real business challenges honestly with peers', ja: '経営者同士で本音の課題共有ができる' } },
+                { icon: <UserCheck className="w-5 h-5 text-accent" />, label: { en: 'Mentoring', ja: 'メンタリング' }, desc: { en: 'Practical learning from experienced entrepreneurs', ja: '先輩経営者から実践的に学べる' } },
+                { icon: <BookOpen className="w-5 h-5 text-primary" />, label: { en: 'Learning', ja: 'ラーニング' }, desc: { en: 'Practical skills in AI, hiring, fundraising, and more', ja: 'AI・採用・資金調達など経営実務を学べる' } },
+                { icon: <Globe className="w-5 h-5 text-green-600" />, label: { en: 'Regional Collaboration', ja: '地域連携' }, desc: { en: 'Connect with government, financial institutions, and media', ja: '行政・金融機関・メディアなどと接点が持てる' } },
+                { icon: <Network className="w-5 h-5 text-green-600" />, label: { en: 'xIB Network', ja: 'xIBネットワーク' }, desc: { en: 'Connect with entrepreneurs across Japan', ja: '全国の起業家・経営者とつながれる' } },
+                { icon: <Target className="w-5 h-5 text-blue-600" />, label: { en: 'EO Connection', ja: 'EOとの関係性' }, desc: { en: 'Access growth methods from a world-class entrepreneur network', ja: '世界的な起業家ネットワークの知見に触れられる' } },
+                { icon: <TrendingUp className="w-5 h-5 text-accent" />, label: { en: 'Business Growth', ja: '事業成長' }, desc: { en: 'An environment to aim for ¥100M+ revenue', ja: '年商1億円を目指す環境が得られる' } },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4 p-4 bg-white rounded-lg border border-border">
+                  <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0">
+                    {item.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="font-semibold text-foreground text-sm">{item.label[language]}</span>
+                    <span className="text-muted-foreground text-sm ml-2">— {item.desc[language]}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Target Audience */}
+            <h3 className="text-xl font-bold text-foreground mb-6">
+              {language === 'en' ? 'Recommended For' : 'こんな方におすすめです'}
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-3 mb-10">
+              {(language === 'en' ? [
+                'Business owners aiming for ¥100M+ revenue',
+                'Entrepreneurs who want to grow in Kagawa',
+                'Those who want to keep learning as leaders',
+                'Those seeking peers to consult with on challenges',
+                'Those who want mentoring from experienced entrepreneurs',
+                'Successors preparing for business succession',
+                'Leaders launching new business ventures',
+                'Students aspiring to start a business',
+              ] : [
+                '年商1億円を目指したい経営者',
+                '香川で事業を成長させたい経営者',
+                '経営者として学び続けたい方',
+                '経営課題を相談できる仲間がほしい方',
+                '先輩経営者から学びたい方',
+                '事業承継を予定している後継者',
+                '新規事業に挑戦したい方',
+                '起業を目指している学生・若手',
+              ]).map((item, i) => (
+                <div key={i} className="flex items-center gap-2 text-sm text-foreground">
+                  <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Membership Table */}
