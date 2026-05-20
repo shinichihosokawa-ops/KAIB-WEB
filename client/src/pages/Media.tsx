@@ -50,83 +50,62 @@ export default function Media() {
             </p>
 
             <div className="space-y-4">
-              {/* Shikoku Shimbun */}
-              <a
-                href="https://www.shikoku-np.co.jp/dg/article.aspx?id=K2026051500000001900"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-5 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
-              >
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <FileText className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-foreground group-hover:text-primary transition">
-                    {language === 'en' ? 'Shikoku Shimbun' : '四国新聞'}
-                  </p>
-                </div>
-                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
-              </a>
-
-              {/* Takamatsu Keizai Shimbun */}
-              <a
-                href="https://takamatsu.keizai.biz/mapnews/1499/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-5 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
-              >
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <FileText className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-foreground group-hover:text-primary transition">
-                    {language === 'en' ? 'Takamatsu Keizai Shimbun' : '高松経済新聞'}
-                  </p>
-                </div>
-                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
-              </a>
-
-              {/* Yahoo News */}
-              <a
-                href="https://news.yahoo.co.jp/articles/a41c847983e02907758909e8c33e6b66c23ee008"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-5 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
-              >
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <FileText className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-foreground group-hover:text-primary transition">
-                    Yahoo News
-                  </p>
-                </div>
-                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
-              </a>
-
-              {/* RNC TV News */}
-              <a
-                href="https://news.ntv.co.jp/n/rnc/category/society/rne502855c6e2d4b0295b1d154eaa3f951"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-5 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
-              >
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <Tv className="w-5 h-5 text-accent" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-foreground group-hover:text-primary transition">
-                    {language === 'en' ? 'RNC NEWS NNN (TV)' : 'RNC NEWS NNN（テレビ）'}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {language === 'en'
-                      ? 'New organization founded by Kagawa-linked entrepreneurs to support startups (May 14, 2026)'
-                      : '起業を支援　香川県ゆかりの経営による新団体発足（2026年5月14日掲載）'
-                    }
-                  </p>
-                </div>
-                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
-              </a>
+              {[
+                {
+                  href: 'https://www.shikoku-np.co.jp/dg/article.aspx?id=K2026051500000001900',
+                  outlet: { en: 'Shikoku Shimbun', ja: '四国新聞' },
+                  title: { en: '', ja: '' },
+                  icon: <FileText className="w-5 h-5 text-primary" />,
+                  iconBg: 'bg-primary/10',
+                },
+                {
+                  href: 'https://takamatsu.keizai.biz/mapnews/1499/',
+                  outlet: { en: 'Takamatsu Keizai Shimbun', ja: '高松経済新聞' },
+                  title: { en: '', ja: '' },
+                  icon: <FileText className="w-5 h-5 text-primary" />,
+                  iconBg: 'bg-primary/10',
+                },
+                {
+                  href: 'https://news.yahoo.co.jp/articles/a41c847983e02907758909e8c33e6b66c23ee008',
+                  outlet: { en: 'Yahoo News', ja: 'Yahoo News' },
+                  title: { en: '', ja: '' },
+                  icon: <FileText className="w-5 h-5 text-primary" />,
+                  iconBg: 'bg-primary/10',
+                },
+                {
+                  href: 'https://news.ntv.co.jp/n/rnc/category/society/rne502855c6e2d4b0295b1d154eaa3f951',
+                  outlet: { en: 'RNC NEWS NNN (TV)', ja: 'RNC NEWS NNN（テレビ）' },
+                  title: {
+                    en: 'New organization founded by Kagawa-linked entrepreneurs to support startups (May 14, 2026)',
+                    ja: '起業を支援　香川県ゆかりの経営による新団体発足（2026年5月14日掲載）',
+                  },
+                  icon: <Tv className="w-5 h-5 text-accent" />,
+                  iconBg: 'bg-accent/10',
+                },
+              ].map((item, i) => (
+                <a
+                  key={i}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-5 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
+                >
+                  <div className={`w-10 h-10 rounded-full ${item.iconBg} flex items-center justify-center flex-shrink-0`}>
+                    {item.icon}
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-foreground group-hover:text-primary transition">
+                      {item.outlet[language]}
+                    </p>
+                    {item.title[language] && (
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {item.title[language]}
+                      </p>
+                    )}
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
+                </a>
+              ))}
             </div>
           </Card>
 
