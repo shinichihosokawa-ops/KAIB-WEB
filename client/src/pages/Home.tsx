@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Users, Globe, TrendingUp, LinkIcon, Mail, Network, Instagram, Target, MessageCircle, BookOpen, UserCheck, ChevronRight, CheckCircle } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import NewsletterForm from "@/components/NewsletterForm";
 import { useSEO } from "@/_core/hooks/useSEO";
 
 export default function Home() {
@@ -579,7 +578,13 @@ export default function Home() {
               ? 'Get the latest news on events, monthly meetings, and KAIB activities delivered to your inbox.'
               : 'イベント・月例会・KAIBの活動情報をメールでお届けします。'}
           </p>
-          <NewsletterForm />
+          <a href={localePath("/newsletter")}>
+            <Button size="lg" className="bg-primary hover:bg-primary/90 font-semibold">
+              <Mail className="w-4 h-4 mr-2" />
+              {language === 'en' ? 'Subscribe to Newsletter' : 'メルマガに登録する'}
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </a>
         </div>
       </section>
 
