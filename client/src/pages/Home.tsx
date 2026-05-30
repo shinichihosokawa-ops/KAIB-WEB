@@ -566,28 +566,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-16 bg-card border-t border-border">
-        <div className="container max-w-2xl text-center">
-          <Mail className="w-10 h-10 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-foreground mb-2">
-            {language === 'en' ? 'KAIB Newsletter' : 'KAIBメルマガ'}
-          </h2>
-          <p className="text-muted-foreground mb-6">
-            {language === 'en'
-              ? 'Get the latest news on events, monthly meetings, and KAIB activities delivered to your inbox.'
-              : 'イベント・月例会・KAIBの活動情報をメールでお届けします。'}
-          </p>
-          <a href={localePath("/newsletter")}>
-            <Button size="lg" className="bg-primary hover:bg-primary/90 font-semibold">
-              <Mail className="w-4 h-4 mr-2" />
-              {language === 'en' ? 'Subscribe to Newsletter' : 'メルマガに登録する'}
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </a>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="bg-foreground text-background py-12">
         <div className="container">

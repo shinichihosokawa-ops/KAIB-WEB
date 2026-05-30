@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLanguage } from "@/_core/hooks/useLanguage";
-import { Menu, X, Mail } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 interface NavigationProps {
   activePage?: "home" | "membership" | "whatsnew" | "contact" | "media" | "newsletter";
@@ -26,7 +26,6 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
       active: false,
       external: true,
     },
-    { href: localePath("/newsletter"), label: t("nav.newsletter"), active: activePage === "newsletter", icon: true },
   ];
 
   const pageSlug = activePage === "home" ? "" : activePage;
