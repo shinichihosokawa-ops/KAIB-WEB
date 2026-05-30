@@ -1,6 +1,7 @@
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Card } from "@/components/ui/card";
-import { Mail, Send, ShieldCheck, CalendarDays } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Mail, Send, ShieldCheck, CalendarDays, XCircle } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import NewsletterForm from "@/components/NewsletterForm";
 import { useSEO } from "@/_core/hooks/useSEO";
@@ -91,6 +92,30 @@ export default function Newsletter() {
               </Card>
             ))}
           </div>
+
+          {/* Unsubscribe */}
+          <Card className="p-6 mb-12 border border-border">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center flex-shrink-0">
+                <XCircle className="w-5 h-5 text-muted-foreground" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-foreground mb-1">
+                  {language === 'en' ? 'Want to unsubscribe?' : '配信停止をご希望の方'}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  {language === 'en'
+                    ? 'You can unsubscribe from the newsletter at any time.'
+                    : 'メルマガの配信はいつでも停止できます。'}
+                </p>
+                <Button asChild variant="outline" size="sm">
+                  <a href={language === 'en' ? '/en/unsubscribe' : '/unsubscribe'}>
+                    {language === 'en' ? 'Unsubscribe' : '配信停止はこちら'}
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </Card>
 
           {/* FAQ */}
           <Card className="p-8">
