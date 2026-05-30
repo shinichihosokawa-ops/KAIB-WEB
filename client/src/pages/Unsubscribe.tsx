@@ -10,7 +10,7 @@ import { NEWSLETTER_SCRIPT_URL } from "@/config/newsletter";
 export default function Unsubscribe() {
   const { language } = useLanguage();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error" | "no-url">("idle");
 
   useSEO(language === "en" ? {
     title: "Unsubscribe | KAIB",
@@ -24,7 +24,12 @@ export default function Unsubscribe() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !NEWSLETTER_SCRIPT_URL) return;
+    if (!email) return;
+
+    if (!NEWSLETTER_SCRIPT_URL) {
+      setStatus("no-url");
+      return;
+    }
 
     setStatus("submitting");
     try {
@@ -96,9 +101,15 @@ export default function Unsubscribe() {
                     {language === "en" ? "Something went wrong. Please try again." : "エラーが発生しました。もう一度お試しください。"}
                   </div>
                 )}
+                {status === "no-url" && (
+                  <div className="flex items-center gap-2 text-amber-600 text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    {language === "en" ? "This feature is being set up. Please try again later." : "現在準備中です。しばらくお待ちください。"}
+                  </div>
+                )}
                 <Button
                   type="submit"
-                  disabled={status === "submitting" || !NEWSLETTER_SCRIPT_URL}
+                  disabled={status === "submitting"}
                   className="w-full"
                   variant="outline"
                 >

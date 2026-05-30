@@ -9,11 +9,16 @@ export default function NewsletterForm() {
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error" | "no-url">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !name || !NEWSLETTER_SCRIPT_URL) return;
+    if (!email || !name) return;
+
+    if (!NEWSLETTER_SCRIPT_URL) {
+      setStatus("no-url");
+      return;
+    }
 
     setStatus("submitting");
     try {
@@ -102,9 +107,15 @@ export default function NewsletterForm() {
           {language === "en" ? "Something went wrong. Please try again." : "エラーが発生しました。もう一度お試しください。"}
         </div>
       )}
+      {status === "no-url" && (
+        <div className="flex items-center gap-2 text-amber-600 text-sm">
+          <AlertCircle className="w-4 h-4" />
+          {language === "en" ? "Newsletter registration is being set up. Please try again later." : "メルマガ登録は現在準備中です。しばらくお待ちください。"}
+        </div>
+      )}
       <Button
         type="submit"
-        disabled={status === "submitting" || !NEWSLETTER_SCRIPT_URL}
+        disabled={status === "submitting"}
         size="lg"
         className="w-full bg-primary hover:bg-primary/90 font-semibold"
       >
