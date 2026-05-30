@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useLanguage } from "@/_core/hooks/useLanguage";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Mail } from "lucide-react";
 
 interface NavigationProps {
-  activePage?: "home" | "membership" | "whatsnew" | "contact" | "media";
+  activePage?: "home" | "membership" | "whatsnew" | "contact" | "media" | "newsletter";
 }
 
 export default function Navigation({ activePage = "home" }: NavigationProps) {
@@ -19,6 +19,7 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
     { href: localePath("/membership"), label: t("nav.membership"), active: activePage === "membership" },
     { href: localePath("/whatsnew"), label: t("nav.news"), active: activePage === "whatsnew" },
     { href: localePath("/media"), label: t("nav.media"), active: activePage === "media" },
+    { href: localePath("/newsletter"), label: t("nav.newsletter"), active: activePage === "newsletter", icon: true },
     { href: `mailto:${['info', 'kaib.jp'].join('@')}`, label: t("nav.contact"), active: false },
     {
       href: "https://docs.google.com/forms/d/e/1FAIpQLSeN8mTf8hDxMpRcUCbmHnImCfVxCfCmMUK56fxtlrYHxawu2Q/viewform?usp=dialog",
@@ -57,10 +58,11 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
               key={link.label}
               href={link.href}
               {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className={`text-sm transition ${
+              className={`text-sm transition flex items-center gap-1 ${
                 link.active ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-              }`}
+              } ${link.icon ? "bg-primary/10 px-3 py-1.5 rounded-full font-semibold text-primary hover:bg-primary/20" : ""}`}
             >
+              {link.icon && <Mail className="w-3.5 h-3.5" />}
               {link.label}
             </a>
           ))}
@@ -103,11 +105,12 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
                 key={link.label}
                 href={link.href}
                 {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`text-base py-2 transition ${
+                className={`text-base py-2 transition flex items-center gap-2 ${
                   link.active ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-                }`}
+                } ${link.icon ? "text-primary font-semibold" : ""}`}
                 onClick={() => setMenuOpen(false)}
               >
+                {link.icon && <Mail className="w-4 h-4" />}
                 {link.label}
               </a>
             ))}
