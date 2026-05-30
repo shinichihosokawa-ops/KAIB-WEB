@@ -21,6 +21,10 @@ const translations: Record<string, Record<string, string>> = {
     ja: "メディア掲載",
     en: "Media",
   },
+  "nav.newsletter": {
+    ja: "メルマガ",
+    en: "Newsletter",
+  },
   "nav.contact": {
     ja: "お問い合わせ",
     en: "Contact",
