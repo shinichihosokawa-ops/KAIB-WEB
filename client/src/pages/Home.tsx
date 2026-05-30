@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Users, Globe, TrendingUp, LinkIcon, Mail, Network, Instagram, Target, MessageCircle, BookOpen, UserCheck, ChevronRight, CheckCircle } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import NewsletterForm from "@/components/NewsletterForm";
 import { useSEO } from "@/_core/hooks/useSEO";
 
 export default function Home() {
@@ -563,6 +564,22 @@ export default function Home() {
               </Button>
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-16 bg-card border-t border-border">
+        <div className="container max-w-2xl text-center">
+          <Mail className="w-10 h-10 text-primary mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-foreground mb-2">
+            {language === 'en' ? 'KAIB Newsletter' : 'KAIBメルマガ'}
+          </h2>
+          <p className="text-muted-foreground mb-6">
+            {language === 'en'
+              ? 'Get the latest news on events, monthly meetings, and KAIB activities delivered to your inbox.'
+              : 'イベント・月例会・KAIBの活動情報をメールでお届けします。'}
+          </p>
+          <NewsletterForm />
         </div>
       </section>
 
