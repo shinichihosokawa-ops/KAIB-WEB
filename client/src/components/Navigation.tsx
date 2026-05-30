@@ -19,7 +19,6 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
     { href: localePath("/membership"), label: t("nav.membership"), active: activePage === "membership" },
     { href: localePath("/whatsnew"), label: t("nav.news"), active: activePage === "whatsnew" },
     { href: localePath("/media"), label: t("nav.media"), active: activePage === "media" },
-    { href: localePath("/newsletter"), label: t("nav.newsletter"), active: activePage === "newsletter", icon: true },
     { href: `mailto:${['info', 'kaib.jp'].join('@')}`, label: t("nav.contact"), active: false },
     {
       href: "https://docs.google.com/forms/d/e/1FAIpQLSeN8mTf8hDxMpRcUCbmHnImCfVxCfCmMUK56fxtlrYHxawu2Q/viewform?usp=dialog",
@@ -27,6 +26,7 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
       active: false,
       external: true,
     },
+    { href: localePath("/newsletter"), label: t("nav.newsletter"), active: activePage === "newsletter", icon: true },
   ];
 
   const pageSlug = activePage === "home" ? "" : activePage;
