@@ -40,14 +40,14 @@ export default function Contact() {
             <Mail className="w-12 h-12 text-primary mx-auto mb-4" />
             <p className="text-lg text-foreground mb-6">
               {language === 'en'
-                ? 'Click the button below to send us an email.'
-                : '下記のボタンを押すとメールアプリが起動します。'
+                ? 'Click the button below to open our contact form.'
+                : '下記のボタンからお問い合わせフォームを開けます。'
               }
             </p>
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white font-semibold">
-              <a href={`mailto:${getEmail()}`}>
-                <Mail className="w-4 h-4 mr-2" />
-                {language === 'en' ? 'Send Email' : 'メールで問い合わせる'}
+              <a href="https://forms.gle/fpudsa3tHTGXqnrKA" target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                {language === 'en' ? 'Open Contact Form' : 'お問い合わせフォーム'}
               </a>
             </Button>
           </Card>

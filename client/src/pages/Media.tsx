@@ -133,8 +133,8 @@ export default function Media() {
               }
             </p>
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-              <a href={`mailto:${['info', 'kaib.jp'].join('@')}`}>
-                {language === 'en' ? 'Contact Us by Email' : 'メールで問い合わせる'}
+              <a href="https://forms.gle/fpudsa3tHTGXqnrKA" target="_blank" rel="noopener noreferrer">
+                {language === 'en' ? 'Contact Us' : 'お問い合わせフォーム'}
                 <ExternalLink className="ml-2 w-4 h-4" />
               </a>
             </Button>

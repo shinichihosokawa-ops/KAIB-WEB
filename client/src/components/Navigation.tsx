@@ -19,7 +19,7 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
     { href: localePath("/membership"), label: t("nav.membership"), active: activePage === "membership" },
     { href: localePath("/whatsnew"), label: t("nav.news"), active: activePage === "whatsnew" },
     { href: localePath("/media"), label: t("nav.media"), active: activePage === "media" },
-    { href: `mailto:${['info', 'kaib.jp'].join('@')}`, label: t("nav.contact"), active: false },
+    { href: "https://forms.gle/fpudsa3tHTGXqnrKA", label: t("nav.contact"), active: false, external: true },
     {
       href: "https://docs.google.com/forms/d/e/1FAIpQLSeN8mTf8hDxMpRcUCbmHnImCfVxCfCmMUK56fxtlrYHxawu2Q/viewform?usp=dialog",
       label: t("nav.register"),
