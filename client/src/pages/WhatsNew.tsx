@@ -61,8 +61,8 @@ export default function WhatsNew() {
                   month: { en: 'Aug', ja: '8月' },
                   date: { en: 'Aug 21 (Fri)', ja: '8/21（金）' },
                   title: { en: 'Setouchi Summit', ja: 'Setouchi Summit' },
+                  subtitle: { en: 'Joint event of Chushikoku IBs & EO Setouchi — Tokushima City, 1:00 PM – 8:00 PM', ja: '中四国のIBとEO Setouchiの合同イベント｜徳島市｜13:00〜20:00' },
                   type: 'special' as const,
-                  href: 'https://www.eosetouchi.org/all/news/351/',
                 },
                 {
                   month: { en: 'Sep', ja: '9月' },
@@ -120,6 +120,11 @@ export default function WhatsNew() {
                         </a>
                       )}
                     </div>
+                    {event.subtitle && (
+                      <p className="text-xs text-muted-foreground mt-1 ml-[132px]">
+                        {event.subtitle[language]}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
