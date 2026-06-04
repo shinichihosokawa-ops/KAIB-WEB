@@ -63,6 +63,7 @@ export default function WhatsNew() {
                   title: { en: 'Setouchi Summit', ja: 'Setouchi Summit' },
                   subtitle: { en: 'Joint event of Chushikoku IBs & EO Setouchi — Tokushima City, 1:00 PM – 8:00 PM', ja: '中四国のIBとEO Setouchiの合同イベント｜徳島市｜13:00〜20:00' },
                   type: 'special' as const,
+                  href: 'https://www.eosetouchi.org/all/415/',
                 },
                 {
                   month: { en: 'Sep', ja: '9月' },
