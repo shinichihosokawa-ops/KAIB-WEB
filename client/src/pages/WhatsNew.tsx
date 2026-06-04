@@ -1,7 +1,7 @@
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { MapPin, Clock, Users, ExternalLink, Instagram } from "lucide-react";
+import { MapPin, Clock, Users, ExternalLink, Instagram, CalendarDays } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useSEO } from "@/_core/hooks/useSEO";
 
@@ -34,6 +34,97 @@ export default function WhatsNew() {
               : 'KAIB の最新情報とイベント情報をお知らせいたします。'
             }
           </p>
+
+          {/* 2026 Yearly Schedule */}
+          <Card className="p-8 mb-8 border-l-4 border-l-accent">
+            <div className="flex items-center gap-3 mb-6">
+              <CalendarDays className="w-7 h-7 text-accent" />
+              <h2 className="text-2xl font-bold text-foreground">
+                {language === 'en' ? '2026 Annual Schedule' : '2026年 年間スケジュール'}
+              </h2>
+            </div>
+            <p className="text-sm text-muted-foreground mb-6">
+              {language === 'en'
+                ? 'Planned events for the rest of 2026. Details will be announced as dates approach.'
+                : '2026年後半の予定です。詳細は開催日が近づきましたらお知らせいたします。'
+              }
+            </p>
+            <div className="space-y-0">
+              {[
+                {
+                  month: { en: 'Jul', ja: '7月' },
+                  date: { en: 'Jul 3 (Thu)', ja: '7/3（木）' },
+                  title: { en: 'Monthly Meeting', ja: '月例会' },
+                  type: 'monthly' as const,
+                },
+                {
+                  month: { en: 'Aug', ja: '8月' },
+                  date: { en: 'Aug 21 (Thu)', ja: '8/21（木）' },
+                  title: { en: 'Setouchi Summit', ja: 'Setouchi Summit' },
+                  type: 'special' as const,
+                  href: 'https://www.eosetouchi.org/all/news/351/',
+                },
+                {
+                  month: { en: 'Sep', ja: '9月' },
+                  date: { en: 'Sep 4 (Thu)', ja: '9/4（木）' },
+                  title: { en: 'Monthly Meeting', ja: '月例会' },
+                  type: 'monthly' as const,
+                },
+                {
+                  month: { en: 'Oct', ja: '10月' },
+                  date: { en: 'Oct 2 (Thu)', ja: '10/2（木）' },
+                  title: { en: 'Monthly Meeting', ja: '月例会' },
+                  type: 'monthly' as const,
+                },
+                {
+                  month: { en: 'Oct', ja: '10月' },
+                  date: { en: 'Oct 8-9 (Wed-Thu)', ja: '10/8-9（水-木）' },
+                  title: { en: 'LEC Yamanashi', ja: 'LEC山梨' },
+                  type: 'special' as const,
+                  href: 'https://www.yamanashi-lec.com/',
+                },
+                {
+                  month: { en: 'Nov', ja: '11月' },
+                  date: { en: 'Nov 6 (Thu)', ja: '11/6（木）' },
+                  title: { en: 'Monthly Meeting', ja: '月例会' },
+                  type: 'monthly' as const,
+                },
+                {
+                  month: { en: 'Dec', ja: '12月' },
+                  date: { en: 'Dec 18 (Thu)', ja: '12/18（木）' },
+                  title: { en: 'Setouchi EO Joint IB Monthly Meeting', ja: '瀬戸内EO合同IB月例会' },
+                  type: 'special' as const,
+                },
+              ].map((event, i, arr) => (
+                <div key={i} className="flex items-stretch gap-4">
+                  <div className="flex flex-col items-center">
+                    <div className={`w-3 h-3 rounded-full flex-shrink-0 mt-1.5 ${event.type === 'special' ? 'bg-accent' : 'bg-primary'}`} />
+                    {i < arr.length - 1 && <div className="w-px flex-1 bg-border" />}
+                  </div>
+                  <div className={`flex-1 pb-5 ${i === arr.length - 1 ? 'pb-0' : ''}`}>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="text-sm font-semibold text-foreground min-w-[120px]">
+                        {event.date[language]}
+                      </span>
+                      <span className={`text-sm ${event.type === 'special' ? 'font-semibold text-accent' : 'text-foreground'}`}>
+                        {event.title[language]}
+                      </span>
+                      {event.href && (
+                        <a
+                          href={event.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:text-primary/80 transition inline-flex items-center gap-1"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
 
           {/* Second Event Card */}
           <Card className="p-8 mb-8 border-l-4 border-l-primary">
