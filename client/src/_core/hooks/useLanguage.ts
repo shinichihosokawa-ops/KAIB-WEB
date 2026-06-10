@@ -14,8 +14,8 @@ const translations: Record<string, Record<string, string>> = {
     en: "Membership",
   },
   "nav.news": {
-    ja: "ニュース",
-    en: "News",
+    ja: "ニュース＋イベント案内",
+    en: "News & Events",
   },
   "nav.media": {
     ja: "メディア掲載",
