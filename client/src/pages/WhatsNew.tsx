@@ -193,6 +193,7 @@ export default function WhatsNew() {
               </h3>
               <ul className="space-y-3">
                 {[
+                  { en: 'Challenges and strategies for business succession — inheriting and evolving a founder\'s legacy', ja: '事業承継の難しさと克服方法 ― 創業者から受け継ぐ経営のバトン' },
                   { en: 'The journey and business model strengths of Yamato Manufacturing', ja: '株式会社大和製作所の歩みとビジネスモデルの強み' },
                   { en: 'Why are Japanese "noodle machines" in demand worldwide?', ja: 'なぜ日本の「製麺機」が世界で求められているのか？' },
                   { en: 'Barriers in global expansion and how to overcome them', ja: 'グローバル展開における壁とその乗り越え方' },
