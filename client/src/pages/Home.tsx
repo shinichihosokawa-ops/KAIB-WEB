@@ -144,11 +144,11 @@ export default function Home() {
           </div>
 
           {/* Organization Info */}
-          <div className="mt-8 p-4 bg-gray-50 border border-border rounded">
-            <h4 className="text-sm font-semibold text-foreground mb-2">
+          <div className="mt-8 p-6 bg-gray-50 border border-border rounded-lg">
+            <h3 className="text-lg font-bold text-foreground mb-4">
               {language === 'en' ? 'Organization' : '組織情報'}
-            </h4>
-            <dl className="text-sm space-y-1">
+            </h3>
+            <dl className="text-sm space-y-1 mb-6">
               <div className="flex gap-2">
                 <dt className="text-muted-foreground min-w-[100px]">{language === 'en' ? 'Name' : '名称'}</dt>
                 <dd className="text-foreground">{language === 'en' ? 'General Incorporated Association Kagawa Innovation Base' : '一般社団法人香川イノベーションベース'}</dd>
@@ -158,14 +158,112 @@ export default function Home() {
                 <dd className="text-foreground">{language === 'en' ? 'Takeshi Izuka, Shinichi Hosokawa' : '猪塚武、細川慎一'}</dd>
               </div>
               <div className="flex gap-2">
-                <dt className="text-muted-foreground min-w-[100px]">{language === 'en' ? 'Chairman' : '会長'}</dt>
-                <dd className="text-foreground">{language === 'en' ? 'Shinichi Hosokawa' : '細川慎一'}</dd>
-              </div>
-              <div className="flex gap-2">
                 <dt className="text-muted-foreground min-w-[100px]">{language === 'en' ? 'Address' : '住所'}</dt>
                 <dd className="text-foreground">{language === 'en' ? '1615 Kamimae, Sangawa-cho, Sanuki City, Kagawa 769-2323, Japan' : '〒769-2323 香川県さぬき市寒川町神前1615'}</dd>
               </div>
             </dl>
+
+            <h4 className="text-base font-bold text-primary mb-4 border-b border-primary/20 pb-2">
+              {language === 'en' ? 'Leadership & Committees' : '役員・委員会'}
+            </h4>
+
+            {/* Chairman */}
+            <div className="mb-5 p-4 bg-white rounded-lg border border-primary/20">
+              <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">
+                {language === 'en' ? 'Chairman' : '会長'}
+              </p>
+              <p className="text-foreground font-semibold">
+                {language === 'en' ? 'Shinichi Hosokawa' : '細川慎一'}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {language === 'en' ? 'HOSOKAWA Co., Ltd.' : '株式会社HOSOKAWA'}
+              </p>
+            </div>
+
+            {/* Committees Grid */}
+            <div className="grid md:grid-cols-2 gap-3">
+              {[
+                {
+                  role: { en: 'Strategic Alliance Chair', ja: 'アライアンス委員長' },
+                  members: [
+                    { name: { en: 'Shinji Tateno', ja: '立野 新治' }, company: { en: 'hospy Inc.', ja: 'hospy株式会社' }, sub: false },
+                  ],
+                },
+                {
+                  role: { en: 'Learning Chair', ja: 'ラーニング委員長' },
+                  members: [
+                    { name: { en: 'Kazuya Sasaki', ja: '佐々木一弥' }, company: { en: 'Regent Inc.', ja: '株式会社リージェント' }, sub: false },
+                    { name: { en: 'Kentaro Yamada', ja: '山田健太郎' }, company: { en: 'Re. Asset DAO LLC', ja: 'Re. Asset DAO合同会社' }, sub: true },
+                  ],
+                },
+                {
+                  role: { en: 'Forum & Integration Chair', ja: 'フォーラム・インテグレーション委員長' },
+                  members: [
+                    { name: { en: 'Taijiro Kusunoki', ja: '楠木泰二朗' }, company: { en: 'Kotohira Bus Co., Ltd.', ja: '琴平バス株式会社' }, sub: false },
+                  ],
+                },
+                {
+                  role: { en: 'Membership Chair', ja: 'メンバーシップ委員長' },
+                  members: [
+                    { name: { en: 'Takashi Abe', ja: '安部貴士' }, company: { en: 'Kotatsu Inc.', ja: '株式会社火燵' }, sub: false },
+                    { name: { en: 'Takeo Kawanishi', ja: '川西健雄' }, company: { en: 'Bit Communications Inc.', ja: '株式会社ビットコミュニケーションズ' }, sub: true },
+                    { name: { en: 'Tetsutaka Inoue', ja: '井上哲貴' }, company: { en: 'HelpHR LLC', ja: '合同会社HelpHR' }, sub: true },
+                    { name: { en: 'Yuta Kakeda', ja: '欠田悠太' }, company: { en: 'Kagawa University', ja: '香川大学' }, sub: true },
+                  ],
+                },
+                {
+                  role: { en: 'Communication Chair', ja: '広報・情報委員長' },
+                  members: [
+                    { name: { en: 'Isayo Nagahara', ja: '永原いさよ' }, company: { en: '', ja: '' }, sub: false },
+                    { name: { en: 'Yuiko Kanto', ja: '管東佑衣子' }, company: { en: '', ja: '' }, sub: true },
+                  ],
+                },
+                {
+                  role: { en: 'Mentoring Chair', ja: 'メンタリング委員長' },
+                  members: [
+                    { name: { en: 'Shinichi Hosokawa (concurrent)', ja: '細川慎一（兼任）' }, company: { en: '', ja: '' }, sub: false },
+                  ],
+                },
+                {
+                  role: { en: 'English Chair', ja: '海外委員長' },
+                  members: [
+                    { name: { en: 'Rohan Shetty', ja: 'Rohan Shetty' }, company: { en: 'ICMT Inc.', ja: 'ICMT株式会社' }, sub: false },
+                  ],
+                },
+                {
+                  role: { en: 'Annual Conference Chair', ja: '年次総会委員長' },
+                  members: [
+                    { name: { en: 'Takeshi Izuka', ja: '猪塚武' }, company: { en: 'vKirirom Japan Inc.', ja: 'vKirirom Japan株式会社' }, sub: false },
+                  ],
+                },
+              ].map((committee, i) => (
+                <div key={i} className="p-3 bg-white rounded border border-border">
+                  <p className="text-xs font-semibold text-accent mb-2">{committee.role[language]}</p>
+                  <div className="space-y-1">
+                    {committee.members.map((m, j) => (
+                      <div key={j} className="flex items-baseline gap-2">
+                        {m.sub && <span className="text-xs text-muted-foreground">{language === 'en' ? 'Vice' : '副'}</span>}
+                        <p className="text-sm text-foreground font-medium">{m.name[language]}</p>
+                        {m.company[language] && <p className="text-xs text-muted-foreground">{m.company[language]}</p>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Secretary General */}
+            <div className="mt-3 p-4 bg-white rounded-lg border border-border">
+              <p className="text-xs font-semibold text-accent mb-1">
+                {language === 'en' ? 'Secretary General' : '事務局長'}
+              </p>
+              <p className="text-foreground font-medium text-sm">
+                {language === 'en' ? 'Shuichiro Murati' : '邑地秀一郎'}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {language === 'en' ? 'Takamatsu Otemae High School' : '高松大手前高校'}
+              </p>
+            </div>
           </div>
         </div>
       </section>
