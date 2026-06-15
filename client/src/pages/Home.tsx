@@ -175,9 +175,9 @@ export default function Home() {
               <p className="text-foreground font-semibold">
                 {language === 'en' ? 'Shinichi Hosokawa' : '細川慎一'}
               </p>
-              <p className="text-xs text-muted-foreground">
+              <a href="https://www.mrlauncher.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:text-primary/80 hover:underline transition">
                 {language === 'en' ? 'HOSOKAWA Co., Ltd.' : '株式会社HOSOKAWA'}
-              </p>
+              </a>
             </div>
 
             {/* Committees Grid */}
@@ -186,54 +186,54 @@ export default function Home() {
                 {
                   role: { en: 'Strategic Alliance Chair', ja: 'アライアンス委員長' },
                   members: [
-                    { name: { en: 'Shinji Tateno', ja: '立野 新治' }, company: { en: 'hospy Inc.', ja: 'hospy株式会社' }, sub: false },
+                    { name: { en: 'Shinji Tateno', ja: '立野 新治' }, company: { en: 'hospy Inc.', ja: 'hospy株式会社' }, href: 'https://hospy.co.jp/', sub: false },
                   ],
                 },
                 {
                   role: { en: 'Learning Chair', ja: 'ラーニング委員長' },
                   members: [
-                    { name: { en: 'Kazuya Sasaki', ja: '佐々木一弥' }, company: { en: 'Regent Inc.', ja: '株式会社リージェント' }, sub: false },
-                    { name: { en: 'Kentaro Yamada', ja: '山田健太郎' }, company: { en: 'Re. Asset DAO LLC', ja: 'Re. Asset DAO合同会社' }, sub: true },
+                    { name: { en: 'Kazuya Sasaki', ja: '佐々木一弥' }, company: { en: 'Regent Inc.', ja: '株式会社リージェント' }, href: 'https://www.r-regent.jp/', sub: false },
+                    { name: { en: 'Kentaro Yamada', ja: '山田健太郎' }, company: { en: 'Re. Asset DAO LLC', ja: 'Re. Asset DAO合同会社' }, href: 'https://reasset-dao.webflow.io/#about', sub: true },
                   ],
                 },
                 {
                   role: { en: 'Forum & Integration Chair', ja: 'フォーラム・インテグレーション委員長' },
                   members: [
-                    { name: { en: 'Taijiro Kusunoki', ja: '楠木泰二朗' }, company: { en: 'Kotohira Bus Co., Ltd.', ja: '琴平バス株式会社' }, sub: false },
+                    { name: { en: 'Taijiro Kusunoki', ja: '楠木泰二朗' }, company: { en: 'Kotohira Bus Co., Ltd.', ja: '琴平バス株式会社' }, href: 'https://www.kotobus.com/', sub: false },
                   ],
                 },
                 {
                   role: { en: 'Membership Chair', ja: 'メンバーシップ委員長' },
                   members: [
-                    { name: { en: 'Takashi Abe', ja: '安部貴士' }, company: { en: 'Kotatsu Inc.', ja: '株式会社火燵' }, sub: false },
-                    { name: { en: 'Takeo Kawanishi', ja: '川西健雄' }, company: { en: 'Bit Communications Inc.', ja: '株式会社ビットコミュニケーションズ' }, sub: true },
-                    { name: { en: 'Tetsutaka Inoue', ja: '井上哲貴' }, company: { en: 'HelpHR LLC', ja: '合同会社HelpHR' }, sub: true },
-                    { name: { en: 'Yuta Kakeda', ja: '欠田悠太' }, company: { en: 'Kagawa University', ja: '香川大学' }, sub: true },
+                    { name: { en: 'Takashi Abe', ja: '安部貴士' }, company: { en: 'Kotatsu Inc.', ja: '株式会社火燵' }, href: 'https://kotatsu.info/', sub: false },
+                    { name: { en: 'Takeo Kawanishi', ja: '川西健雄' }, company: { en: 'Bit Communications Inc.', ja: '株式会社ビットコミュニケーションズ' }, href: 'https://bitcommunications.info/', sub: true },
+                    { name: { en: 'Tetsutaka Inoue', ja: '井上哲貴' }, company: { en: 'HelpHR LLC', ja: '合同会社HelpHR' }, href: 'https://helphr.jp/', sub: true },
+                    { name: { en: 'Yuta Kakeda', ja: '欠田悠太' }, company: { en: 'Kagawa University', ja: '香川大学' }, href: 'https://www.kagawa-u.ac.jp/', sub: true },
                   ],
                 },
                 {
                   role: { en: 'Communication Chair', ja: '広報・情報委員長' },
                   members: [
-                    { name: { en: 'Isayo Nagahara', ja: '永原いさよ' }, company: { en: '', ja: '' }, sub: false },
-                    { name: { en: 'Yuiko Kanto', ja: '管東佑衣子' }, company: { en: '', ja: '' }, sub: true },
+                    { name: { en: 'Isayo Nagahara', ja: '永原いさよ' }, company: { en: 'Ernest Japan Inc.', ja: '株式会社エルネストジャパン' }, href: 'https://www.ernestjapan.com/', sub: false },
+                    { name: { en: 'Yuiko Kanto', ja: '管東佑衣子' }, company: { en: 'Bar Tenderly', ja: '縁結びばーテンダリー' }, href: 'https://bar-tenderly.com/', sub: true },
                   ],
                 },
                 {
                   role: { en: 'Mentoring Chair', ja: 'メンタリング委員長' },
                   members: [
-                    { name: { en: 'Shinichi Hosokawa (concurrent)', ja: '細川慎一（兼任）' }, company: { en: '', ja: '' }, sub: false },
+                    { name: { en: 'Shinichi Hosokawa (concurrent)', ja: '細川慎一（兼任）' }, company: { en: '', ja: '' }, href: '', sub: false },
                   ],
                 },
                 {
                   role: { en: 'English Chair', ja: '海外委員長' },
                   members: [
-                    { name: { en: 'Rohan Shetty', ja: 'Rohan Shetty' }, company: { en: 'ICMT Inc.', ja: 'ICMT株式会社' }, sub: false },
+                    { name: { en: 'Rohan Shetty', ja: 'Rohan Shetty' }, company: { en: 'ICMT Inc.', ja: 'ICMT株式会社' }, href: 'https://www.linkedin.com/company/icmt-japan/', sub: false },
                   ],
                 },
                 {
                   role: { en: 'Annual Conference Chair', ja: '年次総会委員長' },
                   members: [
-                    { name: { en: 'Takeshi Izuka', ja: '猪塚武' }, company: { en: 'vKirirom Japan Inc.', ja: 'vKirirom Japan株式会社' }, sub: false },
+                    { name: { en: 'Takeshi Izuka', ja: '猪塚武' }, company: { en: 'vKirirom Japan Inc.', ja: 'vKirirom Japan株式会社' }, href: 'https://izuka.net/', sub: false },
                   ],
                 },
               ].map((committee, i) => (
@@ -241,10 +241,14 @@ export default function Home() {
                   <p className="text-xs font-semibold text-accent mb-2">{committee.role[language]}</p>
                   <div className="space-y-1">
                     {committee.members.map((m, j) => (
-                      <div key={j} className="flex items-baseline gap-2">
+                      <div key={j} className="flex items-baseline gap-2 flex-wrap">
                         {m.sub && <span className="text-xs text-muted-foreground">{language === 'en' ? 'Vice' : '副'}</span>}
                         <p className="text-sm text-foreground font-medium">{m.name[language]}</p>
-                        {m.company[language] && <p className="text-xs text-muted-foreground">{m.company[language]}</p>}
+                        {m.company[language] && (
+                          m.href
+                            ? <a href={m.href} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:text-primary/80 hover:underline transition">{m.company[language]}</a>
+                            : <p className="text-xs text-muted-foreground">{m.company[language]}</p>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -260,9 +264,9 @@ export default function Home() {
               <p className="text-foreground font-medium text-sm">
                 {language === 'en' ? 'Shuichiro Murati' : '邑地秀一郎'}
               </p>
-              <p className="text-xs text-muted-foreground">
+              <a href="https://www.otemae.net/" target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:text-primary/80 hover:underline transition">
                 {language === 'en' ? 'Takamatsu Otemae High School' : '高松大手前高校'}
-              </p>
+              </a>
             </div>
           </div>
         </div>
