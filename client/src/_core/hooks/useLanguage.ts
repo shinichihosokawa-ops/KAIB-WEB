@@ -18,8 +18,8 @@ const translations: Record<string, Record<string, string>> = {
     en: "News & Events",
   },
   "nav.media": {
-    ja: "メディア掲載",
-    en: "Media",
+    ja: "メディア掲載・過去のイベント動画",
+    en: "Media & Event Videos",
   },
   "nav.newsletter": {
     ja: "メルマガ",

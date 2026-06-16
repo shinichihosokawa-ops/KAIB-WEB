@@ -37,41 +37,44 @@ export default function Media() {
             }
           </p>
 
-          {/* Event Video */}
-          <Card className="p-8 mb-8 bg-gradient-to-br from-blue-50 to-indigo-50 border-l-4 border-l-primary">
-            <h2 className="text-2xl font-bold text-foreground mb-4">
-              {language === 'en' ? 'KAIB 2026 KICK OFF Event' : 'KAIB 2026 キックオフイベント'}
-            </h2>
-            <div className="mb-6 aspect-video rounded-lg overflow-hidden shadow-lg">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/mkbSZu-rBWc"
-                title={language === 'en' ? 'KAIB 2026 KICK OFF Event' : 'KAIB 2026 キックオフイベント'}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {language === 'en'
-                ? 'Full event video from May 14, 2026. Featuring speeches, introductions, and networking highlights from KAIB\'s official launch event in Sanuki City, Kagawa.'
-                : '2026年5月14日の香川県さぬき市での公式ローンチイベントの映像。スピーチ、組織紹介、ネットワーキングのハイライトをご覧ください。'
-              }
-            </p>
-          </Card>
-
-          {/* KICK OFF Event Coverage */}
-          <Card className="p-8 mb-8">
-            <h2 className="text-2xl font-bold text-foreground mb-2">
-              KAIB 2026 KICK OFF!
+          {/* KAIB Kickoff Event - Unified Section */}
+          <Card className="p-8 mb-8 border-l-4 border-l-primary">
+            <h2 className="text-3xl font-bold text-primary mb-2">
+              {language === 'en' ? 'KAIB Kickoff event' : 'KAIB Kickoff event'}
             </h2>
             <p className="text-sm text-muted-foreground mb-8">
-              {language === 'en'
-                ? 'May 14, 2026 — Sanuki City, Kagawa Prefecture'
-                : '2026年5月14日 — 香川県さぬき市にて開催'
-              }
+              {language === 'en' ? '2026/5/14' : '2026/5/14'}
             </p>
+
+            {/* Event Video Subsection */}
+            <div className="mb-10 pb-8 border-b border-border">
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                {language === 'en' ? 'Event Video' : 'イベント動画'}
+              </h3>
+              <div className="mb-4 aspect-video rounded-lg overflow-hidden shadow-lg bg-gray-900">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/mkbSZu-rBWc"
+                  title={language === 'en' ? 'KAIB 2026 KICK OFF Event' : 'KAIB 2026 キックオフイベント'}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {language === 'en'
+                  ? 'Full event video from May 14, 2026. Featuring speeches, introductions, and networking highlights from KAIB\'s official launch event in Sanuki City, Kagawa.'
+                  : '2026年5月14日の香川県さぬき市での公式ローンチイベントの映像。スピーチ、組織紹介、ネットワーキングのハイライトをご覧ください。'
+                }
+              </p>
+            </div>
+
+            {/* Media Coverage Subsection */}
+            <div>
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                {language === 'en' ? 'Media Coverage' : 'メディア掲載'}
+              </h3>
 
             <div className="space-y-4">
               {[
@@ -139,6 +142,7 @@ export default function Media() {
                   <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
                 </a>
               ))}
+            </div>
             </div>
           </Card>
 
