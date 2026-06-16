@@ -323,11 +323,17 @@ export default function WhatsNew() {
               </div>
             </div>
 
-            {/* Coming Soon Button */}
+            {/* Apply Button */}
             <div className="mb-8">
-              <Button size="lg" disabled className="w-full">
-                {language === 'en' ? 'Coming Soon' : 'Coming Soon（準備中）'}
-              </Button>
+              <a
+                href="https://kaib0703.peatix.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
+                  {language === 'en' ? 'Apply for Monthly Meeting (Peatix)' : '月例会に申し込む（Peatix）'}
+                </Button>
+              </a>
             </div>
 
           </Card>
