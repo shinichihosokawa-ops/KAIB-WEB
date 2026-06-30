@@ -79,11 +79,11 @@ export default function Media() {
             <div className="space-y-4">
               {[
                 {
-                  href: 'https://news.ntv.co.jp/n/rnc/category/society/rne502855c6e2d4b0295b1d154eaa3f951',
-                  outlet: { en: 'RNC NEWS NNN (TV)', ja: 'RNC NEWS NNN（テレビ）' },
+                  href: 'https://youtu.be/yyxi2_tdgNo',
+                  outlet: { en: 'RNC NEWS (TV)', ja: 'RNC NEWS（テレビ）' },
                   title: {
-                    en: 'New organization founded by Kagawa-linked entrepreneurs to support startups (May 14, 2026)',
-                    ja: '起業を支援　香川県ゆかりの経営による新団体発足（2026年5月14日掲載）',
+                    en: 'RNC NEWS Coverage - KAIB 2026 KICK OFF (May 14, 2026)',
+                    ja: 'RNC NEWS報道 - KAIB 2026 KICK OFF（2026年5月14日放映）',
                   },
                   icon: <Tv className="w-5 h-5 text-accent" />,
                   iconBg: 'bg-accent/10',
