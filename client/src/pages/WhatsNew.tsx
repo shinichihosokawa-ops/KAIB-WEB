@@ -69,7 +69,7 @@ export default function WhatsNew() {
                   month: { en: 'Sep', ja: '9月' },
                   date: { en: 'Sep 6 (Sun)', ja: '9/6（日）' },
                   title: { en: 'Expanded Monthly Meeting', ja: '拡大版月例会' },
-                  subtitle: { en: '"Kagawa Startup Festa 2026 & Kyosaï"', ja: '「香川スタートアップフェスタ２０２６と共済」' },
+                  subtitle: { en: '"Co-hosted with Kagawa Startup Festa 2026"', ja: '「香川スタートアップフェスタ２０２６と共催」' },
                   href: 'https://www.pref.kagawa.lg.jp/sangyo/shinki/sufesta2026prbooth.html',
                   type: 'special' as const,
                 },
