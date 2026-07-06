@@ -59,9 +59,8 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
               {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className={`text-sm transition flex items-center gap-1 ${
                 link.active ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-              } ${link.icon ? "bg-primary/10 px-3 py-1.5 rounded-full font-semibold text-primary hover:bg-primary/20" : ""}`}
+              }`}
             >
-              {link.icon && <Mail className="w-3.5 h-3.5" />}
               {link.label}
             </a>
           ))}
@@ -106,10 +105,9 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
                 {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className={`text-base py-2 transition flex items-center gap-2 ${
                   link.active ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-                } ${link.icon ? "text-primary font-semibold" : ""}`}
+                }`}
                 onClick={() => setMenuOpen(false)}
               >
-                {link.icon && <Mail className="w-4 h-4" />}
                 {link.label}
               </a>
             ))}
