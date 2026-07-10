@@ -185,7 +185,7 @@ const SCHEDULE: ScheduleItem[] = [
     date: { en: "Sep 6 (Sun)", ja: "9/6（日）" },
     title: { en: "Expanded Monthly Meeting", ja: "拡大版月例会" },
     subtitle: { en: '"Co-hosted with Kagawa Startup Festa 2026"', ja: "「香川スタートアップフェスタ２０２６と共催」" },
-    href: "https://www.pref.kagawa.lg.jp/sangyo/shinki/sufesta2026prbooth.html",
+    href: "https://startupfesta.pref.kagawa.lg.jp/",
     type: "special",
   },
   { date: { en: "Oct 2 (Fri)", ja: "10/2（金）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
