@@ -297,6 +297,42 @@ export default function WhatsNew() {
             </div>
           </Card>
 
+          {/* Setouchi Summit 2026 */}
+          <Card className="p-8 mb-8 border-l-4 border-l-accent">
+            <EventHeader
+              title={{ en: "Setouchi Summit 2026", ja: "Setouchi Summit 2026" }}
+              date={{ en: "August 21, 2026", ja: "2026年8月21日（金）開催" }}
+              status={{ en: "Upcoming", ja: "開催予定" }}
+            />
+
+            <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
+              <p className="text-foreground leading-relaxed font-semibold">
+                {language === "en"
+                  ? "A joint event co-hosted by the Setouchi-area Innovation Bases (IB) and EO SETOUCHI."
+                  : "瀬戸内エリアのイノベーションベース（IB）と EO SETOUCHI の共同開催イベントです。"}
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <DateTime date={{ en: "Friday, August 21, 2026", ja: "8月21日（金）" }} time={{ en: "1:00 PM - 8:00 PM", ja: "13:00〜20:00" }} />
+              <div className="flex gap-4">
+                <MapPin className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-semibold text-foreground mb-2">{language === "en" ? "Venue" : "会場"}</h4>
+                  <p className="text-muted-foreground text-sm">{language === "en" ? "Tokushima City" : "徳島市"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <a href="https://setouchisummit20260821tokushima.peatix.com/" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
+                  {language === "en" ? "Event Details & Registration (Peatix)" : "イベント詳細・お申し込み（Peatix）"}
+                </Button>
+              </a>
+            </div>
+          </Card>
+
           {/* Third Event Card — July */}
           <Card className="p-8 mb-8 border-l-4 border-l-primary">
             <EventHeader
