@@ -188,14 +188,14 @@ const SCHEDULE: ScheduleItem[] = [
     href: "https://startupfesta.pref.kagawa.lg.jp/",
     type: "special",
   },
-  { date: { en: "Oct 2 (Fri)", ja: "10/2（金）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
+  { date: { en: "Oct 14 (Wed)", ja: "10/14（水）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
   {
     date: { en: "Oct 8-9 (Thu-Fri)", ja: "10/8-9（木-金）" },
     title: { en: "LEC Yamanashi", ja: "LEC山梨" },
     href: "https://www.yamanashi-lec.com/",
     type: "special",
   },
-  { date: { en: "Nov 6 (Fri)", ja: "11/6（金）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
+  { date: { en: "November (TBD)", ja: "11月（未定）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
   {
     date: { en: "Dec 18 (Fri)", ja: "12/18（金）" },
     title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
