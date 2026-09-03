@@ -355,12 +355,7 @@ export default function WhatsNew() {
             </div>
 
             <FeeTable />
-
-            <div className="mb-8">
-              <Button size="lg" disabled className="w-full">
-                {language === "en" ? "Coming Soon" : "Coming Soon（準備中）"}
-              </Button>
-            </div>
+            <ApplyButton href="https://kaib1013.peatix.com/" />
           </Card>
 
           {/* Setouchi Summit 2026 */}
