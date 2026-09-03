@@ -313,7 +313,7 @@ export default function WhatsNew() {
 
             <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
               <p className="text-lg font-bold text-primary leading-relaxed">
-                {language === "en" ? "— Featuring President Ono" : "〜 尾野社長 登壇 〜"}
+                {language === "en" ? "— Featuring Hiroki Ono, President & CEO" : "〜 代表取締役社長 尾野弘季 登壇 〜"}
               </p>
               <a
                 href="https://ono-farm.com/"
