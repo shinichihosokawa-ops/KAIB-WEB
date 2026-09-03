@@ -326,6 +326,24 @@ export default function WhatsNew() {
               </a>
             </div>
 
+            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+              <p className="text-foreground leading-relaxed mb-4">
+                {language === "en"
+                  ? 'From system engineer to farmer — Hiroki Ono, President & CEO of Ono Farm Co., Ltd., made a U-turn back to his hometown in Kagawa and now takes on the challenge of "bringing IT to agriculture" with an engineer\'s mindset.'
+                  : "元システムエンジニアから一転、香川にUターンして就農——株式会社尾野農園 代表取締役社長の尾野弘季さんは、エンジニアならではの発想で「農業のIT化」に挑み続けるユニークな経営者です。"}
+              </p>
+              <p className="text-foreground leading-relaxed mb-4">
+                {language === "en"
+                  ? "By combining weather data with past work records to optimize the next day's field plans, he has achieved a stable supply of open-field vegetables (green onions, sweet corn, broccoli and more) that were once heavily dependent on the weather — rewriting the conventional wisdom of farming with technology."
+                  : "気象データと過去の作業実績を組み合わせて翌日の作業計画を最適化し、天候に左右されやすい露地野菜（青ネギ・スイートコーン・ブロッコリーなど）の安定供給を実現。テクノロジーで農業の常識を塗り替えてきた、注目の経営者です。"}
+              </p>
+              <p className="text-foreground leading-relaxed">
+                {language === "en"
+                  ? "In this session, he will share his unique journey, the real challenges facing Japanese agriculture — labor shortages, climate change and more — and the future he envisions beyond them. A talk packed with hints for the next generation of primary industry, seen through the rare lens of an engineer-turned-farmer. Don't miss it!"
+                  : "本セッションでは、その歩みと、人手不足や気候変動など日本の農業が直面するリアルな課題、そしてその先に描く未来についてたっぷりと語っていただきます。エンジニア×農業という異色のキャリアから見える、これからの一次産業のヒントが満載です。ぜひご参加ください！"}
+              </p>
+            </div>
+
             <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
               <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Talk Themes" : "トークテーマ"}</h3>
               <BulletList items={OCT_THEMES} />
