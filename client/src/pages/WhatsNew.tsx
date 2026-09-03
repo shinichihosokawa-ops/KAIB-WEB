@@ -315,6 +315,15 @@ export default function WhatsNew() {
               <p className="text-lg font-bold text-primary leading-relaxed">
                 {language === "en" ? "— Featuring President Ono" : "〜 尾野社長 登壇 〜"}
               </p>
+              <a
+                href="https://ono-farm.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-primary hover:text-primary/80 hover:underline inline-flex items-center gap-1 mt-1 transition"
+              >
+                {language === "en" ? "Ono Farm Co., Ltd." : "株式会社 尾野農園"}
+                <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
 
             <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
