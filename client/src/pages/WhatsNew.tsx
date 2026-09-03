@@ -188,7 +188,7 @@ const SCHEDULE: ScheduleItem[] = [
     href: "https://startupfesta.pref.kagawa.lg.jp/",
     type: "special",
   },
-  { date: { en: "Oct 14 (Wed)", ja: "10/14（水）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
+  { date: { en: "Oct 13 (Tue)", ja: "10/13（火）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
   {
     date: { en: "Oct 8-9 (Thu-Fri)", ja: "10/8-9（木-金）" },
     title: { en: "LEC Yamanashi", ja: "LEC山梨" },
@@ -201,6 +201,12 @@ const SCHEDULE: ScheduleItem[] = [
     title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
     type: "special",
   },
+];
+
+/** Talk themes for the October meeting (President Ono). */
+const OCT_THEMES: L[] = [
+  { en: "Career history so far", ja: "これまでの経歴" },
+  { en: "Current challenges and opportunities in the agriculture industry", ja: "現在の農業産業の課題とチャレンジ" },
 ];
 
 /** Talk themes for the 3rd (July) meeting. */
@@ -294,6 +300,39 @@ export default function WhatsNew() {
                   </div>
                 </div>
               ))}
+            </div>
+          </Card>
+
+          {/* October Monthly Meeting — President Ono */}
+          <Card className="p-8 mb-8 border-l-4 border-l-primary">
+            <EventHeader
+              title={{ en: "Monthly Meeting", ja: "月例会" }}
+              date={{ en: "October 13, 2026", ja: "2026年10月13日（火）開催" }}
+              status={{ en: "Upcoming", ja: "開催予定" }}
+            />
+
+            <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+              <p className="text-lg font-bold text-primary leading-relaxed">
+                {language === "en" ? "— Featuring President Ono" : "〜 尾野社長 登壇 〜"}
+              </p>
+            </div>
+
+            <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
+              <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Talk Themes" : "トークテーマ"}</h3>
+              <BulletList items={OCT_THEMES} />
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <DateTime date={{ en: "Tuesday, October 13, 2026", ja: "10月13日（火）" }} time={{ en: "7:00 PM -", ja: "19:00～" }} />
+              <Venue />
+            </div>
+
+            <FeeTable />
+
+            <div className="mb-8">
+              <Button size="lg" disabled className="w-full">
+                {language === "en" ? "Coming Soon" : "Coming Soon（準備中）"}
+              </Button>
             </div>
           </Card>
 
