@@ -169,8 +169,28 @@ function ApplyButton({ href }: { href: string }) {
 
 type ScheduleItem = { date: L; title: L; subtitle?: L; href?: string; type: "monthly" | "special" };
 
+// Newest (latest date) first, oldest last.
 const SCHEDULE: ScheduleItem[] = [
-  { date: { en: "Jul 3 (Fri)", ja: "7/3（金）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
+  {
+    date: { en: "Dec 18 (Fri)", ja: "12/18（金）" },
+    title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
+    type: "special",
+  },
+  { date: { en: "November (TBD)", ja: "11月（未定）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
+  { date: { en: "Oct 13 (Tue)", ja: "10/13（火）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
+  {
+    date: { en: "Oct 8-9 (Thu-Fri)", ja: "10/8-9（木-金）" },
+    title: { en: "LEC Yamanashi", ja: "LEC山梨" },
+    href: "https://www.yamanashi-lec.com/",
+    type: "special",
+  },
+  {
+    date: { en: "Sep 6 (Sun)", ja: "9/6（日）" },
+    title: { en: "Expanded Monthly Meeting", ja: "拡大版月例会" },
+    subtitle: { en: '"Co-hosted with Kagawa Startup Festa 2026"', ja: "「香川スタートアップフェスタ２０２６と共催」" },
+    href: "https://startupfesta.pref.kagawa.lg.jp/",
+    type: "special",
+  },
   {
     date: { en: "Aug 21 (Fri)", ja: "8/21（金）" },
     title: { en: "Setouchi Summit", ja: "Setouchi Summit" },
@@ -181,26 +201,7 @@ const SCHEDULE: ScheduleItem[] = [
     href: "https://setouchisummit20260821tokushima.peatix.com/",
     type: "special",
   },
-  {
-    date: { en: "Sep 6 (Sun)", ja: "9/6（日）" },
-    title: { en: "Expanded Monthly Meeting", ja: "拡大版月例会" },
-    subtitle: { en: '"Co-hosted with Kagawa Startup Festa 2026"', ja: "「香川スタートアップフェスタ２０２６と共催」" },
-    href: "https://startupfesta.pref.kagawa.lg.jp/",
-    type: "special",
-  },
-  { date: { en: "Oct 13 (Tue)", ja: "10/13（火）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
-  {
-    date: { en: "Oct 8-9 (Thu-Fri)", ja: "10/8-9（木-金）" },
-    title: { en: "LEC Yamanashi", ja: "LEC山梨" },
-    href: "https://www.yamanashi-lec.com/",
-    type: "special",
-  },
-  { date: { en: "November (TBD)", ja: "11月（未定）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
-  {
-    date: { en: "Dec 18 (Fri)", ja: "12/18（金）" },
-    title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
-    type: "special",
-  },
+  { date: { en: "Jul 3 (Fri)", ja: "7/3（金）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
 ];
 
 /** Talk themes for the October meeting (President Ono). */
