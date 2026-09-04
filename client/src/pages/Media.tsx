@@ -146,6 +146,47 @@ export default function Media() {
             </div>
           </Card>
 
+          {/* Setouchi Summit 2026 */}
+          <Card className="p-8 mb-8 border-l-4 border-l-accent">
+            <h2 className="text-2xl font-bold text-foreground mb-2">
+              Setouchi Summit 2026
+            </h2>
+            <p className="text-sm text-muted-foreground mb-6">
+              {language === 'en'
+                ? 'August 21, 2026 — Tokushima｜Co-hosted by Setouchi-area IBs and EO SETOUCHI'
+                : '2026年8月21日 — 徳島市｜瀬戸内エリアIB + EO SETOUCHI 共同開催'
+              }
+            </p>
+
+            <h3 className="text-xl font-bold text-foreground mb-4">
+              {language === 'en' ? 'Media Coverage' : 'メディア掲載'}
+            </h3>
+            <div className="space-y-4">
+              <a
+                href="https://www.nikkei.com/article/DGXZQOCC194FH0Z10C26A8000000/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-5 bg-card border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition group"
+              >
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                  <FileText className="w-5 h-5 text-accent" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition">
+                    {language === 'en' ? 'The Nikkei' : '日本経済新聞'}
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {language === 'en'
+                      ? 'Chugoku-Shikoku entrepreneur groups hold Setouchi\'s first large-scale gathering — discussing new ventures and AI (Aug 2026)'
+                      : '中四国の起業家育成団体、瀬戸内初の大型会合　新規事業やAI活用語る（2026年8月掲載）'
+                    }
+                  </p>
+                </div>
+                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition flex-shrink-0" />
+              </a>
+            </div>
+          </Card>
+
           {/* Media Inquiry */}
           <Card className="p-8 mb-8 border-l-4 border-l-primary">
             <div className="flex items-center gap-3 mb-4">
