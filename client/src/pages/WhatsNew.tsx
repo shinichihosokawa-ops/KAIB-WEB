@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { MapPin, Clock, Users, ExternalLink, Instagram, CalendarDays } from "lucide-react";
+import { MapPin, Clock, Users, ExternalLink, Instagram, CalendarDays, ChevronDown } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useSEO } from "@/_core/hooks/useSEO";
 
@@ -13,25 +13,60 @@ type L = { en: string; ja: string };
 /* Reusable pieces shared by every monthly-meeting card                */
 /* ------------------------------------------------------------------ */
 
-/** Card header: title + date + status badge. `ended` switches to the grey theme. */
-function EventHeader({ title, date, status, ended = false }: { title: L; date: L; status: L; ended?: boolean }) {
+/**
+ * One event as a collapsible card. The header (title / date / status) is always
+ * visible so the page stays scannable; the body opens on click.
+ * `ended` switches to the grey theme, `accent` to the orange left border.
+ */
+function EventCard({
+  id,
+  title,
+  date,
+  status,
+  ended = false,
+  accent = false,
+  defaultOpen = true,
+  children,
+}: {
+  id: string;
+  title: L;
+  date: L;
+  status: L;
+  ended?: boolean;
+  accent?: boolean;
+  defaultOpen?: boolean;
+  children: ReactNode;
+}) {
   const { language } = useLanguage();
   return (
-    <div className="flex items-start justify-between mb-6">
-      <div>
-        <h2 className={`text-3xl font-bold mb-2 ${ended ? "text-muted-foreground" : "text-primary"}`}>
-          {title[language]}
-        </h2>
-        <p className="text-sm text-muted-foreground">{date[language]}</p>
-      </div>
-      <span
-        className={`inline-block px-4 py-2 font-semibold rounded-full text-sm ${
-          ended ? "bg-muted text-muted-foreground" : "bg-accent/10 text-accent"
-        }`}
-      >
-        {status[language]}
-      </span>
-    </div>
+    <Card
+      id={id}
+      className={`mb-6 p-0 gap-0 overflow-hidden scroll-mt-24 border-l-4 ${
+        ended ? "border-l-muted-foreground/30" : accent ? "border-l-accent" : "border-l-primary"
+      }`}
+    >
+      <details open={defaultOpen} className="group">
+        <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-6 transition hover:bg-muted/40 sm:px-8">
+          <div className="min-w-0">
+            <h2 className={`mb-1 text-2xl font-bold sm:text-3xl ${ended ? "text-muted-foreground" : "text-primary"}`}>
+              {title[language]}
+            </h2>
+            <p className="text-sm text-muted-foreground">{date[language]}</p>
+          </div>
+          <div className="flex flex-shrink-0 items-center gap-3">
+            <span
+              className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
+                ended ? "bg-muted text-muted-foreground" : "bg-accent/10 text-accent"
+              }`}
+            >
+              {status[language]}
+            </span>
+            <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180" />
+          </div>
+        </summary>
+        <div className="border-t border-border px-6 pt-6 pb-8 sm:px-8">{children}</div>
+      </details>
+    </Card>
   );
 }
 
@@ -167,41 +202,102 @@ function ApplyButton({ href }: { href: string }) {
 /* Annual schedule data                                                */
 /* ------------------------------------------------------------------ */
 
-type ScheduleItem = { date: L; title: L; subtitle?: L; href?: string; type: "monthly" | "special" };
+/** Speaker shown on a schedule row. `title` is the company / position line. */
+type Speaker = { name: L; title: L; href?: string };
+
+type ScheduleItem = {
+  /** Badge top line, e.g. "11月" / "NOV". */
+  month: L;
+  /** Badge day number (language-neutral), e.g. "27" or "8–9". */
+  day: string;
+  /** Badge bottom line, e.g. "金" / "Fri". */
+  weekday: L;
+  title: L;
+  subtitle?: L;
+  speaker?: Speaker;
+  /** External event page. */
+  href?: string;
+  /** In-page anchor to the detail card below, e.g. "#event-oct". */
+  detail?: string;
+  type: "monthly" | "special";
+};
 
 // Newest (latest date) first, oldest last.
 const SCHEDULE: ScheduleItem[] = [
   {
-    date: { en: "Dec 18 (Fri)", ja: "12/18（金）" },
+    month: { en: "DEC", ja: "12月" },
+    day: "18",
+    weekday: { en: "Fri", ja: "金" },
     title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
     type: "special",
   },
-  { date: { en: "November (TBD)", ja: "11月（未定）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
-  { date: { en: "Oct 13 (Tue)", ja: "10/13（火）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
   {
-    date: { en: "Oct 8-9 (Thu-Fri)", ja: "10/8-9（木-金）" },
+    month: { en: "NOV", ja: "11月" },
+    day: "27",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    speaker: {
+      name: { en: "Hideo Kuwahara", ja: "桑原英男 様" },
+      title: { en: "President & CEO, VISIA Inc.", ja: "株式会社ビジア 代表取締役" },
+      href: "https://visia.asia/",
+    },
+    type: "monthly",
+  },
+  {
+    month: { en: "OCT", ja: "10月" },
+    day: "13",
+    weekday: { en: "Tue", ja: "火" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    speaker: {
+      name: { en: "Hiroki Ono", ja: "尾野弘季 様" },
+      title: { en: "President & CEO, Ono Farm Co., Ltd.", ja: "株式会社尾野農園 代表取締役社長" },
+      href: "https://ono-farm.com/",
+    },
+    detail: "#event-oct",
+    type: "monthly",
+  },
+  {
+    month: { en: "OCT", ja: "10月" },
+    day: "8–9",
+    weekday: { en: "Thu–Fri", ja: "木・金" },
     title: { en: "LEC Yamanashi", ja: "LEC山梨" },
     href: "https://www.yamanashi-lec.com/",
     type: "special",
   },
   {
-    date: { en: "Sep 6 (Sun)", ja: "9/6（日）" },
+    month: { en: "SEP", ja: "9月" },
+    day: "6",
+    weekday: { en: "Sun", ja: "日" },
     title: { en: "Expanded Monthly Meeting", ja: "拡大版月例会" },
     subtitle: { en: '"Co-hosted with Kagawa Startup Festa 2026"', ja: "「香川スタートアップフェスタ２０２６と共催」" },
     href: "https://startupfesta.pref.kagawa.lg.jp/",
     type: "special",
   },
   {
-    date: { en: "Aug 21 (Fri)", ja: "8/21（金）" },
+    month: { en: "AUG", ja: "8月" },
+    day: "21",
+    weekday: { en: "Fri", ja: "金" },
     title: { en: "Setouchi Summit", ja: "Setouchi Summit" },
     subtitle: {
       en: "Joint event of Chushikoku IBs & EO Setouchi — Tokushima City, 1:00 PM – 8:00 PM",
       ja: "中四国のIBとEO Setouchiの合同イベント｜徳島市｜13:00〜20:00",
     },
     href: "https://setouchisummit20260821tokushima.peatix.com/",
+    detail: "#event-setouchi-summit",
     type: "special",
   },
-  { date: { en: "Jul 3 (Fri)", ja: "7/3（金）" }, title: { en: "Monthly Meeting", ja: "月例会" }, type: "monthly" },
+  {
+    month: { en: "JUL", ja: "7月" },
+    day: "3",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    speaker: {
+      name: { en: "Masaaki Fujii", ja: "藤井正章 様" },
+      title: { en: "President & CEO, Yamato Manufacturing Co., Ltd.", ja: "株式会社大和製作所 代表取締役社長" },
+    },
+    detail: "#event-jul",
+    type: "monthly",
+  },
 ];
 
 /** Talk themes for the October meeting (President Ono). */
@@ -268,49 +364,111 @@ export default function WhatsNew() {
                 {language === "en" ? "2026 Annual Schedule" : "2026年 年間スケジュール"}
               </h2>
             </div>
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-sm text-muted-foreground mb-4">
               {language === "en"
                 ? "Planned events for the rest of 2026. Details will be announced as dates approach."
                 : "2026年後半の予定です。詳細は開催日が近づきましたらお知らせいたします。"}
             </p>
-            <div className="space-y-0">
-              {SCHEDULE.map((event, i, arr) => (
-                <div key={i} className="flex items-stretch gap-4">
-                  <div className="flex flex-col items-center">
-                    <div className={`w-3 h-3 rounded-full flex-shrink-0 mt-1.5 ${event.type === "special" ? "bg-accent" : "bg-primary"}`} />
-                    {i < arr.length - 1 && <div className="w-px flex-1 bg-border" />}
-                  </div>
-                  <div className={`flex-1 pb-5 ${i === arr.length - 1 ? "pb-0" : ""}`}>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className="text-sm font-semibold text-foreground min-w-[120px]">{event.date[language]}</span>
-                      <span className={`text-sm ${event.type === "special" ? "font-semibold text-accent" : "text-foreground"}`}>
+
+            {/* Legend */}
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mb-6 text-xs text-muted-foreground">
+              <span className="inline-flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-primary" />
+                {language === "en" ? "Monthly meeting" : "月例会"}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+                {language === "en" ? "Special / joint event" : "特別・合同イベント"}
+              </span>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {SCHEDULE.map((event, i) => {
+                const special = event.type === "special";
+                return (
+                  <div
+                    key={i}
+                    className={`flex gap-4 rounded-lg border p-4 transition hover:shadow-sm ${
+                      special ? "border-accent/30 bg-accent/5" : "border-border bg-white"
+                    }`}
+                  >
+                    {/* Date badge */}
+                    <div
+                      className={`flex w-16 flex-shrink-0 flex-col items-center justify-center rounded-md py-2 ${
+                        special ? "bg-accent/15 text-accent" : "bg-primary/10 text-primary"
+                      }`}
+                    >
+                      <span className="text-[11px] font-semibold leading-none">{event.month[language]}</span>
+                      <span className="text-xl font-bold leading-tight">{event.day}</span>
+                      <span className="text-[11px] leading-none opacity-80">{event.weekday[language]}</span>
+                    </div>
+
+                    {/* Details */}
+                    <div className="min-w-0 flex-1">
+                      <p className={`text-sm font-semibold ${special ? "text-accent" : "text-foreground"}`}>
                         {event.title[language]}
-                      </span>
-                      {event.href && (
-                        <a
-                          href={event.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:text-primary/80 transition inline-flex items-center gap-1"
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
+                      </p>
+
+                      {event.speaker && (
+                        <div className="mt-1.5 text-xs text-muted-foreground">
+                          <p>
+                            {language === "en" ? "Speaker: " : "講師："}
+                            <span className="font-semibold text-foreground">{event.speaker.name[language]}</span>
+                          </p>
+                          {event.speaker.href ? (
+                            <a
+                              href={event.speaker.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-primary transition hover:underline"
+                            >
+                              {event.speaker.title[language]}
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          ) : (
+                            <p>{event.speaker.title[language]}</p>
+                          )}
+                        </div>
+                      )}
+
+                      {event.subtitle && (
+                        <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>
+                      )}
+
+                      {(event.detail || event.href) && (
+                        <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
+                          {event.detail && (
+                            <a href={event.detail} className="text-xs font-semibold text-primary transition hover:underline">
+                              {language === "en" ? "See details ↓" : "詳細を見る ↓"}
+                            </a>
+                          )}
+                          {event.href && (
+                            <a
+                              href={event.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
+                            >
+                              {language === "en" ? "Event page" : "イベントページ"}
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
+                        </div>
                       )}
                     </div>
-                    {event.subtitle && <p className="text-xs text-muted-foreground mt-1 ml-[132px]">{event.subtitle[language]}</p>}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </Card>
 
           {/* October Monthly Meeting — President Ono */}
-          <Card className="p-8 mb-8 border-l-4 border-l-primary">
-            <EventHeader
-              title={{ en: "Monthly Meeting", ja: "月例会" }}
-              date={{ en: "October 13, 2026", ja: "2026年10月13日（火）開催" }}
-              status={{ en: "Upcoming", ja: "開催予定" }}
-            />
+          <EventCard
+            id="event-oct"
+            title={{ en: "Monthly Meeting", ja: "月例会" }}
+            date={{ en: "October 13, 2026", ja: "2026年10月13日（火）開催" }}
+            status={{ en: "Upcoming", ja: "開催予定" }}
+          >
 
             <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
               <p className="text-lg font-bold text-primary leading-relaxed">
@@ -327,7 +485,7 @@ export default function WhatsNew() {
               </a>
             </div>
 
-            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
               <p className="text-foreground leading-relaxed mb-4">
                 {language === "en"
                   ? 'From system engineer to farmer — Hiroki Ono, President & CEO of Ono Farm Co., Ltd., made a U-turn back to his hometown in Kagawa and now takes on the challenge of "bringing IT to agriculture" with an engineer\'s mindset.'
@@ -357,15 +515,16 @@ export default function WhatsNew() {
 
             <FeeTable />
             <ApplyButton href="https://kaib1013.peatix.com/" />
-          </Card>
+          </EventCard>
 
           {/* Setouchi Summit 2026 */}
-          <Card className="p-8 mb-8 border-l-4 border-l-accent">
-            <EventHeader
-              title={{ en: "Setouchi Summit 2026", ja: "Setouchi Summit 2026" }}
-              date={{ en: "August 21, 2026", ja: "2026年8月21日（金）開催" }}
-              status={{ en: "Upcoming", ja: "開催予定" }}
-            />
+          <EventCard
+            id="event-setouchi-summit"
+            accent
+            title={{ en: "Setouchi Summit 2026", ja: "Setouchi Summit 2026" }}
+            date={{ en: "August 21, 2026", ja: "2026年8月21日（金）開催" }}
+            status={{ en: "Upcoming", ja: "開催予定" }}
+          >
 
             <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
               <p className="text-foreground leading-relaxed font-semibold">
@@ -393,15 +552,15 @@ export default function WhatsNew() {
                 </Button>
               </a>
             </div>
-          </Card>
+          </EventCard>
 
           {/* Third Event Card — July */}
-          <Card className="p-8 mb-8 border-l-4 border-l-primary">
-            <EventHeader
-              title={{ en: "3rd Monthly Meeting", ja: "第3回 月例会" }}
-              date={{ en: "July 3, 2026", ja: "2026年7月3日（金）開催" }}
-              status={{ en: "Upcoming", ja: "開催予定" }}
-            />
+          <EventCard
+            id="event-jul"
+            title={{ en: "3rd Monthly Meeting", ja: "第3回 月例会" }}
+            date={{ en: "July 3, 2026", ja: "2026年7月3日（金）開催" }}
+            status={{ en: "Upcoming", ja: "開催予定" }}
+          >
 
             {/* Title */}
             <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
@@ -418,7 +577,7 @@ export default function WhatsNew() {
             </div>
 
             {/* Lead Text */}
-            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
               <p className="text-foreground leading-relaxed mb-4">
                 {language === "en"
                   ? 'We are excited to welcome Mr. Masaaki Fujii, President & CEO of Yamato Manufacturing Co., Ltd., the top domestic manufacturer of compact noodle machines, spreading Japan\'s "noodle culture" to the world.'
@@ -471,18 +630,18 @@ export default function WhatsNew() {
 
             <FeeTable />
             <ApplyButton href="https://kaib0703.peatix.com/" />
-          </Card>
+          </EventCard>
 
           {/* Second Event Card — June */}
-          <Card className="p-8 mb-8 border-l-4 border-l-primary">
-            <EventHeader
-              title={{ en: "2nd Monthly Meeting", ja: "第2回 月例会" }}
-              date={{ en: "June 5, 2026", ja: "2026年6月5日（金）開催" }}
-              status={{ en: "Upcoming", ja: "開催予定" }}
-            />
+          <EventCard
+            id="event-jun"
+            title={{ en: "2nd Monthly Meeting", ja: "第2回 月例会" }}
+            date={{ en: "June 5, 2026", ja: "2026年6月5日（金）開催" }}
+            status={{ en: "Upcoming", ja: "開催予定" }}
+          >
 
             {/* Event Introduction */}
-            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
               <p className="text-foreground leading-relaxed mb-4">
                 {language === "en" ? "The KAIB 2nd Monthly Meeting will be held on June 5th!" : "KAIB第2回月例会を6月5日に開催いたします！"}
               </p>
@@ -529,19 +688,20 @@ export default function WhatsNew() {
 
             <FeeTable />
             <ApplyButton href="https://kaib20260605.peatix.com/" />
-          </Card>
+          </EventCard>
 
-          {/* First Event Card — April (ended) */}
-          <Card className="p-8 mb-8 border-l-4 border-l-muted-foreground/30">
-            <EventHeader
-              title={{ en: "First Monthly Meeting", ja: "第1回 月例会" }}
-              date={{ en: "April 3, 2026", ja: "2026年4月3日（金）開催" }}
-              status={{ en: "Ended", ja: "開催済み" }}
-              ended
-            />
+          {/* First Event Card — April (ended, collapsed by default) */}
+          <EventCard
+            id="event-apr"
+            title={{ en: "First Monthly Meeting", ja: "第1回 月例会" }}
+            date={{ en: "April 3, 2026", ja: "2026年4月3日（金）開催" }}
+            status={{ en: "Ended", ja: "開催済み" }}
+            ended
+            defaultOpen={false}
+          >
 
             {/* Event Introduction */}
-            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
               <p className="text-foreground leading-relaxed mb-4">
                 {language === "en"
                   ? "Hello everyone! Kagawa Innovation Base (KAIB) is now in full operation!"
@@ -653,7 +813,7 @@ export default function WhatsNew() {
                 {language === "en" ? "Registration Closed" : "受付終了"}
               </Button>
             </div>
-          </Card>
+          </EventCard>
 
           {/* Instagram */}
           <Card className="p-6 mb-8 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200">
