@@ -184,7 +184,7 @@ function AprilDetails() {
   return (
     <>
       {/* Event Introduction */}
-      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
         <p className="text-foreground leading-relaxed mb-4">
           {language === "en"
             ? "Hello everyone! Kagawa Innovation Base (KAIB) is now in full operation!"
@@ -305,7 +305,7 @@ function JuneDetails({ past }: DetailsProps) {
   return (
     <>
       {/* Event Introduction */}
-      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
         <p className="text-foreground leading-relaxed mb-4">
           {language === "en" ? "The KAIB 2nd Monthly Meeting will be held on June 5th!" : "KAIB第2回月例会を6月5日に開催いたします！"}
         </p>
@@ -375,7 +375,7 @@ function JulyDetails({ past }: DetailsProps) {
       </div>
 
       {/* Lead Text */}
-      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
         <p className="text-foreground leading-relaxed mb-4">
           {language === "en"
             ? 'We are excited to welcome Mr. Masaaki Fujii, President & CEO of Yamato Manufacturing Co., Ltd., the top domestic manufacturer of compact noodle machines, spreading Japan\'s "noodle culture" to the world.'
@@ -482,7 +482,7 @@ function OnoDetails({ past }: DetailsProps) {
         </a>
       </div>
 
-      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
         <p className="text-foreground leading-relaxed mb-4">
           {language === "en"
             ? 'From system engineer to farmer — Hiroki Ono, President & CEO of Ono Farm Co., Ltd., made a U-turn back to his hometown in Kagawa and now takes on the challenge of "bringing IT to agriculture" with an engineer\'s mindset.'
@@ -520,16 +520,27 @@ function OnoDetails({ past }: DetailsProps) {
 /* Annual schedule                                                     */
 /* ------------------------------------------------------------------ */
 
+/** Speaker shown on a schedule row. `title` is the company / position line. */
+type Speaker = { name: L; title: L; href?: string };
+
 type ScheduleItem = {
   id: string;
   /** Last day of the event (YYYY-MM-DD). Drives the past / upcoming status. */
   end: string;
-  date: L;
+  /** Badge top line, e.g. "11月" / "NOV". */
+  month: L;
+  /** Badge day number (language-neutral), e.g. "27" or "8–9". */
+  day: string;
+  /** Badge bottom line, e.g. "金" / "Fri". */
+  weekday: L;
   title: L;
   subtitle?: L;
+  speaker?: Speaker;
+  /** External event page. */
   href?: string;
-  type: "monthly" | "special";
+  /** Full event details, opened in place from the schedule row. */
   Details?: ComponentType<DetailsProps>;
+  type: "monthly" | "special";
 };
 
 // January → December. The first upcoming entry with details opens automatically.
@@ -537,47 +548,67 @@ const SCHEDULE: ScheduleItem[] = [
   {
     id: "2026-04-03",
     end: "2026-04-03",
-    date: { en: "Apr 3 (Fri)", ja: "4/3（金）" },
+    month: { en: "APR", ja: "4月" },
+    day: "3",
+    weekday: { en: "Fri", ja: "金" },
     title: { en: "1st Monthly Meeting", ja: "第1回 月例会" },
-    subtitle: { en: "Special speech by KAIB Chairman Shinichi Hosokawa", ja: "KAIB会長 細川慎一 特別スピーチ" },
-    type: "monthly",
+    speaker: {
+      name: { en: "Shinichi Hosokawa", ja: "細川慎一" },
+      title: { en: "KAIB Chairman", ja: "KAIB会長" },
+    },
     Details: AprilDetails,
+    type: "monthly",
   },
   {
     id: "2026-06-05",
     end: "2026-06-05",
-    date: { en: "Jun 5 (Fri)", ja: "6/5（金）" },
+    month: { en: "JUN", ja: "6月" },
+    day: "5",
+    weekday: { en: "Fri", ja: "金" },
     title: { en: "2nd Monthly Meeting", ja: "第2回 月例会" },
-    subtitle: { en: 'Speaker: Takeshi Izuka — "The Reality of Cutting-Edge AI-Driven Management"', ja: "講師：猪塚武『最先端のAI駆動経営の実際』" },
-    type: "monthly",
+    speaker: {
+      name: { en: "Takeshi Izuka", ja: "猪塚武" },
+      title: { en: "KAIB Co-President / Serial Entrepreneur", ja: "KAIB共同代表理事 / シリアルアントレプレナー" },
+      href: "https://izuka.net/",
+    },
     Details: JuneDetails,
+    type: "monthly",
   },
   {
     id: "2026-07-03",
     end: "2026-07-03",
-    date: { en: "Jul 3 (Fri)", ja: "7/3（金）" },
+    month: { en: "JUL", ja: "7月" },
+    day: "3",
+    weekday: { en: "Fri", ja: "金" },
     title: { en: "3rd Monthly Meeting", ja: "第3回 月例会" },
-    subtitle: { en: "Speaker: Masaaki Fujii (Yamato Manufacturing Co., Ltd.)", ja: "講師：藤井正章（株式会社大和製作所）" },
-    type: "monthly",
+    speaker: {
+      name: { en: "Masaaki Fujii", ja: "藤井正章 様" },
+      title: { en: "President & CEO, Yamato Manufacturing Co., Ltd.", ja: "株式会社大和製作所 代表取締役社長" },
+    },
     Details: JulyDetails,
+    type: "monthly",
   },
   {
     id: "2026-08-21",
     end: "2026-08-21",
-    date: { en: "Aug 21 (Fri)", ja: "8/21（金）" },
-    title: { en: "Setouchi Summit 2026", ja: "Setouchi Summit 2026" },
+    month: { en: "AUG", ja: "8月" },
+    day: "21",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Setouchi Summit", ja: "Setouchi Summit" },
     subtitle: {
       en: "Joint event of Chushikoku IBs & EO Setouchi — Tokushima City, 1:00 PM – 8:00 PM",
       ja: "中四国のIBとEO Setouchiの合同イベント｜徳島市｜13:00〜20:00",
     },
     href: "https://setouchisummit20260821tokushima.peatix.com/",
-    type: "special",
     Details: SetouchiDetails,
+    type: "special",
   },
   {
     id: "2026-09-06",
     end: "2026-09-06",
-    date: { en: "Sep 6 (Sun)", ja: "9/6（日）" },
+    month: { en: "SEP", ja: "9月" },
+    day: "6",
+    weekday: { en: "Sun", ja: "日" },
     title: { en: "Expanded Monthly Meeting", ja: "拡大版月例会" },
     subtitle: { en: '"Co-hosted with Kagawa Startup Festa 2026"', ja: "「香川スタートアップフェスタ２０２６と共催」" },
     href: "https://startupfesta.pref.kagawa.lg.jp/",
@@ -586,7 +617,9 @@ const SCHEDULE: ScheduleItem[] = [
   {
     id: "2026-10-08",
     end: "2026-10-09",
-    date: { en: "Oct 8-9 (Thu-Fri)", ja: "10/8-9（木-金）" },
+    month: { en: "OCT", ja: "10月" },
+    day: "8–9",
+    weekday: { en: "Thu–Fri", ja: "木・金" },
     title: { en: "LEC Yamanashi", ja: "LEC山梨" },
     href: "https://www.yamanashi-lec.com/",
     type: "special",
@@ -594,23 +627,38 @@ const SCHEDULE: ScheduleItem[] = [
   {
     id: "2026-10-13",
     end: "2026-10-13",
-    date: { en: "Oct 13 (Tue)", ja: "10/13（火）" },
+    month: { en: "OCT", ja: "10月" },
+    day: "13",
+    weekday: { en: "Tue", ja: "火" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "Speaker: Hiroki Ono, President & CEO, Ono Farm Co., Ltd.", ja: "講師：尾野弘季（株式会社尾野農園 代表取締役社長）" },
-    type: "monthly",
+    speaker: {
+      name: { en: "Hiroki Ono", ja: "尾野弘季 様" },
+      title: { en: "President & CEO, Ono Farm Co., Ltd.", ja: "株式会社尾野農園 代表取締役社長" },
+      href: "https://ono-farm.com/",
+    },
     Details: OnoDetails,
+    type: "monthly",
   },
   {
-    id: "2026-11",
-    end: "2026-11-30",
-    date: { en: "November (TBD)", ja: "11月（未定）" },
+    id: "2026-11-27",
+    end: "2026-11-27",
+    month: { en: "NOV", ja: "11月" },
+    day: "27",
+    weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting", ja: "月例会" },
+    speaker: {
+      name: { en: "Hideo Kuwahara", ja: "桑原英男 様" },
+      title: { en: "President & CEO, VISIA Inc.", ja: "株式会社ビジア 代表取締役" },
+      href: "https://visia.asia/",
+    },
     type: "monthly",
   },
   {
     id: "2026-12-18",
     end: "2026-12-18",
-    date: { en: "Dec 18 (Fri)", ja: "12/18（金）" },
+    month: { en: "DEC", ja: "12月" },
+    day: "18",
+    weekday: { en: "Fri", ja: "金" },
     title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
     type: "special",
   },
@@ -663,7 +711,7 @@ export default function WhatsNew() {
             {language === "en" ? "Latest news and event information from KAIB" : "KAIB の最新情報とイベント情報をお知らせいたします。"}
           </p>
 
-          {/* 2026 Annual Schedule — one timeline, each entry expands to its details */}
+          {/* 2026 Annual Schedule — one list, each entry opens its own details */}
           <Card className="p-5 sm:p-8 mb-8 border-l-4 border-l-accent">
             <div className="flex items-center gap-3 mb-4">
               <CalendarDays className="w-7 h-7 text-accent" />
@@ -671,76 +719,129 @@ export default function WhatsNew() {
                 {language === "en" ? "2026 Annual Schedule" : "2026年 年間スケジュール"}
               </h2>
             </div>
-            <p className="text-sm text-muted-foreground mb-8">
+            <p className="text-sm text-muted-foreground mb-4">
               {language === "en"
-                ? 'Events are listed from January to December. The upcoming event is shown in detail — tap "Show details" to open the others.'
+                ? 'Listed from January to December. The upcoming event is shown in detail — tap "Show details" to open the others.'
                 : "1月から順に掲載しています。直近のイベントは詳細を表示しています。その他のイベントは「詳細を見る」から開けます。"}
             </p>
 
-            <ol>
-              {SCHEDULE.map((item, i) => {
-                const past = isPast(item);
-                const open = openIds.has(item.id);
-                const Details = item.Details;
-                const detailsId = `details-${item.id}`;
-                return (
-                  <li key={item.id} className="relative pl-7 pb-7 last:pb-0">
-                    {i < SCHEDULE.length - 1 && <span aria-hidden="true" className="absolute left-[5px] top-4 bottom-0 w-px bg-border" />}
-                    <span
-                      aria-hidden="true"
-                      className={`absolute left-0 top-1.5 w-3 h-3 rounded-full ${
-                        past ? "bg-muted-foreground/30" : item.type === "special" ? "bg-accent" : "bg-primary"
-                      }`}
-                    />
+            {/* Legend */}
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mb-6 text-xs text-muted-foreground">
+              <span className="inline-flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-primary" />
+                {language === "en" ? "Monthly meeting" : "月例会"}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+                {language === "en" ? "Special / joint event" : "特別・合同イベント"}
+              </span>
+            </div>
 
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                      <span className={`text-sm font-semibold min-w-[110px] ${past ? "text-muted-foreground" : "text-foreground"}`}>
-                        {item.date[language]}
-                      </span>
-                      <span
-                        className={`text-sm font-semibold ${
-                          past ? "text-muted-foreground" : item.type === "special" ? "text-accent" : "text-foreground"
+            <ol className="space-y-3">
+              {SCHEDULE.map((event) => {
+                const special = event.type === "special";
+                const past = isPast(event);
+                const open = openIds.has(event.id);
+                const Details = event.Details;
+                const detailsId = `details-${event.id}`;
+                return (
+                  <li
+                    key={event.id}
+                    className={`rounded-lg border p-3 sm:p-4 transition ${
+                      open ? "border-primary/40 bg-white shadow-sm" : special && !past ? "border-accent/30 bg-accent/5" : "border-border bg-white"
+                    }`}
+                  >
+                    <div className="flex gap-4">
+                      {/* Date badge */}
+                      <div
+                        className={`flex w-16 flex-shrink-0 flex-col items-center justify-center self-start rounded-md py-2 ${
+                          past ? "bg-muted text-muted-foreground" : special ? "bg-accent/15 text-accent" : "bg-primary/10 text-primary"
                         }`}
                       >
-                        {item.title[language]}
-                      </span>
-                      {item.href && (
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={language === "en" ? "Open event page" : "イベントページを開く"}
-                          className="text-primary hover:text-primary/80 transition inline-flex items-center"
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                      <span
-                        className={`text-xs px-2 py-0.5 rounded-full ${past ? "bg-muted text-muted-foreground" : "bg-accent/10 text-accent font-semibold"}`}
-                      >
-                        {past ? (language === "en" ? "Ended" : "開催済み") : language === "en" ? "Upcoming" : "開催予定"}
-                      </span>
-                    </div>
-                    {item.subtitle && <p className="text-xs text-muted-foreground mt-1">{item.subtitle[language]}</p>}
+                        <span className="text-[11px] font-semibold leading-none">{event.month[language]}</span>
+                        <span className="text-xl font-bold leading-tight">{event.day}</span>
+                        <span className="text-[11px] leading-none opacity-80">{event.weekday[language]}</span>
+                      </div>
 
-                    {Details && (
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => toggle(item.id)}
-                          aria-expanded={open}
-                          aria-controls={detailsId}
-                          className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 transition"
-                        >
-                          {open ? (language === "en" ? "Hide details" : "詳細を閉じる") : language === "en" ? "Show details" : "詳細を見る"}
-                          <ChevronDown className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} />
-                        </button>
-                        {open && (
-                          <div id={detailsId} className="mt-4 -ml-7 sm:ml-0 sm:p-6 sm:rounded-lg sm:border sm:border-border sm:bg-white [&>*:last-child]:mb-0">
-                            <Details past={past} />
+                      {/* Summary */}
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                          <p
+                            className={`text-sm font-semibold ${
+                              past ? "text-muted-foreground" : special ? "text-accent" : "text-foreground"
+                            }`}
+                          >
+                            {event.title[language]}
+                          </p>
+                          <span
+                            className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
+                              past ? "bg-muted text-muted-foreground" : "bg-accent/10 text-accent"
+                            }`}
+                          >
+                            {past ? (language === "en" ? "Ended" : "開催済み") : language === "en" ? "Upcoming" : "開催予定"}
+                          </span>
+                        </div>
+
+                        {event.speaker && (
+                          <div className="mt-1.5 text-xs text-muted-foreground">
+                            <p>
+                              {language === "en" ? "Speaker: " : "講師："}
+                              <span className="font-semibold text-foreground">{event.speaker.name[language]}</span>
+                            </p>
+                            {event.speaker.href ? (
+                              <a
+                                href={event.speaker.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-primary transition hover:underline"
+                              >
+                                {event.speaker.title[language]}
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            ) : (
+                              <p>{event.speaker.title[language]}</p>
+                            )}
                           </div>
                         )}
-                      </>
+
+                        {event.subtitle && (
+                          <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>
+                        )}
+
+                        {(Details || event.href) && (
+                          <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
+                            {Details && (
+                              <button
+                                type="button"
+                                onClick={() => toggle(event.id)}
+                                aria-expanded={open}
+                                aria-controls={detailsId}
+                                className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
+                              >
+                                {open ? (language === "en" ? "Hide details" : "詳細を閉じる") : language === "en" ? "Show details" : "詳細を見る"}
+                                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+                              </button>
+                            )}
+                            {event.href && (
+                              <a
+                                href={event.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
+                              >
+                                {language === "en" ? "Event page" : "イベントページ"}
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {Details && open && (
+                      <div id={detailsId} className="mt-4 border-t border-border pt-5 sm:px-2 [&>*:last-child]:mb-0">
+                        <Details past={past} />
+                      </div>
                     )}
                   </li>
                 );

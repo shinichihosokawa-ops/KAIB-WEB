@@ -194,6 +194,8 @@ export default function Home() {
                   members: [
                     { name: { en: 'Kazuya Sasaki', ja: '佐々木一弥' }, company: { en: 'Regent Inc.', ja: '株式会社リージェント' }, href: 'https://www.r-regent.jp/', sub: false },
                     { name: { en: 'Kentaro Yamada', ja: '山田健太郎' }, company: { en: 'Re. Asset DAO LLC', ja: 'Re. Asset DAO合同会社' }, href: 'https://reasset-dao.webflow.io/#about', sub: true },
+                    { name: { en: 'Kenji Tamai', ja: '玉井謙二' }, company: { en: 'Bonsai Agency', ja: '盆栽エージェンシー' }, href: '', sub: true },
+                    { name: { en: 'Keiichi Oi', ja: '大井啓一' }, company: { en: 'Tsutsuku LLC', ja: 'ツツク合同会社' }, href: 'https://www.tsutsuku.com/', sub: true },
                   ],
                 },
                 {
