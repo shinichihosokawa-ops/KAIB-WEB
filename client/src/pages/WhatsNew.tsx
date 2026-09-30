@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { useState, type ComponentType, type ReactNode } from "react";
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -12,63 +12,6 @@ type L = { en: string; ja: string };
 /* ------------------------------------------------------------------ */
 /* Reusable pieces shared by every monthly-meeting card                */
 /* ------------------------------------------------------------------ */
-
-/**
- * One event as a collapsible card. The header (title / date / status) is always
- * visible so the page stays scannable; the body opens on click.
- * `ended` switches to the grey theme, `accent` to the orange left border.
- */
-function EventCard({
-  id,
-  title,
-  date,
-  status,
-  ended = false,
-  accent = false,
-  defaultOpen = true,
-  children,
-}: {
-  id: string;
-  title: L;
-  date: L;
-  status: L;
-  ended?: boolean;
-  accent?: boolean;
-  defaultOpen?: boolean;
-  children: ReactNode;
-}) {
-  const { language } = useLanguage();
-  return (
-    <Card
-      id={id}
-      className={`mb-6 p-0 gap-0 overflow-hidden scroll-mt-24 border-l-4 ${
-        ended ? "border-l-muted-foreground/30" : accent ? "border-l-accent" : "border-l-primary"
-      }`}
-    >
-      <details open={defaultOpen} className="group">
-        <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-6 transition hover:bg-muted/40 sm:px-8">
-          <div className="min-w-0">
-            <h2 className={`mb-1 text-2xl font-bold sm:text-3xl ${ended ? "text-muted-foreground" : "text-primary"}`}>
-              {title[language]}
-            </h2>
-            <p className="text-sm text-muted-foreground">{date[language]}</p>
-          </div>
-          <div className="flex flex-shrink-0 items-center gap-3">
-            <span
-              className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
-                ended ? "bg-muted text-muted-foreground" : "bg-accent/10 text-accent"
-              }`}
-            >
-              {status[language]}
-            </span>
-            <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180" />
-          </div>
-        </summary>
-        <div className="border-t border-border px-6 pt-6 pb-8 sm:px-8">{children}</div>
-      </details>
-    </Card>
-  );
-}
 
 /** Speaker profile box (grey card). Children hold the per-speaker content. */
 function SpeakerBox({ heading, children }: { heading: L; children: ReactNode }) {
@@ -184,121 +127,28 @@ function FeeTable() {
   );
 }
 
-/** Peatix apply button. */
-function ApplyButton({ href }: { href: string }) {
+/** Peatix apply button. Turns into a disabled "受付終了" button once the event has passed. */
+function ApplyButton({ href, label, past = false }: { href: string; label?: L; past?: boolean }) {
   const { language } = useLanguage();
+  if (past) {
+    return (
+      <div className="mb-8">
+        <Button size="lg" disabled className="w-full">
+          {language === "en" ? "Registration Closed" : "受付終了"}
+        </Button>
+      </div>
+    );
+  }
   return (
     <div className="mb-8">
       <a href={href} target="_blank" rel="noopener noreferrer">
         <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
-          {language === "en" ? "Apply for Monthly Meeting (Peatix)" : "月例会に申し込む（Peatix）"}
+          {label ? label[language] : language === "en" ? "Apply for Monthly Meeting (Peatix)" : "月例会に申し込む（Peatix）"}
         </Button>
       </a>
     </div>
   );
 }
-
-/* ------------------------------------------------------------------ */
-/* Annual schedule data                                                */
-/* ------------------------------------------------------------------ */
-
-/** Speaker shown on a schedule row. `title` is the company / position line. */
-type Speaker = { name: L; title: L; href?: string };
-
-type ScheduleItem = {
-  /** Badge top line, e.g. "11月" / "NOV". */
-  month: L;
-  /** Badge day number (language-neutral), e.g. "27" or "8–9". */
-  day: string;
-  /** Badge bottom line, e.g. "金" / "Fri". */
-  weekday: L;
-  title: L;
-  subtitle?: L;
-  speaker?: Speaker;
-  /** External event page. */
-  href?: string;
-  /** In-page anchor to the detail card below, e.g. "#event-oct". */
-  detail?: string;
-  type: "monthly" | "special";
-};
-
-// Newest (latest date) first, oldest last.
-const SCHEDULE: ScheduleItem[] = [
-  {
-    month: { en: "DEC", ja: "12月" },
-    day: "18",
-    weekday: { en: "Fri", ja: "金" },
-    title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
-    type: "special",
-  },
-  {
-    month: { en: "NOV", ja: "11月" },
-    day: "27",
-    weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting", ja: "月例会" },
-    speaker: {
-      name: { en: "Hideo Kuwahara", ja: "桑原英男 様" },
-      title: { en: "President & CEO, VISIA Inc.", ja: "株式会社ビジア 代表取締役" },
-      href: "https://visia.asia/",
-    },
-    type: "monthly",
-  },
-  {
-    month: { en: "OCT", ja: "10月" },
-    day: "13",
-    weekday: { en: "Tue", ja: "火" },
-    title: { en: "Monthly Meeting", ja: "月例会" },
-    speaker: {
-      name: { en: "Hiroki Ono", ja: "尾野弘季 様" },
-      title: { en: "President & CEO, Ono Farm Co., Ltd.", ja: "株式会社尾野農園 代表取締役社長" },
-      href: "https://ono-farm.com/",
-    },
-    detail: "#event-oct",
-    type: "monthly",
-  },
-  {
-    month: { en: "OCT", ja: "10月" },
-    day: "8–9",
-    weekday: { en: "Thu–Fri", ja: "木・金" },
-    title: { en: "LEC Yamanashi", ja: "LEC山梨" },
-    href: "https://www.yamanashi-lec.com/",
-    type: "special",
-  },
-  {
-    month: { en: "SEP", ja: "9月" },
-    day: "6",
-    weekday: { en: "Sun", ja: "日" },
-    title: { en: "Expanded Monthly Meeting", ja: "拡大版月例会" },
-    subtitle: { en: '"Co-hosted with Kagawa Startup Festa 2026"', ja: "「香川スタートアップフェスタ２０２６と共催」" },
-    href: "https://startupfesta.pref.kagawa.lg.jp/",
-    type: "special",
-  },
-  {
-    month: { en: "AUG", ja: "8月" },
-    day: "21",
-    weekday: { en: "Fri", ja: "金" },
-    title: { en: "Setouchi Summit", ja: "Setouchi Summit" },
-    subtitle: {
-      en: "Joint event of Chushikoku IBs & EO Setouchi — Tokushima City, 1:00 PM – 8:00 PM",
-      ja: "中四国のIBとEO Setouchiの合同イベント｜徳島市｜13:00〜20:00",
-    },
-    href: "https://setouchisummit20260821tokushima.peatix.com/",
-    detail: "#event-setouchi-summit",
-    type: "special",
-  },
-  {
-    month: { en: "JUL", ja: "7月" },
-    day: "3",
-    weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting", ja: "月例会" },
-    speaker: {
-      name: { en: "Masaaki Fujii", ja: "藤井正章 様" },
-      title: { en: "President & CEO, Yamato Manufacturing Co., Ltd.", ja: "株式会社大和製作所 代表取締役社長" },
-    },
-    detail: "#event-jul",
-    type: "monthly",
-  },
-];
 
 /** Talk themes for the October meeting (President Ono). */
 const OCT_THEMES: L[] = [
@@ -324,22 +174,527 @@ const APRIL_HIGHLIGHTS: L[] = [
 ];
 
 /* ------------------------------------------------------------------ */
+/* Event details (shown when a schedule entry is expanded)             */
+/* ------------------------------------------------------------------ */
+
+type DetailsProps = { past: boolean };
+
+function AprilDetails() {
+  const { language } = useLanguage();
+  return (
+    <>
+      {/* Event Introduction */}
+      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? "Hello everyone! Kagawa Innovation Base (KAIB) is now in full operation!"
+            : "皆様、こんにちは。Kagawa Innovation Base（KAIB）の活動がいよいよ本格始動いたします！"}
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? "We are pleased to announce the first monthly meeting on April 3rd at Board game cafe bar Alternative."
+            : "記念すべき「第1回 月例会」を、4月3日に『Board game cafe bar Alternative』にて開催する運びとなりました。"}
+        </p>
+        <p className="text-foreground leading-relaxed">
+          {language === "en"
+            ? "The main content is a special speech by KAIB Chairman Shinichi Hosokawa on the theme: "
+            : "メインコンテンツは、KAIB会長・細川による特別スピーチです。テーマは"}
+          <span className="font-semibold text-primary">
+            {language === "en" ? '"My Thoughts on Kagawa and Kagawa\'s Potential"' : "『香川にかける思いと、香川の可能性』"}
+          </span>
+          {language === "en" ? "." : "です。"}
+        </p>
+      </div>
+
+      {/* Speaker Profile */}
+      <SpeakerBox heading={{ en: "Speaker Profile", ja: "登壇者プロフィール" }}>
+        <p className="font-semibold text-primary">{language === "en" ? "Shinichi Hosokawa" : "細川慎一"}</p>
+        <p className="text-sm text-muted-foreground font-semibold">
+          {language === "en"
+            ? "KAIB Chairman\nDirector & Founder, GMO z.com research pte. ltd\nRepresentative Director, HOSOKAWA Co., Ltd. / Director, HOSOKAWA, pte. ltd."
+            : "Kagawa Innovation Base（KAIB）会長\nGMO z.com research pte. ltd Director & Founder\n株式会社HOSOKAWA 代表取締役 / HOSOKAWA, pte. ltd. Director"}
+        </p>
+        <p className="text-foreground leading-relaxed text-sm">
+          {language === "en"
+            ? "Born in Kotohira Town, Kagawa Prefecture. After graduating from university, he began his career as a diplomat at the Japanese Embassy in Ethiopia. He later earned an MBA from Thunderbird School of Global Management. For 30 years, he has been at the forefront of international business, visiting over 50 countries. After successfully leading a company to IPO in growth markets, he now serves as the CEO of a listed company while based in Singapore."
+            : "香川県琴平町出身。大学卒業後に在エチオピア日本大使館で外交官としてのキャリアをスタートして以来、サンダーバード国際経営大学院にてMBAを取得。30年にわたり海外ビジネスの最前線で活躍し、これまでの訪問国は50カ国以上にのぼる。グロース市場での企業上場（IPO）を実現させたのち、シンガポール在住のまま上場企業の経営トップを務めるという稀有な実績を持つ。"}
+        </p>
+        <p className="text-foreground leading-relaxed text-sm">
+          {language === "en"
+            ? "Currently holding a top talent work visa in Singapore, he serves in key positions including Representative of ESOMAR (European Association for Opinion and Marketing Research) Japan, and Chair of APRC (Asia-Pacific Research Committee). Leveraging his global insights, networks, and proven business acumen, he is now embarking on a new challenge to foster innovation in Kagawa."
+            : "現在はシンガポールにてトップタレント向け就労ビザを保有して活動する傍ら、ESOMAR（欧州世論・市場調査協会）日本代表、APRC（アジア太平洋リサーチ委員会）会長などの要職を務める。グローバルな知見とネットワーク、そして経営者としての確かな手腕を活かし、香川のイノベーション創出に向けた新たな挑戦を始動。"}
+        </p>
+      </SpeakerBox>
+
+      {/* Why Attend */}
+      <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
+        <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Event Highlights" : "このイベントの見どころ"}</h3>
+        <BulletList items={APRIL_HIGHLIGHTS} />
+      </div>
+
+      {/* Event Details */}
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <DateTime
+          date={{ en: "Friday, April 3, 2026", ja: "4月3日（金）" }}
+          time={{ en: "7:00 PM - (Reception: 6:30 PM)", ja: "19:00～（受付18:30開始）" }}
+          note={{ en: "※Networking reception to follow", ja: "※その後懇親会あり" }}
+        />
+        <Venue />
+        <div className="flex gap-4">
+          <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+          <div>
+            <h4 className="font-semibold text-foreground mb-2">{language === "en" ? "Participation Fee" : "参加費"}</h4>
+            <p className="text-muted-foreground text-sm">
+              <span className="text-primary font-semibold">{language === "en" ? "Free" : "無料"}</span>
+            </p>
+            <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-md">
+              <p className="text-sm text-foreground font-semibold mb-1">
+                {language === "en" ? "Networking Reception (After-party)" : "２次会（懇親会）"}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {language === "en" ? "Adults: ¥5,500 / High school students and under: Free" : "大人1名 ¥5,500 ／ 高校生以下 無料"}
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">
+                {language === "en" ? "Advance payment is required." : "事前決済をお願いしております。"}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                {language === "en" ? "If you need a separate receipt, please contact us." : "※別途領収書が必要な場合は、大変お手数ですがご連絡ください。"}
+              </p>
+              <p className="text-sm text-muted-foreground font-semibold mt-2">{language === "en" ? "Payment closed" : "受付終了"}</p>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-4">
+          <ExternalLink className="w-6 h-6 text-muted-foreground flex-shrink-0 mt-1" />
+          <div>
+            <h4 className="font-semibold text-foreground mb-2">{language === "en" ? "Registration" : "お申し込み"}</h4>
+            <p className="text-muted-foreground text-sm font-semibold">{language === "en" ? "Registration closed" : "受付終了"}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Call to Action */}
+      <div className="p-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-primary/20">
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? "For those who want to create Kagawa's future together, touch global perspectives and real business management, and take new steps in the region, this will be a time full of insights and inspiration."
+            : "香川の未来を共に創りたい方、グローバルな視点や経営のリアルに触れてみたい方、地域での新たな一歩を踏み出したい方にとって、多くの気づきと刺激に満ちた時間になるはずです。"}
+        </p>
+        <p className="text-foreground font-semibold">
+          {language === "en"
+            ? "Why not join us at this gathering where new connections and passion for Kagawa's future intersect?"
+            : "新しい出会いと、香川の未来への熱気が交差する場へ、ぜひ足を運んでみませんか？"}
+        </p>
+        <p className="text-foreground mt-4">
+          {language === "en" ? "We look forward to your participation!" : "皆様のご参加を心よりお待ちしております！"}
+        </p>
+      </div>
+
+      {/* Registration Closed */}
+      <div className="mt-8">
+        <Button size="lg" disabled className="w-full">
+          {language === "en" ? "Registration Closed" : "受付終了"}
+        </Button>
+      </div>
+    </>
+  );
+}
+
+function JuneDetails({ past }: DetailsProps) {
+  const { language } = useLanguage();
+  return (
+    <>
+      {/* Event Introduction */}
+      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en" ? "The KAIB 2nd Monthly Meeting will be held on June 5th!" : "KAIB第2回月例会を6月5日に開催いたします！"}
+        </p>
+        <p className="text-foreground leading-relaxed">
+          {language === "en" ? "We are honored to welcome Mr. Takeshi Izuka as our guest speaker. The theme is " : "今回は特別講師として猪塚武氏をお迎えし、テーマは"}
+          <span className="font-semibold text-primary">
+            {language === "en" ? '"The Reality of Cutting-Edge AI-Driven Management"' : "『最先端のAI駆動経営の実際』"}
+          </span>
+          {language === "en"
+            ? ". He will share concrete examples of future management methods utilizing AI."
+            : "です。AIを活用した将来の具体的な経営方法の実際を具体的に紹介していただきます。"}
+        </p>
+      </div>
+
+      {/* Speaker Profile */}
+      <SpeakerBox heading={{ en: "Speaker Profile", ja: "講師プロフィール" }}>
+        <div className="flex items-center gap-2">
+          <p className="font-semibold text-primary text-lg">{language === "en" ? "Takeshi Izuka" : "猪塚武"}</p>
+          <a
+            href="https://izuka.net/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:text-primary/80 text-sm flex items-center gap-1 transition"
+          >
+            {language === "en" ? "Website" : "Webサイト"}
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        </div>
+        <p className="text-sm text-muted-foreground font-semibold">
+          {language === "en" ? "KAIB Co-President / Serial Entrepreneur" : "KAIB共同代表理事 / シリアルアントレプレナー"}
+        </p>
+        <p className="text-foreground leading-relaxed text-sm">
+          {language === "en"
+            ? "After majoring in physics at graduate school, he ventured into politics and then founded businesses in Japan, Singapore, and Cambodia. He founded Digital Forest Inc. (Visionalist), which was acquired by NTT Communications. He also established a university in Cambodia and operates the Sanuki Peer Learning Hub in Kagawa Prefecture. A serial entrepreneur with a unique career spanning global business, education, and technology."
+            : "大学院で物理を専攻した後、政治家に挑戦。その後、日本・シンガポール・カンボジアで起業。アクセス解析ツール「Visionalist」を提供するデジタルフォレスト社を創業し、NTTコミュニケーションズに事業売却。カンボジアでは大学を設立し、香川県では「さぬきピアラーニングハブ」を運営。グローバルビジネス・教育・テクノロジーを横断する異色の経歴を持つシリアルアントレプレナー。"}
+        </p>
+      </SpeakerBox>
+
+      {/* Event Details */}
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <DateTime date={{ en: "Friday, June 5, 2026", ja: "6月5日（金）" }} time={{ en: "7:00 PM -", ja: "19:00～" }} />
+        <Venue />
+      </div>
+
+      <FeeTable />
+      <ApplyButton href="https://kaib20260605.peatix.com/" past={past} />
+    </>
+  );
+}
+
+function JulyDetails({ past }: DetailsProps) {
+  const { language } = useLanguage();
+  return (
+    <>
+      {/* Title */}
+      <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+        <p className="text-lg font-bold text-primary leading-relaxed">
+          {language === "en"
+            ? "Global Business Expansion by Japan's Top Noodle Machine Manufacturer (tentative)"
+            : "国内TOP製麺機メーカーのグローバルビジネス展開について（仮）"}
+        </p>
+        <p className="text-sm text-muted-foreground mt-1">
+          {language === "en"
+            ? "— Featuring Masaaki Fujii, President & CEO, Yamato Manufacturing Co., Ltd."
+            : "〜株式会社大和製作所 代表取締役社長 藤井正章氏 登壇〜"}
+        </p>
+      </div>
+
+      {/* Lead Text */}
+      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? 'We are excited to welcome Mr. Masaaki Fujii, President & CEO of Yamato Manufacturing Co., Ltd., the top domestic manufacturer of compact noodle machines, spreading Japan\'s "noodle culture" to the world.'
+            : "今回は、小型製麺機で国内トップシェアを誇り、世界中へ日本の「麺文化」を発信し続ける株式会社大和製作所 代表取締役社長の藤井 正章さまをゲストにお招きします。"}
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? 'The company goes beyond being a machine manufacturer — operating "noodle schools," providing startup support, and sharing restaurant management know-how, scientifically approaching the noodle business from both hardware and software perspectives to support the success of ramen and udon restaurants worldwide.'
+            : "同社は機械メーカーにとどまらず、「麺学校」の運営や開業支援、店舗経営のノウハウ提供など、ハードとソフトの両面から麺ビジネスを科学し、世界中のラーメン・うどん店の成功を支えています。"}
+        </p>
+        <p className="text-foreground leading-relaxed">
+          {language === "en"
+            ? "In this session, Mr. Fujii will share how they have pioneered overseas markets with overwhelming product strength and a unique business model, the strategies and challenges behind the scenes, and future prospects. Don't miss this rare opportunity to hear from a top leader who continues to challenge on the world stage!"
+            : "本セッションでは、圧倒的な製品力と独自のビジネスモデルでいかにして海外市場を開拓してきたのか、その裏側にある戦略や苦労、そして今後の展望についてたっぷりとお話しいただきます。世界を舞台に挑戦し続けるトップリーダーの生の声を聞ける貴重な機会です。ぜひ奮ってご参加ください！"}
+        </p>
+      </div>
+
+      {/* Talk Themes */}
+      <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
+        <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Talk Themes (planned)" : "トークテーマ（予定）"}</h3>
+        <BulletList items={JULY_THEMES} />
+        <p className="text-xs text-muted-foreground mt-4">
+          {language === "en" ? "※ Content may be subject to partial changes." : "※内容は一部変更となる場合がございます。"}
+        </p>
+      </div>
+
+      {/* Speaker Profile */}
+      <SpeakerBox heading={{ en: "Speaker Profile", ja: "講師プロフィール" }}>
+        <p className="font-semibold text-primary text-lg">{language === "en" ? "Masaaki Fujii" : "藤井 正章（ふじい まさあき）"}</p>
+        <p className="text-sm text-muted-foreground font-semibold">
+          {language === "en" ? "President & CEO, Yamato Manufacturing Co., Ltd." : "株式会社大和製作所 代表取締役社長"}
+        </p>
+        <p className="text-foreground leading-relaxed text-sm">
+          {language === "en"
+            ? 'In April 2025, he succeeded founder Kaoru Fujii as President & CEO of Yamato Manufacturing Co., Ltd. Headquartered in Kagawa Prefecture, the company holds the top domestic market share in compact noodle machines for udon, soba, and ramen. Going beyond a conventional machine manufacturer, the company operates its own "Udon School," "Ramen School," and "Soba School." In addition to hardware (noodle machines), it provides comprehensive support for noodle restaurant success through proprietary "Digital Cooking" techniques, restaurant management know-how, and total startup consulting.'
+            : "2025年4月、創業者である前社長の藤井薫氏の後を継ぎ、株式会社大和製作所の代表取締役社長に就任。同社は香川県に本社を構え、うどん・そば・ラーメン用小型製麺機において業界トップシェアを誇る。単なる機械メーカーの枠を超え、自社で「うどん学校」「ラーメン学校」「そば学校」を運営。ハード（製麺機）の提供だけでなく、独自の「デジタルクッキング法」による製麺技術の指導、店舗経営ノウハウ、新規開業のトータルプロデュースなど、ソフト面も併せ持った麺専門店繁盛支援を展開している。"}
+        </p>
+        <p className="text-foreground leading-relaxed text-sm">
+          {language === "en"
+            ? 'Since becoming president, he has inherited a solid domestic business foundation while driving the expansion of overseas operations against the backdrop of the global Japanese food boom. Armed with Japan\'s proud "noodle culture" and "manufacturing excellence," he leads the company\'s global business expansion at the forefront.'
+            : "藤井氏は代表就任以降、国内の盤石な事業基盤を引き継ぐとともに、世界的な日本食ブームを背景とした海外拠点の拡充を推進。日本が誇る「麺文化」と「モノづくり」を武器に、同社のグローバルビジネス展開の最前線を牽引している。"}
+        </p>
+      </SpeakerBox>
+
+      {/* Event Details */}
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <DateTime date={{ en: "Friday, July 3, 2026", ja: "7月3日（金）" }} time={{ en: "7:00 PM -", ja: "19:00～" }} />
+        <Venue />
+      </div>
+
+      <FeeTable />
+      <ApplyButton href="https://kaib0703.peatix.com/" past={past} />
+    </>
+  );
+}
+
+function SetouchiDetails({ past }: DetailsProps) {
+  const { language } = useLanguage();
+  return (
+    <>
+      <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
+        <p className="text-foreground leading-relaxed font-semibold">
+          {language === "en"
+            ? "A joint event co-hosted by the Setouchi-area Innovation Bases (IB) and EO SETOUCHI."
+            : "瀬戸内エリアのイノベーションベース（IB）と EO SETOUCHI の共同開催イベントです。"}
+        </p>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <DateTime date={{ en: "Friday, August 21, 2026", ja: "8月21日（金）" }} time={{ en: "1:00 PM - 8:00 PM", ja: "13:00〜20:00" }} />
+        <div className="flex gap-4">
+          <MapPin className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+          <div>
+            <h4 className="font-semibold text-foreground mb-2">{language === "en" ? "Venue" : "会場"}</h4>
+            <p className="text-muted-foreground text-sm">{language === "en" ? "Tokushima City" : "徳島市"}</p>
+          </div>
+        </div>
+      </div>
+      <ApplyButton
+        href="https://setouchisummit20260821tokushima.peatix.com/"
+        label={{ en: "Event Details & Registration (Peatix)", ja: "イベント詳細・お申し込み（Peatix）" }}
+        past={past}
+      />
+    </>
+  );
+}
+
+function OnoDetails({ past }: DetailsProps) {
+  const { language } = useLanguage();
+  return (
+    <>
+      <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+        <p className="text-lg font-bold text-primary leading-relaxed">
+          {language === "en" ? "— Featuring Hiroki Ono, President & CEO" : "〜 代表取締役社長 尾野弘季 登壇 〜"}
+        </p>
+        <a
+          href="https://ono-farm.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-primary hover:text-primary/80 hover:underline inline-flex items-center gap-1 mt-1 transition"
+        >
+          {language === "en" ? "Ono Farm Co., Ltd." : "株式会社 尾野農園"}
+          <ExternalLink className="w-3 h-3" />
+        </a>
+      </div>
+
+      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? 'From system engineer to farmer — Hiroki Ono, President & CEO of Ono Farm Co., Ltd., made a U-turn back to his hometown in Kagawa and now takes on the challenge of "bringing IT to agriculture" with an engineer\'s mindset.'
+            : "元システムエンジニアから一転、香川にUターンして就農——株式会社尾野農園 代表取締役社長の尾野弘季さんは、エンジニアならではの発想で「農業のIT化」に挑み続けるユニークな経営者です。"}
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? "By combining weather data with past work records to optimize the next day's field plans, he has achieved a stable supply of open-field vegetables (green onions, sweet corn, broccoli and more) that were once heavily dependent on the weather — rewriting the conventional wisdom of farming with technology."
+            : "気象データと過去の作業実績を組み合わせて翌日の作業計画を最適化し、天候に左右されやすい露地野菜（青ネギ・スイートコーン・ブロッコリーなど）の安定供給を実現。テクノロジーで農業の常識を塗り替えてきた、注目の経営者です。"}
+        </p>
+        <p className="text-foreground leading-relaxed">
+          {language === "en"
+            ? "In this session, he will share his unique journey, the real challenges facing Japanese agriculture — labor shortages, climate change and more — and the future he envisions beyond them. A talk packed with hints for the next generation of primary industry, seen through the rare lens of an engineer-turned-farmer. Don't miss it!"
+            : "本セッションでは、その歩みと、人手不足や気候変動など日本の農業が直面するリアルな課題、そしてその先に描く未来についてたっぷりと語っていただきます。エンジニア×農業という異色のキャリアから見える、これからの一次産業のヒントが満載です。ぜひご参加ください！"}
+        </p>
+      </div>
+
+      <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
+        <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Talk Themes" : "トークテーマ"}</h3>
+        <BulletList items={OCT_THEMES} />
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <DateTime date={{ en: "Tuesday, October 13, 2026", ja: "10月13日（火）" }} time={{ en: "7:00 PM -", ja: "19:00～" }} />
+        <Venue />
+      </div>
+
+      <FeeTable />
+      <ApplyButton href="https://kaib1013.peatix.com/" past={past} />
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Annual schedule                                                     */
+/* ------------------------------------------------------------------ */
+
+/** Speaker shown on a schedule row. `title` is the company / position line. */
+type Speaker = { name: L; title: L; href?: string };
+
+type ScheduleItem = {
+  id: string;
+  /** Last day of the event (YYYY-MM-DD). Drives the past / upcoming status. */
+  end: string;
+  /** Badge top line, e.g. "11月" / "NOV". */
+  month: L;
+  /** Badge day number (language-neutral), e.g. "27" or "8–9". */
+  day: string;
+  /** Badge bottom line, e.g. "金" / "Fri". */
+  weekday: L;
+  title: L;
+  subtitle?: L;
+  speaker?: Speaker;
+  /** External event page. */
+  href?: string;
+  /** Full event details, opened in place from the schedule row. */
+  Details?: ComponentType<DetailsProps>;
+  type: "monthly" | "special";
+};
+
+// January → December. The first upcoming entry with details opens automatically.
+const SCHEDULE: ScheduleItem[] = [
+  {
+    id: "2026-04-03",
+    end: "2026-04-03",
+    month: { en: "APR", ja: "4月" },
+    day: "3",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "1st Monthly Meeting", ja: "第1回 月例会" },
+    speaker: {
+      name: { en: "Shinichi Hosokawa", ja: "細川慎一" },
+      title: { en: "KAIB Chairman", ja: "KAIB会長" },
+    },
+    Details: AprilDetails,
+    type: "monthly",
+  },
+  {
+    id: "2026-06-05",
+    end: "2026-06-05",
+    month: { en: "JUN", ja: "6月" },
+    day: "5",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "2nd Monthly Meeting", ja: "第2回 月例会" },
+    speaker: {
+      name: { en: "Takeshi Izuka", ja: "猪塚武" },
+      title: { en: "KAIB Co-President / Serial Entrepreneur", ja: "KAIB共同代表理事 / シリアルアントレプレナー" },
+      href: "https://izuka.net/",
+    },
+    Details: JuneDetails,
+    type: "monthly",
+  },
+  {
+    id: "2026-07-03",
+    end: "2026-07-03",
+    month: { en: "JUL", ja: "7月" },
+    day: "3",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "3rd Monthly Meeting", ja: "第3回 月例会" },
+    speaker: {
+      name: { en: "Masaaki Fujii", ja: "藤井正章 様" },
+      title: { en: "President & CEO, Yamato Manufacturing Co., Ltd.", ja: "株式会社大和製作所 代表取締役社長" },
+    },
+    Details: JulyDetails,
+    type: "monthly",
+  },
+  {
+    id: "2026-08-21",
+    end: "2026-08-21",
+    month: { en: "AUG", ja: "8月" },
+    day: "21",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Setouchi Summit", ja: "Setouchi Summit" },
+    subtitle: {
+      en: "Joint event of Chushikoku IBs & EO Setouchi — Tokushima City, 1:00 PM – 8:00 PM",
+      ja: "中四国のIBとEO Setouchiの合同イベント｜徳島市｜13:00〜20:00",
+    },
+    href: "https://setouchisummit20260821tokushima.peatix.com/",
+    Details: SetouchiDetails,
+    type: "special",
+  },
+  {
+    id: "2026-09-06",
+    end: "2026-09-06",
+    month: { en: "SEP", ja: "9月" },
+    day: "6",
+    weekday: { en: "Sun", ja: "日" },
+    title: { en: "Expanded Monthly Meeting", ja: "拡大版月例会" },
+    subtitle: { en: '"Co-hosted with Kagawa Startup Festa 2026"', ja: "「香川スタートアップフェスタ２０２６と共催」" },
+    href: "https://startupfesta.pref.kagawa.lg.jp/",
+    type: "special",
+  },
+  {
+    id: "2026-10-08",
+    end: "2026-10-09",
+    month: { en: "OCT", ja: "10月" },
+    day: "8–9",
+    weekday: { en: "Thu–Fri", ja: "木・金" },
+    title: { en: "LEC Yamanashi", ja: "LEC山梨" },
+    href: "https://www.yamanashi-lec.com/",
+    type: "special",
+  },
+  {
+    id: "2026-10-13",
+    end: "2026-10-13",
+    month: { en: "OCT", ja: "10月" },
+    day: "13",
+    weekday: { en: "Tue", ja: "火" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    speaker: {
+      name: { en: "Hiroki Ono", ja: "尾野弘季 様" },
+      title: { en: "President & CEO, Ono Farm Co., Ltd.", ja: "株式会社尾野農園 代表取締役社長" },
+      href: "https://ono-farm.com/",
+    },
+    Details: OnoDetails,
+    type: "monthly",
+  },
+  {
+    id: "2026-11-27",
+    end: "2026-11-27",
+    month: { en: "NOV", ja: "11月" },
+    day: "27",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    speaker: {
+      name: { en: "Hideo Kuwahara", ja: "桑原英男 様" },
+      title: { en: "President & CEO, VISIA Inc.", ja: "株式会社ビジア 代表取締役" },
+      href: "https://visia.asia/",
+    },
+    type: "monthly",
+  },
+  {
+    id: "2026-12-18",
+    end: "2026-12-18",
+    month: { en: "DEC", ja: "12月" },
+    day: "18",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
+    type: "special",
+  },
+];
+
+/* ------------------------------------------------------------------ */
 
 export default function WhatsNew() {
   const { language } = useLanguage();
+
+  // Local date as YYYY-MM-DD, so an event stays "upcoming" through its last day.
+  const today = new Date().toLocaleDateString("sv-SE");
+  const isPast = (item: ScheduleItem) => item.end < today;
+  const featuredId = SCHEDULE.find((item) => item.Details && !isPast(item))?.id;
+
+  const [openIds, setOpenIds] = useState<Set<string>>(() => new Set(featuredId ? [featuredId] : []));
+  const toggle = (id: string) =>
+    setOpenIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
 
   useSEO(
     language === "en"
       ? {
           title: "KAIB Monthly Meetings | News & Events",
           description:
-            'KAIB 3rd Monthly Meeting on July 3, 2026. Masaaki Fujii, CEO of Yamato Manufacturing, on "Global Business Expansion by Japan\'s Top Noodle Machine Manufacturer".',
+            "KAIB 2026 event schedule. Next monthly meeting on October 13, 2026 with Hiroki Ono, President & CEO of Ono Farm, on his career and the challenges facing agriculture today.",
           path: "/en/whatsnew",
         }
       : {
           title: "KAIB月例会 | ニュース＋イベント案内",
           description:
-            "KAIB第3回月例会は7月3日開催。株式会社大和製作所 代表取締役社長 藤井正章氏による「国内TOP製麺機メーカーのグローバルビジネス展開について」",
+            "KAIB 2026年の年間スケジュール。次回月例会は10月13日開催、株式会社尾野農園 代表取締役社長 尾野弘季氏が「これまでの経歴」「現在の農業産業の課題とチャレンジ」を語ります。",
           path: "/whatsnew",
         },
   );
@@ -356,9 +711,9 @@ export default function WhatsNew() {
             {language === "en" ? "Latest news and event information from KAIB" : "KAIB の最新情報とイベント情報をお知らせいたします。"}
           </p>
 
-          {/* 2026 Yearly Schedule */}
-          <Card className="p-8 mb-8 border-l-4 border-l-accent">
-            <div className="flex items-center gap-3 mb-6">
+          {/* 2026 Annual Schedule — one list, each entry opens its own details */}
+          <Card className="p-5 sm:p-8 mb-8 border-l-4 border-l-accent">
+            <div className="flex items-center gap-3 mb-4">
               <CalendarDays className="w-7 h-7 text-accent" />
               <h2 className="text-2xl font-bold text-foreground">
                 {language === "en" ? "2026 Annual Schedule" : "2026年 年間スケジュール"}
@@ -366,8 +721,8 @@ export default function WhatsNew() {
             </div>
             <p className="text-sm text-muted-foreground mb-4">
               {language === "en"
-                ? "Planned events for the rest of 2026. Details will be announced as dates approach."
-                : "2026年後半の予定です。詳細は開催日が近づきましたらお知らせいたします。"}
+                ? 'Listed from January to December. The upcoming event is shown in detail — tap "Show details" to open the others.'
+                : "1月から順に掲載しています。直近のイベントは詳細を表示しています。その他のイベントは「詳細を見る」から開けます。"}
             </p>
 
             {/* Legend */}
@@ -382,438 +737,117 @@ export default function WhatsNew() {
               </span>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              {SCHEDULE.map((event, i) => {
+            <ol className="space-y-3">
+              {SCHEDULE.map((event) => {
                 const special = event.type === "special";
+                const past = isPast(event);
+                const open = openIds.has(event.id);
+                const Details = event.Details;
+                const detailsId = `details-${event.id}`;
                 return (
-                  <div
-                    key={i}
-                    className={`flex gap-4 rounded-lg border p-4 transition hover:shadow-sm ${
-                      special ? "border-accent/30 bg-accent/5" : "border-border bg-white"
+                  <li
+                    key={event.id}
+                    className={`rounded-lg border p-3 sm:p-4 transition ${
+                      open ? "border-primary/40 bg-white shadow-sm" : special && !past ? "border-accent/30 bg-accent/5" : "border-border bg-white"
                     }`}
                   >
-                    {/* Date badge */}
-                    <div
-                      className={`flex w-16 flex-shrink-0 flex-col items-center justify-center rounded-md py-2 ${
-                        special ? "bg-accent/15 text-accent" : "bg-primary/10 text-primary"
-                      }`}
-                    >
-                      <span className="text-[11px] font-semibold leading-none">{event.month[language]}</span>
-                      <span className="text-xl font-bold leading-tight">{event.day}</span>
-                      <span className="text-[11px] leading-none opacity-80">{event.weekday[language]}</span>
-                    </div>
+                    <div className="flex gap-4">
+                      {/* Date badge */}
+                      <div
+                        className={`flex w-16 flex-shrink-0 flex-col items-center justify-center self-start rounded-md py-2 ${
+                          past ? "bg-muted text-muted-foreground" : special ? "bg-accent/15 text-accent" : "bg-primary/10 text-primary"
+                        }`}
+                      >
+                        <span className="text-[11px] font-semibold leading-none">{event.month[language]}</span>
+                        <span className="text-xl font-bold leading-tight">{event.day}</span>
+                        <span className="text-[11px] leading-none opacity-80">{event.weekday[language]}</span>
+                      </div>
 
-                    {/* Details */}
-                    <div className="min-w-0 flex-1">
-                      <p className={`text-sm font-semibold ${special ? "text-accent" : "text-foreground"}`}>
-                        {event.title[language]}
-                      </p>
-
-                      {event.speaker && (
-                        <div className="mt-1.5 text-xs text-muted-foreground">
-                          <p>
-                            {language === "en" ? "Speaker: " : "講師："}
-                            <span className="font-semibold text-foreground">{event.speaker.name[language]}</span>
+                      {/* Summary */}
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                          <p
+                            className={`text-sm font-semibold ${
+                              past ? "text-muted-foreground" : special ? "text-accent" : "text-foreground"
+                            }`}
+                          >
+                            {event.title[language]}
                           </p>
-                          {event.speaker.href ? (
-                            <a
-                              href={event.speaker.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-primary transition hover:underline"
-                            >
-                              {event.speaker.title[language]}
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          ) : (
-                            <p>{event.speaker.title[language]}</p>
-                          )}
+                          <span
+                            className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
+                              past ? "bg-muted text-muted-foreground" : "bg-accent/10 text-accent"
+                            }`}
+                          >
+                            {past ? (language === "en" ? "Ended" : "開催済み") : language === "en" ? "Upcoming" : "開催予定"}
+                          </span>
                         </div>
-                      )}
 
-                      {event.subtitle && (
-                        <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>
-                      )}
+                        {event.speaker && (
+                          <div className="mt-1.5 text-xs text-muted-foreground">
+                            <p>
+                              {language === "en" ? "Speaker: " : "講師："}
+                              <span className="font-semibold text-foreground">{event.speaker.name[language]}</span>
+                            </p>
+                            {event.speaker.href ? (
+                              <a
+                                href={event.speaker.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-primary transition hover:underline"
+                              >
+                                {event.speaker.title[language]}
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            ) : (
+                              <p>{event.speaker.title[language]}</p>
+                            )}
+                          </div>
+                        )}
 
-                      {(event.detail || event.href) && (
-                        <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
-                          {event.detail && (
-                            <a href={event.detail} className="text-xs font-semibold text-primary transition hover:underline">
-                              {language === "en" ? "See details ↓" : "詳細を見る ↓"}
-                            </a>
-                          )}
-                          {event.href && (
-                            <a
-                              href={event.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
-                            >
-                              {language === "en" ? "Event page" : "イベントページ"}
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          )}
-                        </div>
-                      )}
+                        {event.subtitle && (
+                          <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>
+                        )}
+
+                        {(Details || event.href) && (
+                          <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
+                            {Details && (
+                              <button
+                                type="button"
+                                onClick={() => toggle(event.id)}
+                                aria-expanded={open}
+                                aria-controls={detailsId}
+                                className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
+                              >
+                                {open ? (language === "en" ? "Hide details" : "詳細を閉じる") : language === "en" ? "Show details" : "詳細を見る"}
+                                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+                              </button>
+                            )}
+                            {event.href && (
+                              <a
+                                href={event.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
+                              >
+                                {language === "en" ? "Event page" : "イベントページ"}
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
+
+                    {Details && open && (
+                      <div id={detailsId} className="mt-4 border-t border-border pt-5 sm:px-2 [&>*:last-child]:mb-0">
+                        <Details past={past} />
+                      </div>
+                    )}
+                  </li>
                 );
               })}
-            </div>
+            </ol>
           </Card>
-
-          {/* October Monthly Meeting — President Ono */}
-          <EventCard
-            id="event-oct"
-            title={{ en: "Monthly Meeting", ja: "月例会" }}
-            date={{ en: "October 13, 2026", ja: "2026年10月13日（火）開催" }}
-            status={{ en: "Upcoming", ja: "開催予定" }}
-          >
-
-            <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
-              <p className="text-lg font-bold text-primary leading-relaxed">
-                {language === "en" ? "— Featuring Hiroki Ono, President & CEO" : "〜 代表取締役社長 尾野弘季 登壇 〜"}
-              </p>
-              <a
-                href="https://ono-farm.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-primary hover:text-primary/80 hover:underline inline-flex items-center gap-1 mt-1 transition"
-              >
-                {language === "en" ? "Ono Farm Co., Ltd." : "株式会社 尾野農園"}
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-
-            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
-              <p className="text-foreground leading-relaxed mb-4">
-                {language === "en"
-                  ? 'From system engineer to farmer — Hiroki Ono, President & CEO of Ono Farm Co., Ltd., made a U-turn back to his hometown in Kagawa and now takes on the challenge of "bringing IT to agriculture" with an engineer\'s mindset.'
-                  : "元システムエンジニアから一転、香川にUターンして就農——株式会社尾野農園 代表取締役社長の尾野弘季さんは、エンジニアならではの発想で「農業のIT化」に挑み続けるユニークな経営者です。"}
-              </p>
-              <p className="text-foreground leading-relaxed mb-4">
-                {language === "en"
-                  ? "By combining weather data with past work records to optimize the next day's field plans, he has achieved a stable supply of open-field vegetables (green onions, sweet corn, broccoli and more) that were once heavily dependent on the weather — rewriting the conventional wisdom of farming with technology."
-                  : "気象データと過去の作業実績を組み合わせて翌日の作業計画を最適化し、天候に左右されやすい露地野菜（青ネギ・スイートコーン・ブロッコリーなど）の安定供給を実現。テクノロジーで農業の常識を塗り替えてきた、注目の経営者です。"}
-              </p>
-              <p className="text-foreground leading-relaxed">
-                {language === "en"
-                  ? "In this session, he will share his unique journey, the real challenges facing Japanese agriculture — labor shortages, climate change and more — and the future he envisions beyond them. A talk packed with hints for the next generation of primary industry, seen through the rare lens of an engineer-turned-farmer. Don't miss it!"
-                  : "本セッションでは、その歩みと、人手不足や気候変動など日本の農業が直面するリアルな課題、そしてその先に描く未来についてたっぷりと語っていただきます。エンジニア×農業という異色のキャリアから見える、これからの一次産業のヒントが満載です。ぜひご参加ください！"}
-              </p>
-            </div>
-
-            <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
-              <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Talk Themes" : "トークテーマ"}</h3>
-              <BulletList items={OCT_THEMES} />
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <DateTime date={{ en: "Tuesday, October 13, 2026", ja: "10月13日（火）" }} time={{ en: "7:00 PM -", ja: "19:00～" }} />
-              <Venue />
-            </div>
-
-            <FeeTable />
-            <ApplyButton href="https://kaib1013.peatix.com/" />
-          </EventCard>
-
-          {/* Setouchi Summit 2026 */}
-          <EventCard
-            id="event-setouchi-summit"
-            accent
-            title={{ en: "Setouchi Summit 2026", ja: "Setouchi Summit 2026" }}
-            date={{ en: "August 21, 2026", ja: "2026年8月21日（金）開催" }}
-            status={{ en: "Upcoming", ja: "開催予定" }}
-          >
-
-            <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
-              <p className="text-foreground leading-relaxed font-semibold">
-                {language === "en"
-                  ? "A joint event co-hosted by the Setouchi-area Innovation Bases (IB) and EO SETOUCHI."
-                  : "瀬戸内エリアのイノベーションベース（IB）と EO SETOUCHI の共同開催イベントです。"}
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <DateTime date={{ en: "Friday, August 21, 2026", ja: "8月21日（金）" }} time={{ en: "1:00 PM - 8:00 PM", ja: "13:00〜20:00" }} />
-              <div className="flex gap-4">
-                <MapPin className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">{language === "en" ? "Venue" : "会場"}</h4>
-                  <p className="text-muted-foreground text-sm">{language === "en" ? "Tokushima City" : "徳島市"}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mb-8">
-              <a href="https://setouchisummit20260821tokushima.peatix.com/" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
-                  {language === "en" ? "Event Details & Registration (Peatix)" : "イベント詳細・お申し込み（Peatix）"}
-                </Button>
-              </a>
-            </div>
-          </EventCard>
-
-          {/* Third Event Card — July */}
-          <EventCard
-            id="event-jul"
-            title={{ en: "3rd Monthly Meeting", ja: "第3回 月例会" }}
-            date={{ en: "July 3, 2026", ja: "2026年7月3日（金）開催" }}
-            status={{ en: "Upcoming", ja: "開催予定" }}
-          >
-
-            {/* Title */}
-            <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
-              <p className="text-lg font-bold text-primary leading-relaxed">
-                {language === "en"
-                  ? "Global Business Expansion by Japan's Top Noodle Machine Manufacturer (tentative)"
-                  : "国内TOP製麺機メーカーのグローバルビジネス展開について（仮）"}
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                {language === "en"
-                  ? "— Featuring Masaaki Fujii, President & CEO, Yamato Manufacturing Co., Ltd."
-                  : "〜株式会社大和製作所 代表取締役社長 藤井正章氏 登壇〜"}
-              </p>
-            </div>
-
-            {/* Lead Text */}
-            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
-              <p className="text-foreground leading-relaxed mb-4">
-                {language === "en"
-                  ? 'We are excited to welcome Mr. Masaaki Fujii, President & CEO of Yamato Manufacturing Co., Ltd., the top domestic manufacturer of compact noodle machines, spreading Japan\'s "noodle culture" to the world.'
-                  : "今回は、小型製麺機で国内トップシェアを誇り、世界中へ日本の「麺文化」を発信し続ける株式会社大和製作所 代表取締役社長の藤井 正章さまをゲストにお招きします。"}
-              </p>
-              <p className="text-foreground leading-relaxed mb-4">
-                {language === "en"
-                  ? 'The company goes beyond being a machine manufacturer — operating "noodle schools," providing startup support, and sharing restaurant management know-how, scientifically approaching the noodle business from both hardware and software perspectives to support the success of ramen and udon restaurants worldwide.'
-                  : "同社は機械メーカーにとどまらず、「麺学校」の運営や開業支援、店舗経営のノウハウ提供など、ハードとソフトの両面から麺ビジネスを科学し、世界中のラーメン・うどん店の成功を支えています。"}
-              </p>
-              <p className="text-foreground leading-relaxed">
-                {language === "en"
-                  ? "In this session, Mr. Fujii will share how they have pioneered overseas markets with overwhelming product strength and a unique business model, the strategies and challenges behind the scenes, and future prospects. Don't miss this rare opportunity to hear from a top leader who continues to challenge on the world stage!"
-                  : "本セッションでは、圧倒的な製品力と独自のビジネスモデルでいかにして海外市場を開拓してきたのか、その裏側にある戦略や苦労、そして今後の展望についてたっぷりとお話しいただきます。世界を舞台に挑戦し続けるトップリーダーの生の声を聞ける貴重な機会です。ぜひ奮ってご参加ください！"}
-              </p>
-            </div>
-
-            {/* Talk Themes */}
-            <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
-              <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Talk Themes (planned)" : "トークテーマ（予定）"}</h3>
-              <BulletList items={JULY_THEMES} />
-              <p className="text-xs text-muted-foreground mt-4">
-                {language === "en" ? "※ Content may be subject to partial changes." : "※内容は一部変更となる場合がございます。"}
-              </p>
-            </div>
-
-            {/* Speaker Profile */}
-            <SpeakerBox heading={{ en: "Speaker Profile", ja: "講師プロフィール" }}>
-              <p className="font-semibold text-primary text-lg">{language === "en" ? "Masaaki Fujii" : "藤井 正章（ふじい まさあき）"}</p>
-              <p className="text-sm text-muted-foreground font-semibold">
-                {language === "en" ? "President & CEO, Yamato Manufacturing Co., Ltd." : "株式会社大和製作所 代表取締役社長"}
-              </p>
-              <p className="text-foreground leading-relaxed text-sm">
-                {language === "en"
-                  ? 'In April 2025, he succeeded founder Kaoru Fujii as President & CEO of Yamato Manufacturing Co., Ltd. Headquartered in Kagawa Prefecture, the company holds the top domestic market share in compact noodle machines for udon, soba, and ramen. Going beyond a conventional machine manufacturer, the company operates its own "Udon School," "Ramen School," and "Soba School." In addition to hardware (noodle machines), it provides comprehensive support for noodle restaurant success through proprietary "Digital Cooking" techniques, restaurant management know-how, and total startup consulting.'
-                  : "2025年4月、創業者である前社長の藤井薫氏の後を継ぎ、株式会社大和製作所の代表取締役社長に就任。同社は香川県に本社を構え、うどん・そば・ラーメン用小型製麺機において業界トップシェアを誇る。単なる機械メーカーの枠を超え、自社で「うどん学校」「ラーメン学校」「そば学校」を運営。ハード（製麺機）の提供だけでなく、独自の「デジタルクッキング法」による製麺技術の指導、店舗経営ノウハウ、新規開業のトータルプロデュースなど、ソフト面も併せ持った麺専門店繁盛支援を展開している。"}
-              </p>
-              <p className="text-foreground leading-relaxed text-sm">
-                {language === "en"
-                  ? 'Since becoming president, he has inherited a solid domestic business foundation while driving the expansion of overseas operations against the backdrop of the global Japanese food boom. Armed with Japan\'s proud "noodle culture" and "manufacturing excellence," he leads the company\'s global business expansion at the forefront.'
-                  : "藤井氏は代表就任以降、国内の盤石な事業基盤を引き継ぐとともに、世界的な日本食ブームを背景とした海外拠点の拡充を推進。日本が誇る「麺文化」と「モノづくり」を武器に、同社のグローバルビジネス展開の最前線を牽引している。"}
-              </p>
-            </SpeakerBox>
-
-            {/* Event Details */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <DateTime date={{ en: "Friday, July 3, 2026", ja: "7月3日（金）" }} time={{ en: "7:00 PM -", ja: "19:00～" }} />
-              <Venue />
-            </div>
-
-            <FeeTable />
-            <ApplyButton href="https://kaib0703.peatix.com/" />
-          </EventCard>
-
-          {/* Second Event Card — June */}
-          <EventCard
-            id="event-jun"
-            title={{ en: "2nd Monthly Meeting", ja: "第2回 月例会" }}
-            date={{ en: "June 5, 2026", ja: "2026年6月5日（金）開催" }}
-            status={{ en: "Upcoming", ja: "開催予定" }}
-          >
-
-            {/* Event Introduction */}
-            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
-              <p className="text-foreground leading-relaxed mb-4">
-                {language === "en" ? "The KAIB 2nd Monthly Meeting will be held on June 5th!" : "KAIB第2回月例会を6月5日に開催いたします！"}
-              </p>
-              <p className="text-foreground leading-relaxed">
-                {language === "en" ? "We are honored to welcome Mr. Takeshi Izuka as our guest speaker. The theme is " : "今回は特別講師として猪塚武氏をお迎えし、テーマは"}
-                <span className="font-semibold text-primary">
-                  {language === "en" ? '"The Reality of Cutting-Edge AI-Driven Management"' : "『最先端のAI駆動経営の実際』"}
-                </span>
-                {language === "en"
-                  ? ". He will share concrete examples of future management methods utilizing AI."
-                  : "です。AIを活用した将来の具体的な経営方法の実際を具体的に紹介していただきます。"}
-              </p>
-            </div>
-
-            {/* Speaker Profile */}
-            <SpeakerBox heading={{ en: "Speaker Profile", ja: "講師プロフィール" }}>
-              <div className="flex items-center gap-2">
-                <p className="font-semibold text-primary text-lg">{language === "en" ? "Takeshi Izuka" : "猪塚武"}</p>
-                <a
-                  href="https://izuka.net/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-primary/80 text-sm flex items-center gap-1 transition"
-                >
-                  {language === "en" ? "Website" : "Webサイト"}
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-              <p className="text-sm text-muted-foreground font-semibold">
-                {language === "en" ? "KAIB Co-President / Serial Entrepreneur" : "KAIB共同代表理事 / シリアルアントレプレナー"}
-              </p>
-              <p className="text-foreground leading-relaxed text-sm">
-                {language === "en"
-                  ? "After majoring in physics at graduate school, he ventured into politics and then founded businesses in Japan, Singapore, and Cambodia. He founded Digital Forest Inc. (Visionalist), which was acquired by NTT Communications. He also established a university in Cambodia and operates the Sanuki Peer Learning Hub in Kagawa Prefecture. A serial entrepreneur with a unique career spanning global business, education, and technology."
-                  : "大学院で物理を専攻した後、政治家に挑戦。その後、日本・シンガポール・カンボジアで起業。アクセス解析ツール「Visionalist」を提供するデジタルフォレスト社を創業し、NTTコミュニケーションズに事業売却。カンボジアでは大学を設立し、香川県では「さぬきピアラーニングハブ」を運営。グローバルビジネス・教育・テクノロジーを横断する異色の経歴を持つシリアルアントレプレナー。"}
-              </p>
-            </SpeakerBox>
-
-            {/* Event Details */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <DateTime date={{ en: "Friday, June 5, 2026", ja: "6月5日（金）" }} time={{ en: "7:00 PM -", ja: "19:00～" }} />
-              <Venue />
-            </div>
-
-            <FeeTable />
-            <ApplyButton href="https://kaib20260605.peatix.com/" />
-          </EventCard>
-
-          {/* First Event Card — April (ended, collapsed by default) */}
-          <EventCard
-            id="event-apr"
-            title={{ en: "First Monthly Meeting", ja: "第1回 月例会" }}
-            date={{ en: "April 3, 2026", ja: "2026年4月3日（金）開催" }}
-            status={{ en: "Ended", ja: "開催済み" }}
-            ended
-            defaultOpen={false}
-          >
-
-            {/* Event Introduction */}
-            <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
-              <p className="text-foreground leading-relaxed mb-4">
-                {language === "en"
-                  ? "Hello everyone! Kagawa Innovation Base (KAIB) is now in full operation!"
-                  : "皆様、こんにちは。Kagawa Innovation Base（KAIB）の活動がいよいよ本格始動いたします！"}
-              </p>
-              <p className="text-foreground leading-relaxed mb-4">
-                {language === "en"
-                  ? "We are pleased to announce the first monthly meeting on April 3rd at Board game cafe bar Alternative."
-                  : "記念すべき「第1回 月例会」を、4月3日に『Board game cafe bar Alternative』にて開催する運びとなりました。"}
-              </p>
-              <p className="text-foreground leading-relaxed">
-                {language === "en"
-                  ? "The main content is a special speech by KAIB Chairman Shinichi Hosokawa on the theme: "
-                  : "メインコンテンツは、KAIB会長・細川による特別スピーチです。テーマは"}
-                <span className="font-semibold text-primary">
-                  {language === "en" ? '"My Thoughts on Kagawa and Kagawa\'s Potential"' : "『香川にかける思いと、香川の可能性』"}
-                </span>
-                {language === "en" ? "." : "です。"}
-              </p>
-            </div>
-
-            {/* Speaker Profile */}
-            <SpeakerBox heading={{ en: "Speaker Profile", ja: "登壇者プロフィール" }}>
-              <p className="font-semibold text-primary">{language === "en" ? "Shinichi Hosokawa" : "細川慎一"}</p>
-              <p className="text-sm text-muted-foreground font-semibold">
-                {language === "en"
-                  ? "KAIB Chairman\nDirector & Founder, GMO z.com research pte. ltd\nRepresentative Director, HOSOKAWA Co., Ltd. / Director, HOSOKAWA, pte. ltd."
-                  : "Kagawa Innovation Base（KAIB）会長\nGMO z.com research pte. ltd Director & Founder\n株式会社HOSOKAWA 代表取締役 / HOSOKAWA, pte. ltd. Director"}
-              </p>
-              <p className="text-foreground leading-relaxed text-sm">
-                {language === "en"
-                  ? "Born in Kotohira Town, Kagawa Prefecture. After graduating from university, he began his career as a diplomat at the Japanese Embassy in Ethiopia. He later earned an MBA from Thunderbird School of Global Management. For 30 years, he has been at the forefront of international business, visiting over 50 countries. After successfully leading a company to IPO in growth markets, he now serves as the CEO of a listed company while based in Singapore."
-                  : "香川県琴平町出身。大学卒業後に在エチオピア日本大使館で外交官としてのキャリアをスタートして以来、サンダーバード国際経営大学院にてMBAを取得。30年にわたり海外ビジネスの最前線で活躍し、これまでの訪問国は50カ国以上にのぼる。グロース市場での企業上場（IPO）を実現させたのち、シンガポール在住のまま上場企業の経営トップを務めるという稀有な実績を持つ。"}
-              </p>
-              <p className="text-foreground leading-relaxed text-sm">
-                {language === "en"
-                  ? "Currently holding a top talent work visa in Singapore, he serves in key positions including Representative of ESOMAR (European Association for Opinion and Marketing Research) Japan, and Chair of APRC (Asia-Pacific Research Committee). Leveraging his global insights, networks, and proven business acumen, he is now embarking on a new challenge to foster innovation in Kagawa."
-                  : "現在はシンガポールにてトップタレント向け就労ビザを保有して活動する傍ら、ESOMAR（欧州世論・市場調査協会）日本代表、APRC（アジア太平洋リサーチ委員会）会長などの要職を務める。グローバルな知見とネットワーク、そして経営者としての確かな手腕を活かし、香川のイノベーション創出に向けた新たな挑戦を始動。"}
-              </p>
-            </SpeakerBox>
-
-            {/* Why Attend */}
-            <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
-              <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Event Highlights" : "このイベントの見どころ"}</h3>
-              <BulletList items={APRIL_HIGHLIGHTS} />
-            </div>
-
-            {/* Event Details */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <DateTime
-                date={{ en: "Friday, April 3, 2026", ja: "4月3日（金）" }}
-                time={{ en: "7:00 PM - (Reception: 6:30 PM)", ja: "19:00～（受付18:30開始）" }}
-                note={{ en: "※Networking reception to follow", ja: "※その後懇親会あり" }}
-              />
-              <Venue />
-              <div className="flex gap-4">
-                <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">{language === "en" ? "Participation Fee" : "参加費"}</h4>
-                  <p className="text-muted-foreground text-sm">
-                    <span className="text-primary font-semibold">{language === "en" ? "Free" : "無料"}</span>
-                  </p>
-                  <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-md">
-                    <p className="text-sm text-foreground font-semibold mb-1">
-                      {language === "en" ? "Networking Reception (After-party)" : "２次会（懇親会）"}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {language === "en" ? "Adults: ¥5,500 / High school students and under: Free" : "大人1名 ¥5,500 ／ 高校生以下 無料"}
-                    </p>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {language === "en" ? "Advance payment is required." : "事前決済をお願いしております。"}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {language === "en" ? "If you need a separate receipt, please contact us." : "※別途領収書が必要な場合は、大変お手数ですがご連絡ください。"}
-                    </p>
-                    <p className="text-sm text-muted-foreground font-semibold mt-2">{language === "en" ? "Payment closed" : "受付終了"}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <ExternalLink className="w-6 h-6 text-muted-foreground flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">{language === "en" ? "Registration" : "お申し込み"}</h4>
-                  <p className="text-muted-foreground text-sm font-semibold">{language === "en" ? "Registration closed" : "受付終了"}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Call to Action */}
-            <div className="p-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-primary/20">
-              <p className="text-foreground leading-relaxed mb-4">
-                {language === "en"
-                  ? "For those who want to create Kagawa's future together, touch global perspectives and real business management, and take new steps in the region, this will be a time full of insights and inspiration."
-                  : "香川の未来を共に創りたい方、グローバルな視点や経営のリアルに触れてみたい方、地域での新たな一歩を踏み出したい方にとって、多くの気づきと刺激に満ちた時間になるはずです。"}
-              </p>
-              <p className="text-foreground font-semibold">
-                {language === "en"
-                  ? "Why not join us at this gathering where new connections and passion for Kagawa's future intersect?"
-                  : "新しい出会いと、香川の未来への熱気が交差する場へ、ぜひ足を運んでみませんか？"}
-              </p>
-              <p className="text-foreground mt-4">
-                {language === "en" ? "We look forward to your participation!" : "皆様のご参加を心よりお待ちしております！"}
-              </p>
-            </div>
-
-            {/* Registration Closed */}
-            <div className="mt-8">
-              <Button size="lg" disabled className="w-full">
-                {language === "en" ? "Registration Closed" : "受付終了"}
-              </Button>
-            </div>
-          </EventCard>
 
           {/* Instagram */}
           <Card className="p-6 mb-8 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200">
