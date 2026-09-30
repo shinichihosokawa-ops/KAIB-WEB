@@ -1,4 +1,4 @@
-import { useState, type ComponentType, type ReactNode } from "react";
+import { Fragment, useState, type ComponentType, type ReactNode } from "react";
 import { useLanguage } from "@/_core/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -543,7 +543,7 @@ type ScheduleItem = {
   type: "monthly" | "special";
 };
 
-// January → December. The first upcoming entry with details opens automatically.
+// Chronological (oldest first); a year heading is shown whenever the year changes. The first upcoming entry with details opens automatically.
 const SCHEDULE: ScheduleItem[] = [
   {
     id: "2026-04-03",
@@ -662,6 +662,26 @@ const SCHEDULE: ScheduleItem[] = [
     title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
     type: "special",
   },
+  {
+    id: "2027-01-07",
+    end: "2027-01-07",
+    month: { en: "JAN", ja: "1月" },
+    day: "7",
+    weekday: { en: "Thu", ja: "木" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM｜Details TBA", ja: "19:00〜｜詳細未定" },
+    type: "monthly",
+  },
+  {
+    id: "2027-02-17",
+    end: "2027-02-17",
+    month: { en: "FEB", ja: "2月" },
+    day: "17",
+    weekday: { en: "Wed", ja: "水" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM｜Details TBA", ja: "19:00〜｜詳細未定" },
+    type: "monthly",
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -711,18 +731,18 @@ export default function WhatsNew() {
             {language === "en" ? "Latest news and event information from KAIB" : "KAIB の最新情報とイベント情報をお知らせいたします。"}
           </p>
 
-          {/* 2026 Annual Schedule — one list, each entry opens its own details */}
+          {/* Annual Schedule (2026–2027) — one list, each entry opens its own details */}
           <Card className="p-5 sm:p-8 mb-8 border-l-4 border-l-accent">
             <div className="flex items-center gap-3 mb-4">
               <CalendarDays className="w-7 h-7 text-accent" />
               <h2 className="text-2xl font-bold text-foreground">
-                {language === "en" ? "2026 Annual Schedule" : "2026年 年間スケジュール"}
+                {language === "en" ? "Event Schedule 2026–2027" : "年間スケジュール（2026〜2027年）"}
               </h2>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
               {language === "en"
-                ? 'Listed from January to December. The upcoming event is shown in detail — tap "Show details" to open the others.'
-                : "1月から順に掲載しています。直近のイベントは詳細を表示しています。その他のイベントは「詳細を見る」から開けます。"}
+                ? 'Listed in date order. The upcoming event is shown in detail — tap "Show details" to open the others.'
+                : "日付順に掲載しています。直近のイベントは詳細を表示しています。その他のイベントは「詳細を見る」から開けます。"}
             </p>
 
             {/* Legend */}
@@ -738,15 +758,23 @@ export default function WhatsNew() {
             </div>
 
             <ol className="space-y-3">
-              {SCHEDULE.map((event) => {
+              {SCHEDULE.map((event, i) => {
+                const year = event.id.slice(0, 4);
+                const newYear = i === 0 || SCHEDULE[i - 1].id.slice(0, 4) !== year;
                 const special = event.type === "special";
                 const past = isPast(event);
                 const open = openIds.has(event.id);
                 const Details = event.Details;
                 const detailsId = `details-${event.id}`;
                 return (
+                  <Fragment key={event.id}>
+                  {newYear && (
+                    <li className={`flex items-center gap-3 text-sm font-bold text-foreground ${i === 0 ? "" : "pt-4"}`}>
+                      {language === "en" ? year : `${year}年`}
+                      <span aria-hidden="true" className="h-px flex-1 bg-border" />
+                    </li>
+                  )}
                   <li
-                    key={event.id}
                     className={`rounded-lg border p-3 sm:p-4 transition ${
                       open ? "border-primary/40 bg-white shadow-sm" : special && !past ? "border-accent/30 bg-accent/5" : "border-border bg-white"
                     }`}
@@ -844,6 +872,7 @@ export default function WhatsNew() {
                       </div>
                     )}
                   </li>
+                  </Fragment>
                 );
               })}
             </ol>
