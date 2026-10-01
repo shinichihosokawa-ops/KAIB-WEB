@@ -681,6 +681,25 @@ const SCHEDULE: ScheduleItem[] = [
     title: { en: "Monthly Meeting", ja: "月例会" },
     subtitle: { en: "From 7:00 PM｜Details TBA", ja: "19:00〜｜詳細未定" },
     type: "monthly",
+  },  {
+    id: "2027-03-05",
+    end: "2027-03-05",
+    month: { en: "MAR", ja: "3月" },
+    day: "5",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "Details TBA", ja: "詳細未定" },
+    type: "monthly",
+  },
+  {
+    id: "2027-04-02",
+    end: "2027-04-02",
+    month: { en: "APR", ja: "4月" },
+    day: "2",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Annual General Meeting", ja: "年次総会" },
+    subtitle: { en: "Details TBA", ja: "詳細未定" },
+    type: "special",
   },
 ];
 
