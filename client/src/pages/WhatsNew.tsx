@@ -538,6 +538,8 @@ type ScheduleItem = {
   speaker?: Speaker;
   /** External event page. */
   href?: string;
+  /** Registration page (Peatix). Hidden once the event has passed. */
+  register?: string;
   /** Full event details, opened in place from the schedule row. */
   Details?: ComponentType<DetailsProps>;
   type: "monthly" | "special";
@@ -651,6 +653,7 @@ const SCHEDULE: ScheduleItem[] = [
       title: { en: "President & CEO, VISIA Inc.", ja: "株式会社ビジア 代表取締役" },
       href: "https://visia.asia/",
     },
+    register: "https://kaib1127.peatix.com/",
     type: "monthly",
   },
   {
@@ -669,7 +672,14 @@ const SCHEDULE: ScheduleItem[] = [
     day: "7",
     weekday: { en: "Thu", ja: "木" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "From 7:00 PM｜Details TBA", ja: "19:00〜｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
+    speaker: {
+      name: { en: "Yuichi Kato", ja: "加藤 雄一 様" },
+      title: {
+        en: "Former President & CEO and Chairman, Advanex Inc.",
+        ja: "株式会社アドバネクス 元代表取締役社長・会長",
+      },
+    },
     type: "monthly",
   },
   {
@@ -679,7 +689,14 @@ const SCHEDULE: ScheduleItem[] = [
     day: "17",
     weekday: { en: "Wed", ja: "水" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "From 7:00 PM｜Details TBA", ja: "19:00〜｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
+    speaker: {
+      name: { en: "Takeshi Ogiwara", ja: "荻原 猛 様" },
+      title: {
+        en: "Founder, SO Technologies (formerly SOLDOUT, Inc.) / President & CEO, Rocket Star Inc.",
+        ja: "ソウルドアウト株式会社 創業者（現 株式会社ロケットスター 代表取締役社長）",
+      },
+    },
     type: "monthly",
   },  {
     id: "2027-03-05",
@@ -688,7 +705,14 @@ const SCHEDULE: ScheduleItem[] = [
     day: "5",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "Details TBA", ja: "詳細未定" },
+    subtitle: { en: "Topic: TBA", ja: "演題：未定" },
+    speaker: {
+      name: { en: "Kunihiro Tanaka", ja: "田中 邦裕 様" },
+      title: {
+        en: "President & CEO, SAKURA internet Inc.",
+        ja: "さくらインターネット株式会社 代表取締役社長",
+      },
+    },
     type: "monthly",
   },
   {
@@ -700,6 +724,86 @@ const SCHEDULE: ScheduleItem[] = [
     title: { en: "Annual General Meeting", ja: "年次総会" },
     subtitle: { en: "Details TBA", ja: "詳細未定" },
     type: "special",
+  },
+  {
+    id: "2027-05-14",
+    end: "2027-05-14",
+    month: { en: "MAY", ja: "5月" },
+    day: "14",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
+    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    type: "monthly",
+  },
+  {
+    id: "2027-06-11",
+    end: "2027-06-11",
+    month: { en: "JUN", ja: "6月" },
+    day: "11",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
+    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    type: "monthly",
+  },
+  {
+    id: "2027-07-09",
+    end: "2027-07-09",
+    month: { en: "JUL", ja: "7月" },
+    day: "9",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
+    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    type: "monthly",
+  },
+  {
+    id: "2027-08-13",
+    end: "2027-08-13",
+    month: { en: "AUG", ja: "8月" },
+    day: "13",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
+    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    type: "monthly",
+  },
+  {
+    id: "2027-09-10",
+    end: "2027-09-10",
+    month: { en: "SEP", ja: "9月" },
+    day: "10",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
+    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    type: "monthly",
+  },
+  {
+    id: "2027-10-08",
+    end: "2027-10-08",
+    month: { en: "OCT", ja: "10月" },
+    day: "8",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
+    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    type: "monthly",
+  },
+  {
+    id: "2027-11-12",
+    end: "2027-11-12",
+    month: { en: "NOV", ja: "11月" },
+    day: "12",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
+    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    type: "monthly",
+  },
+  {
+    id: "2027-12-10",
+    end: "2027-12-10",
+    month: { en: "DEC", ja: "12月" },
+    day: "10",
+    weekday: { en: "Fri", ja: "金" },
+    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
+    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    type: "monthly",
   },
 ];
 
@@ -855,7 +959,7 @@ export default function WhatsNew() {
                           <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>
                         )}
 
-                        {(Details || event.href) && (
+                        {(Details || event.href || (event.register && !past)) && (
                           <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
                             {Details && (
                               <button
@@ -868,6 +972,17 @@ export default function WhatsNew() {
                                 {open ? (language === "en" ? "Hide details" : "詳細を閉じる") : language === "en" ? "Show details" : "詳細を見る"}
                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
                               </button>
+                            )}
+                            {event.register && !past && (
+                              <a
+                                href={event.register}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white transition hover:bg-primary/90"
+                              >
+                                {language === "en" ? "Register (Peatix)" : "申し込む（Peatix）"}
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
                             )}
                             {event.href && (
                               <a
