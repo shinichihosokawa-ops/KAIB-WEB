@@ -1154,10 +1154,41 @@ export default function WhatsNew() {
             {language === "en" ? "Latest news and event information from KAIB" : "KAIB の最新情報とイベント情報をお知らせいたします。"}
           </p>
 
+          {/* Past events — collapsed, oldest first so the page reads in date order */}
+          {Object.entries(pastByYear)
+            .sort(([a], [b]) => a.localeCompare(b))
+            .map(([year, items]) => {
+              const key = `past-${year}`;
+              const open = openIds.has(key);
+              return (
+                <div key={key} className="mb-6">
+                  <button
+                    type="button"
+                    onClick={() => toggle(key)}
+                    aria-expanded={open}
+                    aria-controls={key}
+                    className="flex w-full items-center justify-between gap-3 rounded-lg bg-muted/60 px-4 py-3 text-left transition hover:bg-muted"
+                  >
+                    <span className="text-sm font-bold text-muted-foreground">
+                      {language === "en" ? `Past events in ${year} (${items.length})` : `${year}年の過去のイベント（${items.length}件）`}
+                    </span>
+                    <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
+                  </button>
+                  {open && (
+                    <ol id={key} className="mt-3 space-y-3">
+                      {items.map((event) => (
+                        <ScheduleRow key={event.id} event={event} past open={openIds.has(event.id)} onToggle={() => toggle(event.id)} />
+                      ))}
+                    </ol>
+                  )}
+                </div>
+              );
+            })}
+
           {/* Next event — the largest block on the page */}
           {featured && <FeaturedEvent event={featured} />}
 
-          {/* Upcoming schedule + past events (collapsed) */}
+          {/* Upcoming schedule */}
           <Card className="p-5 sm:p-8 mb-8 border-l-4 border-l-accent">
             <div className="flex items-center gap-3 mb-4">
               <CalendarDays className="w-7 h-7 text-accent" />
@@ -1199,35 +1230,6 @@ export default function WhatsNew() {
               })}
             </ol>
 
-            {Object.entries(pastByYear)
-              .sort(([a], [b]) => b.localeCompare(a))
-              .map(([year, items]) => {
-                const key = `past-${year}`;
-                const open = openIds.has(key);
-                return (
-                  <div key={key} className="mt-8 border-t border-border pt-6">
-                    <button
-                      type="button"
-                      onClick={() => toggle(key)}
-                      aria-expanded={open}
-                      aria-controls={key}
-                      className="flex w-full items-center justify-between gap-3 rounded-lg bg-muted/60 px-4 py-3 text-left transition hover:bg-muted"
-                    >
-                      <span className="text-sm font-bold text-muted-foreground">
-                        {language === "en" ? `Past events in ${year} (${items.length})` : `${year}年の過去のイベント（${items.length}件）`}
-                      </span>
-                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
-                    </button>
-                    {open && (
-                      <ol id={key} className="mt-3 space-y-3">
-                        {items.map((event) => (
-                          <ScheduleRow key={event.id} event={event} past open={openIds.has(event.id)} onToggle={() => toggle(event.id)} />
-                        ))}
-                      </ol>
-                    )}
-                  </div>
-                );
-              })}
           </Card>
 
           {/* Instagram */}
