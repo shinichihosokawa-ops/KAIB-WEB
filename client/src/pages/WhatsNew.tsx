@@ -150,6 +150,34 @@ function ApplyButton({ href, label, past = false }: { href: string; label?: L; p
   );
 }
 
+/** Talk themes for the November meeting (Hideo Kuwahara). */
+const NOV_THEMES: L[] = [
+  { en: "28 years since founding at 20 — reinventing the business from advertising to online printing", ja: "20歳で起業して28年 — 広告からネット印刷へ、事業をつくり替え続けてきた経営者の現在地" },
+  { en: "Why do business owners become isolated? — and why it's even harder to speak openly in the regions", ja: "経営者はなぜ孤独になるのか — 地方ほど本音が言えない理由" },
+  { en: 'People change because you "don\'t give advice" — what happens in an EO Forum', ja: "「アドバイスしない」から人が変わる — EO のフォーラムで起きていること" },
+  { en: "What keeps growing entrepreneurs have in common — lessons from 1,000 founders", ja: "1,000人の起業家と向き合って見えた、伸び続ける経営者に共通すること" },
+];
+
+/** Who the November meeting is for. */
+const NOV_AUDIENCE: L[] = [
+  { en: "Anyone who wants fellow business owners they can talk to honestly", ja: "本音で相談できる経営者仲間がほしい方" },
+  { en: "Owners carrying worries they can't share with staff or family", ja: "社員にも家族にも言えない悩みを、一人で抱えている経営者" },
+  { en: "Those who want to take their company to the next stage but don't know where to start", ja: "会社を次のステージへ伸ばしたいが、何から変えればいいか迷っている方" },
+  { en: "Anyone curious about what an EO / IB Forum is", ja: "EO・IB のフォーラムがどんなものか知りたい方" },
+  { en: "Those considering joining KAIB", ja: "KAIB への入会を検討している方" },
+  { en: "Business people and students thinking about starting a company", ja: "これから起業を考えているビジネスパーソン・学生" },
+];
+
+/** Timetable for the November meeting. */
+const NOV_TIMETABLE: { time: string; item: L }[] = [
+  { time: "19:00", item: { en: "Doors open", ja: "開場" } },
+  { time: "19:15", item: { en: "Opening & introduction to KAIB", ja: "オープニング・KAIBのご紹介" } },
+  { time: "19:20", item: { en: "Talk by Hideo Kuwahara", ja: "桑原英男氏 講演" } },
+  { time: "20:00", item: { en: "Q&A", ja: "質疑応答" } },
+  { time: "20:15", item: { en: "Networking reception", ja: "懇親会（自由交流）" } },
+  { time: "21:45", item: { en: "Close", ja: "終了" } },
+];
+
 /** Talk themes for the October meeting (President Ono). */
 const OCT_THEMES: L[] = [
   { en: "Career history so far", ja: "これまでの経歴" },
@@ -463,6 +491,86 @@ function SetouchiDetails({ past }: DetailsProps) {
   );
 }
 
+function NovDetails({ past }: DetailsProps) {
+  const { language } = useLanguage();
+  return (
+    <>
+      <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+        <p className="text-lg font-bold text-primary leading-relaxed">
+          {language === "en"
+            ? "\u201cSales, people, family. Do you have someone you can talk to honestly?\u201d"
+            : "「売上のこと、人のこと、家族のこと。本音で相談できる相手、いますか？」"}
+        </p>
+        <p className="text-sm text-muted-foreground mt-1">
+          {language === "en" ? "— Featuring Hideo Kuwahara, President & CEO, VISIA Inc." : "〜 株式会社ビジア 代表取締役 桑原英男 様 登壇 〜"}
+        </p>
+        <a
+          href="https://visia.asia/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-primary hover:text-primary/80 hover:underline inline-flex items-center gap-1 mt-1 transition"
+        >
+          {language === "en" ? "VISIA Inc." : "株式会社ビジア"}
+          <ExternalLink className="w-3 h-3" />
+        </a>
+      </div>
+
+      <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 [&>p]:leading-8">
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? "In a nationwide survey of business owners, about one in four said they have no one they can talk to honestly (EO Tokyo Central). It's even harder in the regions, where clients and competitors are all connected — so many owners carry their worries and make their decisions alone."
+            : "全国の経営者を対象にした調査では、約4人に1人が「本音で相談できる相手がいない」と回答（EO Tokyo Central調べ）。取引先も同業者もどこかでつながっている地方ではなおさらで、悩みも決断も一人で抱える経営者は少なくありません。"}
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? 'EO (Entrepreneurs\' Organization), with over 17,000 entrepreneurs in about 70 countries, answers this with the "Forum": a small, fixed group that meets monthly under strict confidentiality to share what is really happening in work and life. The one rule — "don\'t give advice, share your own experience" — changes how owners decide and act.'
+            : "世界約70カ国・1万7千人以上の起業家が参加する EO（Entrepreneurs' Organization）には、この孤独に向き合う仕組み「フォーラム」があります。少人数の固定メンバーが毎月集まり、守秘義務のもとで仕事と人生の本音を共有する場。ルールは「アドバイスをしない。自分の経験を話す」——それだけで、経営者の判断と行動が変わっていきます。"}
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          {language === "en"
+            ? 'Our guest, Hideo Kuwahara, is an EO-certified Forum Trainer and, since 2021, Japan\'s only Master Trainer, training the trainers themselves. He founded his company at 20 and has kept reinventing it for 28 years. He also co-developed "IBF", the Forum used by Innovation Bases across Japan — including KAIB\'s own.'
+            : "ゲストは、EO 公認フォーラムトレーナーであり、2021年から日本でただ一人のマスタートレーナーとしてトレーナー育成も担う、株式会社ビジア 代表取締役の桑原英男さん。20歳で起業し、28年にわたり事業をつくり替えながら経営を続ける現役経営者です。全国の IB で使われているフォーラム「IBF」の共同開発者でもあり、KAIB のフォーラムもこの仕組みの上に立っています。"}
+        </p>
+        <p className="text-foreground leading-relaxed">
+          {language === "en"
+            ? 'Drawing on more than 1,000 entrepreneurs he works with each year, he will talk about why owners become isolated, what changes when you have peers you can be honest with, and how to build that place in the regions. This is the evening that answers "What does KAIB actually do?" — members, please bring a fellow business owner along.'
+            : "年間のべ1,000人以上の起業家と向き合ってきた桑原さんに、経営者がなぜ孤独になるのか、本音を話せる仲間がいると何が変わるのか、そして地方でその場をどうつくるのかを、実体験を交えてお話しいただきます。「KAIB って何をしているの？」の答えが、この一晩でわかる回です。会員の方は、ぜひ気になる経営者仲間を誘ってお越しください。"}
+        </p>
+      </div>
+
+      <div className="mb-8 p-6 bg-accent/5 rounded-lg border border-accent/20">
+        <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Talk Themes (planned)" : "当日のトークテーマ（予定）"}</h3>
+        <BulletList items={NOV_THEMES} />
+      </div>
+
+      <div className="mb-8 p-6 bg-card rounded-lg border border-border">
+        <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Recommended for" : "こんな方におすすめ"}</h3>
+        <BulletList items={NOV_AUDIENCE} />
+      </div>
+
+      <div className="mb-8 p-6 bg-card rounded-lg border border-border">
+        <h3 className="text-lg font-semibold text-foreground mb-4">{language === "en" ? "Timetable" : "タイムテーブル"}</h3>
+        <dl className="divide-y divide-border text-sm">
+          {NOV_TIMETABLE.map((row) => (
+            <div key={row.time} className="flex gap-4 py-2">
+              <dt className="w-14 flex-shrink-0 font-semibold text-primary tabular-nums">{row.time}</dt>
+              <dd className="text-foreground">{row.item[language]}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <DateTime date={{ en: "Friday, November 27, 2026", ja: "11月27日（金）" }} time={{ en: "Doors open 7:00 PM", ja: "19:00 開場" }} />
+        <Venue />
+      </div>
+
+      <FeeTable />
+      <ApplyButton href="https://kaib1127.peatix.com/" past={past} />
+    </>
+  );
+}
+
 function OnoDetails({ past }: DetailsProps) {
   const { language } = useLanguage();
   return (
@@ -654,6 +762,7 @@ const SCHEDULE: ScheduleItem[] = [
       href: "https://visia.asia/",
     },
     register: "https://kaib1127.peatix.com/",
+    Details: NovDetails,
     type: "monthly",
   },
   {
