@@ -676,8 +676,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Yuichi Kato", ja: "加藤 雄一 様" },
       title: {
-        en: "Former President & CEO and Chairman, Advanex Inc.",
-        ja: "株式会社アドバネクス 元代表取締役社長・会長",
+        en: "Former President & CEO and Chairman, Advanex Inc. (currently Visiting Professor, Graduate Institute for Entrepreneurial Studies)",
+        ja: "株式会社アドバネクス 元代表取締役社長・会長（現 事業創造大学院大学 客員教授）",
       },
     },
     type: "monthly",
