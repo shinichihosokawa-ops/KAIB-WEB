@@ -880,8 +880,16 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "SEP", ja: "9月" },
     day: "10",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "Topic: TBA", ja: "演題：未定" },
+    speaker: {
+      name: { en: "Kayo Yoshida", ja: "吉田 佳代 様" },
+      title: {
+        en: "President & CEO (5th-generation brewer), Umenoyado Brewery Co., Ltd.",
+        ja: "梅乃宿酒造株式会社 代表取締役社長（5代目蔵元）",
+      },
+      href: "https://www.umenoyado.com/",
+    },
     type: "monthly",
   },
   {
