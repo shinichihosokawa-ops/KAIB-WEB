@@ -862,8 +862,13 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "JUL", ja: "7月" },
     day: "9",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
+    speaker: {
+      name: { en: "Miki Igarashi", ja: "五十嵐 幹 様" },
+      title: { en: "President, Cross Marketing Group Inc.", ja: "株式会社クロス・マーケティンググループ 代表取締役社長" },
+      href: "https://www.cm-group.co.jp/",
+    },
     type: "monthly",
   },
   {
