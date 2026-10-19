@@ -852,8 +852,16 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "JUN", ja: "6月" },
     day: "11",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
+    speaker: {
+      name: { en: "Hiroshi Fukudome", ja: "福留 大士 様" },
+      title: {
+        en: "Representative Director & President, Change Holdings, Inc.",
+        ja: "株式会社チェンジホールディングス 代表取締役兼執行役員社長",
+      },
+      href: "https://www.changeholdings.co.jp/",
+    },
     type: "monthly",
   },
   {
