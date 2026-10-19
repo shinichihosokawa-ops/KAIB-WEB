@@ -781,7 +781,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "7",
     weekday: { en: "Thu", ja: "木" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
+    subtitle: { en: "From 7:00 PM｜Venue: Sanuki Peer Learning Hub｜Topic: TBA", ja: "19:00〜｜会場：さぬきピアラーニングハブ｜演題：未定" },
     speaker: {
       name: { en: "Yuichi Kato", ja: "加藤 雄一 様" },
       title: {
@@ -798,7 +798,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "17",
     weekday: { en: "Wed", ja: "水" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
+    subtitle: { en: "From 7:00 PM｜Venue: Sanuki Peer Learning Hub｜Topic: TBA", ja: "19:00〜｜会場：さぬきピアラーニングハブ｜演題：未定" },
     speaker: {
       name: { en: "Takeshi Ogiwara", ja: "荻原 猛 様" },
       title: {
@@ -814,7 +814,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "5",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "Topic: TBA", ja: "演題：未定" },
+    subtitle: { en: "Venue: Takamatsu (location TBA)｜Topic: TBA", ja: "会場：高松予定（場所未定）｜演題：未定" },
     speaker: {
       name: { en: "Kunihiro Tanaka", ja: "田中 邦裕 様" },
       title: {
@@ -831,7 +831,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "2",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Annual General Meeting", ja: "年次総会" },
-    subtitle: { en: "Details TBA", ja: "詳細未定" },
+    subtitle: { en: "Venue: Sanuki Peer Learning Hub｜Details TBA", ja: "会場：さぬきピアラーニングハブ｜詳細未定" },
     type: "special",
   },
   {
