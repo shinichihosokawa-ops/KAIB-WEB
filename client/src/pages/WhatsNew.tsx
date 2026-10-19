@@ -756,6 +756,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "27",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM", ja: "19:00〜" },
     speaker: {
       name: { en: "Hideo Kuwahara", ja: "桑原英男 様" },
       title: { en: "President & CEO, VISIA Inc.", ja: "株式会社ビジア 代表取締役" },
@@ -772,6 +773,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "18",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
+    subtitle: { en: "From 7:00 PM", ja: "19:00〜" },
     type: "special",
   },
   {
@@ -814,7 +816,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "5",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "Venue: Takamatsu (location TBA)｜Topic: TBA", ja: "会場：高松予定（場所未定）｜演題：未定" },
+    subtitle: { en: "From 7:00 PM｜Venue: Takamatsu (location TBA)｜Topic: TBA", ja: "19:00〜｜会場：高松予定（場所未定）｜演題：未定" },
     speaker: {
       name: { en: "Kunihiro Tanaka", ja: "田中 邦裕 様" },
       title: {
@@ -831,7 +833,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "2",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Annual General Meeting", ja: "年次総会" },
-    subtitle: { en: "Venue: Sanuki Peer Learning Hub｜Details TBA", ja: "会場：さぬきピアラーニングハブ｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Venue: Sanuki Peer Learning Hub｜Details TBA", ja: "19:00〜｜会場：さぬきピアラーニングハブ｜詳細未定" },
     type: "special",
   },
   {
@@ -841,7 +843,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "14",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
     type: "monthly",
   },
   {
@@ -851,7 +853,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "11",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
     type: "monthly",
   },
   {
@@ -861,7 +863,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "9",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
     type: "monthly",
   },
   {
@@ -871,7 +873,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "13",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
     type: "monthly",
   },
   {
@@ -881,7 +883,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "10",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "Venue: Takamatsu (planned)｜Topic: TBA", ja: "会場：高松予定｜演題：未定" },
+    subtitle: { en: "From 7:00 PM｜Venue: Takamatsu (planned)｜Topic: TBA", ja: "19:00〜｜会場：高松予定｜演題：未定" },
     speaker: {
       name: { en: "Kayo Yoshida", ja: "吉田 佳代 様" },
       title: {
@@ -899,7 +901,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "8",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
     type: "monthly",
   },
   {
@@ -909,7 +911,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "12",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
     type: "monthly",
   },
   {
@@ -919,7 +921,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "10",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "Tentative date｜Details TBA", ja: "日程仮｜詳細未定" },
+    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
     type: "monthly",
   },
 ];
