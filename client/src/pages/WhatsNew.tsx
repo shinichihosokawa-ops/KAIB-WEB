@@ -926,15 +926,199 @@ const SCHEDULE: ScheduleItem[] = [
 
 /* ------------------------------------------------------------------ */
 
+/** Small status pill: 開催予定 / 開催済み. */
+function StatusPill({ past }: { past: boolean }) {
+  const { language } = useLanguage();
+  return (
+    <span
+      className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${past ? "bg-muted text-muted-foreground" : "bg-accent/10 text-accent"}`}
+    >
+      {past ? (language === "en" ? "Ended" : "開催済み") : language === "en" ? "Upcoming" : "開催予定"}
+    </span>
+  );
+}
+
+/** Speaker name + company line (company links out when a URL is known). */
+function SpeakerLine({ speaker, large = false }: { speaker: Speaker; large?: boolean }) {
+  const { language } = useLanguage();
+  return (
+    <div className={`text-muted-foreground ${large ? "mt-3 text-sm" : "mt-1.5 text-xs"}`}>
+      <p>
+        {language === "en" ? "Speaker: " : "講師："}
+        <span className={`font-semibold text-foreground ${large ? "text-base" : ""}`}>{speaker.name[language]}</span>
+      </p>
+      {speaker.href ? (
+        <a
+          href={speaker.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-primary transition hover:underline"
+        >
+          {speaker.title[language]}
+          <ExternalLink className="w-3 h-3" />
+        </a>
+      ) : (
+        <p>{speaker.title[language]}</p>
+      )}
+    </div>
+  );
+}
+
+/** "Register (Peatix)" pill + "Event page" link. */
+function EventLinks({ event, showRegister }: { event: ScheduleItem; showRegister: boolean }) {
+  const { language } = useLanguage();
+  return (
+    <>
+      {showRegister && event.register && (
+        <a
+          href={event.register}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white transition hover:bg-primary/90"
+        >
+          {language === "en" ? "Register (Peatix)" : "申し込む（Peatix）"}
+          <ExternalLink className="w-3 h-3" />
+        </a>
+      )}
+      {event.href && (
+        <a
+          href={event.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
+        >
+          {language === "en" ? "Event page" : "イベントページ"}
+          <ExternalLink className="w-3 h-3" />
+        </a>
+      )}
+    </>
+  );
+}
+
+/** The next event, shown large at the top of the page with its details open. */
+function FeaturedEvent({ event }: { event: ScheduleItem }) {
+  const { language } = useLanguage();
+  const special = event.type === "special";
+  const Details = event.Details;
+  return (
+    <Card className={`p-5 sm:p-8 mb-8 border-2 shadow-md ${special ? "border-accent/40" : "border-primary/30"}`}>
+      <p className={`mb-4 text-xs font-bold uppercase tracking-widest ${special ? "text-accent" : "text-primary"}`}>
+        {language === "en" ? "Next Event" : "次回のイベント"}
+      </p>
+      <div className="flex gap-4 sm:gap-6">
+        <div
+          className={`flex w-20 sm:w-24 flex-shrink-0 flex-col items-center justify-center self-start rounded-lg py-3 ${
+            special ? "bg-accent text-white" : "bg-primary text-white"
+          }`}
+        >
+          <span className="text-xs font-semibold leading-none">{event.month[language]}</span>
+          <span className="text-3xl sm:text-4xl font-bold leading-tight">{event.day}</span>
+          <span className="text-xs leading-none opacity-90">{event.weekday[language]}</span>
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <h2 className={`text-2xl sm:text-3xl font-bold ${special ? "text-accent" : "text-primary"}`}>{event.title[language]}</h2>
+            <StatusPill past={false} />
+          </div>
+          {event.speaker && <SpeakerLine speaker={event.speaker} large />}
+          {event.subtitle && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>}
+          {(event.href || (!Details && event.register)) && (
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+              <EventLinks event={event} showRegister={!Details} />
+            </div>
+          )}
+        </div>
+      </div>
+      {Details && (
+        <div className="mt-6 border-t border-border pt-6 [&>*:last-child]:mb-0">
+          <Details past={false} />
+        </div>
+      )}
+    </Card>
+  );
+}
+
+/** One compact row in the schedule list; expands in place when it has details. */
+function ScheduleRow({ event, past, open, onToggle }: { event: ScheduleItem; past: boolean; open: boolean; onToggle: () => void }) {
+  const { language } = useLanguage();
+  const special = event.type === "special";
+  const Details = event.Details;
+  const detailsId = `details-${event.id}`;
+  return (
+    <li
+      className={`rounded-lg border p-3 sm:p-4 transition ${
+        open ? "border-primary/40 bg-white shadow-sm" : special && !past ? "border-accent/30 bg-accent/5" : "border-border bg-white"
+      }`}
+    >
+      <div className="flex gap-4">
+        <div
+          className={`flex w-16 flex-shrink-0 flex-col items-center justify-center self-start rounded-md py-2 ${
+            past ? "bg-muted text-muted-foreground" : special ? "bg-accent/15 text-accent" : "bg-primary/10 text-primary"
+          }`}
+        >
+          <span className="text-[11px] font-semibold leading-none">{event.month[language]}</span>
+          <span className="text-xl font-bold leading-tight">{event.day}</span>
+          <span className="text-[11px] leading-none opacity-80">{event.weekday[language]}</span>
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <p className={`text-sm font-semibold ${past ? "text-muted-foreground" : special ? "text-accent" : "text-foreground"}`}>
+              {event.title[language]}
+            </p>
+            <StatusPill past={past} />
+          </div>
+          {event.speaker && <SpeakerLine speaker={event.speaker} />}
+          {event.subtitle && <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>}
+
+          {(Details || event.href || (event.register && !past)) && (
+            <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
+              {Details && (
+                <button
+                  type="button"
+                  onClick={onToggle}
+                  aria-expanded={open}
+                  aria-controls={detailsId}
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
+                >
+                  {open ? (language === "en" ? "Hide details" : "詳細を閉じる") : language === "en" ? "Show details" : "詳細を見る"}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+                </button>
+              )}
+              <EventLinks event={event} showRegister={!past} />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {Details && open && (
+        <div id={detailsId} className="mt-4 border-t border-border pt-5 sm:px-2 [&>*:last-child]:mb-0">
+          <Details past={past} />
+        </div>
+      )}
+    </li>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
 export default function WhatsNew() {
   const { language } = useLanguage();
 
   // Local date as YYYY-MM-DD, so an event stays "upcoming" through its last day.
   const today = new Date().toLocaleDateString("sv-SE");
   const isPast = (item: ScheduleItem) => item.end < today;
-  const featuredId = SCHEDULE.find((item) => item.Details && !isPast(item))?.id;
 
-  const [openIds, setOpenIds] = useState<Set<string>>(() => new Set(featuredId ? [featuredId] : []));
+  const upcomingAll = SCHEDULE.filter((item) => !isPast(item));
+  const featured = upcomingAll[0];
+  const upcoming = upcomingAll.slice(1);
+  const pastByYear = SCHEDULE.filter(isPast).reduce<Record<string, ScheduleItem[]>>((acc, item) => {
+    (acc[item.id.slice(0, 4)] ??= []).push(item);
+    return acc;
+  }, {});
+
+  // Expanded rows and past-year groups (keys: event id or "past-YYYY"). Everything starts closed.
+  const [openIds, setOpenIds] = useState<Set<string>>(() => new Set());
   const toggle = (id: string) =>
     setOpenIds((prev) => {
       const next = new Set(prev);
@@ -948,13 +1132,12 @@ export default function WhatsNew() {
       ? {
           title: "KAIB Monthly Meetings | News & Events",
           description:
-            "KAIB 2026 event schedule. Next monthly meeting on October 13, 2026 with Hiroki Ono, President & CEO of Ono Farm, on his career and the challenges facing agriculture today.",
+            "KAIB (Kagawa Innovation Base) monthly meetings and events: the next event, the upcoming schedule, and past events.",
           path: "/en/whatsnew",
         }
       : {
           title: "KAIB月例会 | ニュース＋イベント案内",
-          description:
-            "KAIB 2026年の年間スケジュール。次回月例会は10月13日開催、株式会社尾野農園 代表取締役社長 尾野弘季氏が「これまでの経歴」「現在の農業産業の課題とチャレンジ」を語ります。",
+          description: "KAIB（香川イノベーションベース）の月例会・イベント情報。次回イベントの詳細とお申し込み、今後のスケジュール、過去のイベントを掲載しています。",
           path: "/whatsnew",
         },
   );
@@ -971,18 +1154,19 @@ export default function WhatsNew() {
             {language === "en" ? "Latest news and event information from KAIB" : "KAIB の最新情報とイベント情報をお知らせいたします。"}
           </p>
 
-          {/* Annual Schedule (2026–2027) — one list, each entry opens its own details */}
+          {/* Next event — the largest block on the page */}
+          {featured && <FeaturedEvent event={featured} />}
+
+          {/* Upcoming schedule + past events (collapsed) */}
           <Card className="p-5 sm:p-8 mb-8 border-l-4 border-l-accent">
             <div className="flex items-center gap-3 mb-4">
               <CalendarDays className="w-7 h-7 text-accent" />
-              <h2 className="text-2xl font-bold text-foreground">
-                {language === "en" ? "Event Schedule 2026–2027" : "年間スケジュール（2026〜2027年）"}
-              </h2>
+              <h2 className="text-2xl font-bold text-foreground">{language === "en" ? "Upcoming Schedule" : "今後のスケジュール"}</h2>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
               {language === "en"
-                ? 'Listed in date order. The upcoming event is shown in detail — tap "Show details" to open the others.'
-                : "日付順に掲載しています。直近のイベントは詳細を表示しています。その他のイベントは「詳細を見る」から開けます。"}
+                ? 'Listed in date order. Tap "Show details" to open an event.'
+                : "日付順に掲載しています。各イベントは「詳細を見る」から開けます。"}
             </p>
 
             {/* Legend */}
@@ -998,135 +1182,52 @@ export default function WhatsNew() {
             </div>
 
             <ol className="space-y-3">
-              {SCHEDULE.map((event, i) => {
+              {upcoming.map((event, i) => {
                 const year = event.id.slice(0, 4);
-                const newYear = i === 0 || SCHEDULE[i - 1].id.slice(0, 4) !== year;
-                const special = event.type === "special";
-                const past = isPast(event);
-                const open = openIds.has(event.id);
-                const Details = event.Details;
-                const detailsId = `details-${event.id}`;
+                const newYear = i === 0 || upcoming[i - 1].id.slice(0, 4) !== year;
                 return (
                   <Fragment key={event.id}>
-                  {newYear && (
-                    <li className={`flex items-center gap-3 text-sm font-bold text-foreground ${i === 0 ? "" : "pt-4"}`}>
-                      {language === "en" ? year : `${year}年`}
-                      <span aria-hidden="true" className="h-px flex-1 bg-border" />
-                    </li>
-                  )}
-                  <li
-                    className={`rounded-lg border p-3 sm:p-4 transition ${
-                      open ? "border-primary/40 bg-white shadow-sm" : special && !past ? "border-accent/30 bg-accent/5" : "border-border bg-white"
-                    }`}
-                  >
-                    <div className="flex gap-4">
-                      {/* Date badge */}
-                      <div
-                        className={`flex w-16 flex-shrink-0 flex-col items-center justify-center self-start rounded-md py-2 ${
-                          past ? "bg-muted text-muted-foreground" : special ? "bg-accent/15 text-accent" : "bg-primary/10 text-primary"
-                        }`}
-                      >
-                        <span className="text-[11px] font-semibold leading-none">{event.month[language]}</span>
-                        <span className="text-xl font-bold leading-tight">{event.day}</span>
-                        <span className="text-[11px] leading-none opacity-80">{event.weekday[language]}</span>
-                      </div>
-
-                      {/* Summary */}
-                      <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                          <p
-                            className={`text-sm font-semibold ${
-                              past ? "text-muted-foreground" : special ? "text-accent" : "text-foreground"
-                            }`}
-                          >
-                            {event.title[language]}
-                          </p>
-                          <span
-                            className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                              past ? "bg-muted text-muted-foreground" : "bg-accent/10 text-accent"
-                            }`}
-                          >
-                            {past ? (language === "en" ? "Ended" : "開催済み") : language === "en" ? "Upcoming" : "開催予定"}
-                          </span>
-                        </div>
-
-                        {event.speaker && (
-                          <div className="mt-1.5 text-xs text-muted-foreground">
-                            <p>
-                              {language === "en" ? "Speaker: " : "講師："}
-                              <span className="font-semibold text-foreground">{event.speaker.name[language]}</span>
-                            </p>
-                            {event.speaker.href ? (
-                              <a
-                                href={event.speaker.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-primary transition hover:underline"
-                              >
-                                {event.speaker.title[language]}
-                                <ExternalLink className="w-3 h-3" />
-                              </a>
-                            ) : (
-                              <p>{event.speaker.title[language]}</p>
-                            )}
-                          </div>
-                        )}
-
-                        {event.subtitle && (
-                          <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>
-                        )}
-
-                        {(Details || event.href || (event.register && !past)) && (
-                          <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
-                            {Details && (
-                              <button
-                                type="button"
-                                onClick={() => toggle(event.id)}
-                                aria-expanded={open}
-                                aria-controls={detailsId}
-                                className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
-                              >
-                                {open ? (language === "en" ? "Hide details" : "詳細を閉じる") : language === "en" ? "Show details" : "詳細を見る"}
-                                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
-                              </button>
-                            )}
-                            {event.register && !past && (
-                              <a
-                                href={event.register}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white transition hover:bg-primary/90"
-                              >
-                                {language === "en" ? "Register (Peatix)" : "申し込む（Peatix）"}
-                                <ExternalLink className="w-3 h-3" />
-                              </a>
-                            )}
-                            {event.href && (
-                              <a
-                                href={event.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
-                              >
-                                {language === "en" ? "Event page" : "イベントページ"}
-                                <ExternalLink className="w-3 h-3" />
-                              </a>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {Details && open && (
-                      <div id={detailsId} className="mt-4 border-t border-border pt-5 sm:px-2 [&>*:last-child]:mb-0">
-                        <Details past={past} />
-                      </div>
+                    {newYear && (
+                      <li className={`flex items-center gap-3 text-sm font-bold text-foreground ${i === 0 ? "" : "pt-4"}`}>
+                        {language === "en" ? year : `${year}年`}
+                        <span aria-hidden="true" className="h-px flex-1 bg-border" />
+                      </li>
                     )}
-                  </li>
+                    <ScheduleRow event={event} past={false} open={openIds.has(event.id)} onToggle={() => toggle(event.id)} />
                   </Fragment>
                 );
               })}
             </ol>
+
+            {Object.entries(pastByYear)
+              .sort(([a], [b]) => b.localeCompare(a))
+              .map(([year, items]) => {
+                const key = `past-${year}`;
+                const open = openIds.has(key);
+                return (
+                  <div key={key} className="mt-8 border-t border-border pt-6">
+                    <button
+                      type="button"
+                      onClick={() => toggle(key)}
+                      aria-expanded={open}
+                      aria-controls={key}
+                      className="flex w-full items-center justify-between gap-3 rounded-lg bg-muted/60 px-4 py-3 text-left transition hover:bg-muted"
+                    >
+                      <span className="text-sm font-bold text-muted-foreground">
+                        {language === "en" ? `Past events in ${year} (${items.length})` : `${year}年の過去のイベント（${items.length}件）`}
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
+                    </button>
+                    {open && (
+                      <ol id={key} className="mt-3 space-y-3">
+                        {items.map((event) => (
+                          <ScheduleRow key={event.id} event={event} past open={openIds.has(event.id)} onToggle={() => toggle(event.id)} />
+                        ))}
+                      </ol>
+                    )}
+                  </div>
+                );
+              })}
           </Card>
 
           {/* Instagram */}
