@@ -881,7 +881,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "10",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "Topic: TBA", ja: "演題：未定" },
+    subtitle: { en: "Venue: Takamatsu (planned)｜Topic: TBA", ja: "会場：高松予定｜演題：未定" },
     speaker: {
       name: { en: "Kayo Yoshida", ja: "吉田 佳代 様" },
       title: {
