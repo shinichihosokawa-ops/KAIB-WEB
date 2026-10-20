@@ -821,8 +821,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Takeshi Ogiwara", ja: "荻原 猛 様" },
       title: {
-        en: "President & CEO, Rocket Star Inc. / Founder, SOLDOUT, Inc. (formerly TSE Prime: 6553)",
-        ja: "株式会社ロケットスター 代表取締役社長／ソウルドアウト株式会社（元 東証プライム：6553）創業者",
+        en: "President & CEO, Rocket Star Inc. / Founder and former President & CEO and Chairman, SOLDOUT, Inc. (formerly TSE Prime: 6553)",
+        ja: "株式会社ロケットスター 代表取締役社長／ソウルドアウト株式会社（元 東証プライム：6553）創業者・元代表取締役社長・会長",
       },
       links: [
         { match: ["株式会社ロケットスター", "Rocket Star Inc."], href: "https://rocketstar.co.jp/" },
