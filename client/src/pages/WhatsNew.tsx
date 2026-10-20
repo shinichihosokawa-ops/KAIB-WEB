@@ -787,8 +787,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Yuichi Kato", ja: "加藤 雄一 様" },
       title: {
-        en: "Former President & CEO and Chairman, Advanex Inc. (currently Visiting Professor, Graduate Institute for Entrepreneurial Studies)",
-        ja: "株式会社アドバネクス 元代表取締役社長・会長（現 事業創造大学院大学 客員教授）",
+        en: "Visiting Professor, Graduate Institute for Entrepreneurial Studies / Former President & CEO and Chairman, Advanex Inc. (TSE Standard: 5998)",
+        ja: "事業創造大学院大学 客員教授／株式会社アドバネクス（東証スタンダード：5998）元代表取締役社長・会長",
       },
     },
     type: "monthly",
@@ -804,8 +804,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Takeshi Ogiwara", ja: "荻原 猛 様" },
       title: {
-        en: "Founder, SO Technologies (formerly SOLDOUT, Inc.) / President & CEO, Rocket Star Inc.",
-        ja: "ソウルドアウト株式会社 創業者（現 株式会社ロケットスター 代表取締役社長）",
+        en: "President & CEO, Rocket Star Inc. / Founder, SOLDOUT, Inc. (formerly TSE 1st Section: 6553)",
+        ja: "株式会社ロケットスター 代表取締役社長／ソウルドアウト株式会社（元 東証一部：6553）創業者",
       },
     },
     type: "monthly",
@@ -820,8 +820,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Kunihiro Tanaka", ja: "田中 邦裕 様" },
       title: {
-        en: "President & CEO, SAKURA internet Inc.",
-        ja: "さくらインターネット株式会社 代表取締役社長",
+        en: "President & CEO, SAKURA internet Inc. (TSE Prime: 3778)",
+        ja: "さくらインターネット株式会社（東証プライム：3778）代表取締役社長",
       },
     },
     type: "monthly",
@@ -857,8 +857,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Hiroshi Fukudome", ja: "福留 大士 様" },
       title: {
-        en: "Representative Director & President, Change Holdings, Inc.",
-        ja: "株式会社チェンジホールディングス 代表取締役兼執行役員社長",
+        en: "Representative Director & President, Change Holdings, Inc. (TSE Prime: 3962)",
+        ja: "株式会社チェンジホールディングス（東証プライム：3962）代表取締役兼執行役員社長",
       },
       href: "https://www.changeholdings.co.jp/",
     },
@@ -874,7 +874,10 @@ const SCHEDULE: ScheduleItem[] = [
     subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
     speaker: {
       name: { en: "Miki Igarashi", ja: "五十嵐 幹 様" },
-      title: { en: "President, Cross Marketing Group Inc.", ja: "株式会社クロス・マーケティンググループ 代表取締役社長" },
+      title: {
+        en: "President, Cross Marketing Group Inc. (TSE Standard: 3675)",
+        ja: "株式会社クロス・マーケティンググループ（東証スタンダード：3675）代表取締役社長",
+      },
       href: "https://www.cm-group.co.jp/",
     },
     type: "monthly",
@@ -900,8 +903,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Kayo Yoshida", ja: "吉田 佳代 様" },
       title: {
-        en: "President & CEO (5th-generation brewer), Umenoyado Brewery Co., Ltd.",
-        ja: "梅乃宿酒造株式会社 代表取締役社長（5代目蔵元）",
+        en: "President & CEO (5th-generation brewer), Umenoyado Brewery Co., Ltd. (TSE Standard: 559A)",
+        ja: "梅乃宿酒造株式会社（東証スタンダード：559A）代表取締役社長（5代目蔵元）",
       },
       href: "https://www.umenoyado.com/",
     },
