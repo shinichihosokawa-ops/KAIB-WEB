@@ -629,7 +629,13 @@ function OnoDetails({ past }: DetailsProps) {
 /* ------------------------------------------------------------------ */
 
 /** Speaker shown on a schedule row. `title` is the company / position line. */
-type Speaker = { name: L; title: L; href?: string };
+/** A company name inside a speaker's title line and its website. `match` lists the name as written in each language. */
+type CompanyLink = { match: string[]; href: string };
+/**
+ * `links` turns each company name in `title` into its own link.
+ * `href` (used when there is no company to link) links the whole title line instead.
+ */
+type Speaker = { name: L; title: L; href?: string; links?: CompanyLink[] };
 
 type ScheduleItem = {
   id: string;
@@ -694,6 +700,9 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Masaaki Fujii", ja: "藤井正章 様" },
       title: { en: "President & CEO, Yamato Manufacturing Co., Ltd.", ja: "株式会社大和製作所 代表取締役社長" },
+      links: [
+        { match: ["株式会社大和製作所", "Yamato Manufacturing Co., Ltd."], href: "https://www.yamatomfg.com/" },
+      ],
     },
     Details: JulyDetails,
     type: "monthly",
@@ -744,7 +753,9 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Hiroki Ono", ja: "尾野弘季 様" },
       title: { en: "President & CEO, Ono Farm Co., Ltd.", ja: "株式会社尾野農園 代表取締役社長" },
-      href: "https://ono-farm.com/",
+      links: [
+        { match: ["株式会社尾野農園", "Ono Farm Co., Ltd."], href: "https://ono-farm.com/" },
+      ],
     },
     Details: OnoDetails,
     type: "monthly",
@@ -760,7 +771,9 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Hideo Kuwahara", ja: "桑原英男 様" },
       title: { en: "President & CEO, VISIA Inc.", ja: "株式会社ビジア 代表取締役" },
-      href: "https://visia.asia/",
+      links: [
+        { match: ["株式会社ビジア", "VISIA Inc."], href: "https://visia.asia/" },
+      ],
     },
     register: "https://kaib1127.peatix.com/",
     Details: NovDetails,
@@ -790,6 +803,10 @@ const SCHEDULE: ScheduleItem[] = [
         en: "Visiting Professor, Graduate Institute for Entrepreneurial Studies / Former President & CEO and Chairman, Advanex Inc. (TSE Standard: 5998)",
         ja: "事業創造大学院大学 客員教授／株式会社アドバネクス（東証スタンダード：5998）元代表取締役社長・会長",
       },
+      links: [
+        { match: ["事業創造大学院大学", "Graduate Institute for Entrepreneurial Studies"], href: "https://kaishi.ac.jp/graduate-school/" },
+        { match: ["株式会社アドバネクス", "Advanex Inc."], href: "https://www.advanex.co.jp/" },
+      ],
     },
     type: "monthly",
   },
@@ -804,9 +821,13 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Takeshi Ogiwara", ja: "荻原 猛 様" },
       title: {
-        en: "President & CEO, Rocket Star Inc. / Founder, SOLDOUT, Inc. (formerly TSE 1st Section: 6553)",
-        ja: "株式会社ロケットスター 代表取締役社長／ソウルドアウト株式会社（元 東証一部：6553）創業者",
+        en: "President & CEO, Rocket Star Inc. / Founder, SOLDOUT, Inc. (formerly TSE Prime: 6553)",
+        ja: "株式会社ロケットスター 代表取締役社長／ソウルドアウト株式会社（元 東証プライム：6553）創業者",
       },
+      links: [
+        { match: ["株式会社ロケットスター", "Rocket Star Inc."], href: "https://rocketstar.co.jp/" },
+        { match: ["ソウルドアウト株式会社", "SOLDOUT, Inc."], href: "https://www.sold-out.co.jp/" },
+      ],
     },
     type: "monthly",
   },  {
@@ -823,6 +844,9 @@ const SCHEDULE: ScheduleItem[] = [
         en: "President & CEO, SAKURA internet Inc. (TSE Prime: 3778)",
         ja: "さくらインターネット株式会社（東証プライム：3778）代表取締役社長",
       },
+      links: [
+        { match: ["さくらインターネット株式会社", "SAKURA internet Inc."], href: "https://www.sakura.ad.jp/" },
+      ],
     },
     type: "monthly",
   },
@@ -860,7 +884,9 @@ const SCHEDULE: ScheduleItem[] = [
         en: "Representative Director & President, Change Holdings, Inc. (TSE Prime: 3962)",
         ja: "株式会社チェンジホールディングス（東証プライム：3962）代表取締役兼執行役員社長",
       },
-      href: "https://www.changeholdings.co.jp/",
+      links: [
+        { match: ["株式会社チェンジホールディングス", "Change Holdings, Inc."], href: "https://www.changeholdings.co.jp/" },
+      ],
     },
     type: "monthly",
   },
@@ -878,7 +904,9 @@ const SCHEDULE: ScheduleItem[] = [
         en: "President, Cross Marketing Group Inc. (TSE Standard: 3675)",
         ja: "株式会社クロス・マーケティンググループ（東証スタンダード：3675）代表取締役社長",
       },
-      href: "https://www.cm-group.co.jp/",
+      links: [
+        { match: ["株式会社クロス・マーケティンググループ", "Cross Marketing Group Inc."], href: "https://www.cm-group.co.jp/" },
+      ],
     },
     type: "monthly",
   },
@@ -906,7 +934,9 @@ const SCHEDULE: ScheduleItem[] = [
         en: "President & CEO (5th-generation brewer), Umenoyado Brewery Co., Ltd. (TSE Standard: 559A)",
         ja: "梅乃宿酒造株式会社（東証スタンダード：559A）代表取締役社長（5代目蔵元）",
       },
-      href: "https://www.umenoyado.com/",
+      links: [
+        { match: ["梅乃宿酒造株式会社", "Umenoyado Brewery Co., Ltd."], href: "https://www.umenoyado.com/" },
+      ],
     },
     type: "monthly",
   },
@@ -959,27 +989,58 @@ function StatusPill({ past }: { past: boolean }) {
 /** Speaker name + company line (company links out when a URL is known). */
 function SpeakerLine({ speaker, large = false }: { speaker: Speaker; large?: boolean }) {
   const { language } = useLanguage();
+  const title = speaker.title[language];
   return (
     <div className={`text-muted-foreground ${large ? "mt-3 text-sm" : "mt-1.5 text-xs"}`}>
       <p>
         {language === "en" ? "Speaker: " : "講師："}
         <span className={`font-semibold text-foreground ${large ? "text-base" : ""}`}>{speaker.name[language]}</span>
       </p>
-      {speaker.href ? (
+      {speaker.links ? (
+        <p>{linkCompanies(title, speaker.links)}</p>
+      ) : speaker.href ? (
         <a
           href={speaker.href}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 text-primary transition hover:underline"
         >
-          {speaker.title[language]}
+          {title}
           <ExternalLink className="w-3 h-3" />
         </a>
       ) : (
-        <p>{speaker.title[language]}</p>
+        <p>{title}</p>
       )}
     </div>
   );
+}
+
+/** Wraps every company name found in `text` in a link to that company's website. */
+function linkCompanies(text: string, links: CompanyLink[]): ReactNode[] {
+  const out: ReactNode[] = [];
+  let rest = text;
+  while (rest) {
+    let hit: { at: number; name: string; href: string } | undefined;
+    for (const link of links) {
+      for (const name of link.match) {
+        const at = rest.indexOf(name);
+        if (at >= 0 && (!hit || at < hit.at)) hit = { at, name, href: link.href };
+      }
+    }
+    if (!hit) {
+      out.push(rest);
+      break;
+    }
+    if (hit.at > 0) out.push(rest.slice(0, hit.at));
+    out.push(
+      <a key={out.length} href={hit.href} target="_blank" rel="noopener noreferrer" className="text-primary transition hover:underline">
+        {hit.name}
+        <ExternalLink className="ml-0.5 inline w-3 h-3 align-[-1px]" />
+      </a>,
+    );
+    rest = rest.slice(hit.at + hit.name.length);
+  }
+  return out;
 }
 
 /** "Register (Peatix)" pill + "Event page" link. */
