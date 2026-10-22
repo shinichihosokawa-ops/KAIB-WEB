@@ -956,8 +956,16 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "OCT", ja: "10月" },
     day: "8",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
+    speaker: {
+      name: { en: "Kimitaka Yoshimura", ja: "吉村 公孝 様" },
+      title: {
+        en: "President & CEO, Basis Corporation (TSE Growth: 4068)",
+        ja: "ベイシス株式会社（東証グロース：4068）代表取締役社長",
+      },
+      links: [{ match: ["ベイシス株式会社", "Basis Corporation"], href: "https://www.basis-corp.jp/" }],
+    },
     type: "monthly",
   },
   {
