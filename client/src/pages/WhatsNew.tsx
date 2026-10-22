@@ -916,8 +916,18 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "AUG", ja: "8月" },
     day: "13",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
+    speaker: {
+      name: { en: "Hijiri Nakanishi", ja: "中西 聖 様" },
+      title: {
+        en: "President & CEO, MIGALO HOLDINGS Inc. (TSE Prime: 5535)",
+        ja: "ミガロホールディングス株式会社（東証プライム：5535）代表取締役社長",
+      },
+      links: [
+        { match: ["ミガロホールディングス株式会社", "MIGALO HOLDINGS Inc."], href: "https://www.migalo.co.jp/" },
+      ],
+    },
     type: "monthly",
   },
   {
