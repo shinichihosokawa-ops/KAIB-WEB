@@ -59,7 +59,7 @@ export default function Contact() {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <img
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663255440915/pZrMXUTAEjDsCOGE.jpg"
+                src="/images/kaib-logo.jpg"
                 alt="KAIB Logo"
                 className="h-10 mb-4"
               />
