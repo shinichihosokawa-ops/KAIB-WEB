@@ -29,7 +29,7 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663255440915/rCiplMxDnHzGTnlv.png')",
+              "url('/images/hero-setouchi.webp')",
           }}
         ></div>
         <div className="absolute inset-0 bg-black/40"></div>

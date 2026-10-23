@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const OGP_IMAGE = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663255440915/pZrMXUTAEjDsCOGE.jpg";
+const OGP_IMAGE = "https://kaib.jp/images/kaib-logo.jpg";
 const SITE_NAME = "KAIB - Kagawa Innovation Base";
 const BASE_URL = "https://kaib.jp";
 

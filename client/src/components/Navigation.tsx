@@ -36,7 +36,7 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
 
   const logoImg = (
     <img
-      src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663255440915/pZrMXUTAEjDsCOGE.jpg"
+      src="/images/kaib-logo.jpg"
       alt="KAIB Logo"
       className="h-12 cursor-pointer"
       onClick={isHome ? () => window.scrollTo({ top: 0, behavior: "smooth" }) : undefined}
