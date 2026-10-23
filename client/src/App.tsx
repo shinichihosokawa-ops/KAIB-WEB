@@ -8,7 +8,6 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
-import Interest from "./pages/Interest";
 import WhatsNew from "./pages/WhatsNew";
 import Membership from "./pages/Membership";
 import Media from "./pages/Media";
@@ -21,7 +20,7 @@ function Router() {
     <Switch>
       <Route path={"/?"} component={Home} />
       <Route path={"/contact"} component={Contact} />
-      <Route path={"/interest"} component={Interest} />
+      <Route path={"/interest"} component={Contact} />
       <Route path={"/whatsnew"} component={WhatsNew} />
       <Route path={"/membership"} component={Membership} />
       <Route path={"/media"} component={Media} />
@@ -30,7 +29,7 @@ function Router() {
       {/* English routes */}
       <Route path={"/en"}>{() => <EnglishRoute component={Home} />}</Route>
       <Route path={"/en/contact"}>{() => <EnglishRoute component={Contact} />}</Route>
-      <Route path={"/en/interest"}>{() => <EnglishRoute component={Interest} />}</Route>
+      <Route path={"/en/interest"}>{() => <EnglishRoute component={Contact} />}</Route>
       <Route path={"/en/whatsnew"}>{() => <EnglishRoute component={WhatsNew} />}</Route>
       <Route path={"/en/membership"}>{() => <EnglishRoute component={Membership} />}</Route>
       <Route path={"/en/media"}>{() => <EnglishRoute component={Media} />}</Route>

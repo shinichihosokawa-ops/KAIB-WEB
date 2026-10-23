@@ -150,10 +150,28 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+/**
+ * Production builds must not ship the Manus editor tooling that lives in
+ * client/public/__manus__ (debug collector, version file).
+ */
+function stripManusAssets(): Plugin {
+  return {
+    name: "strip-manus-assets",
+    apply: "build",
+    closeBundle() {
+      fs.rmSync(path.join(PROJECT_ROOT, "dist", "public", "__manus__"), { recursive: true, force: true });
+    },
+  };
+}
 
-export default defineConfig({
-  plugins,
+// The Manus runtime (visual editor bridge that accepts postMessage commands from
+// any origin), JSX source-location attributes and the debug collector are
+// development tools only — never include them in the public site.
+export default defineConfig(({ command }) => ({
+  plugins:
+    command === "serve"
+      ? [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()]
+      : [react(), tailwindcss(), stripManusAssets()],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
@@ -184,4 +202,4 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
-});
+}));
