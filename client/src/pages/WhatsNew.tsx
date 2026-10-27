@@ -785,11 +785,8 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "DEC", ja: "12月" },
     day: "18",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Sparking a Wave of Regional Revitalization from Kagawa", ja: "香川発、地方創生の波を起こす" },
-    subtitle: {
-      en: "First ¥100M in sales, then ¥100M in profit — building growth step by step into a wave that moves the region｜Setouchi EO × IB Joint Monthly Meeting｜From 7:00 PM",
-      ja: "まずは売上1億円、次に利益1億円へ。段階を踏んだ成長を積み重ね、地域を動かす大きな波に｜瀬戸内EO×IB合同月例会｜19:00〜",
-    },
+    title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
+    subtitle: { en: "From 7:00 PM", ja: "19:00〜" },
     register: "https://peatix.com/event/5240906",
     type: "special",
   },
