@@ -36,20 +36,20 @@ export default function Home() {
         <div className="relative z-10 container flex flex-col items-center justify-center text-center h-full">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-display leading-tight">
             {language === 'en'
-              ? 'Sparking a Wave of\nRegional Revitalization from Kagawa'
-              : '香川発、\n地方創生の波を起こす。'
+              ? 'Growing Entrepreneurs Who Build\nBeyond ¥100M Revenue from Kagawa'
+              : '香川から、年商1億円を超える\n経営者を増やす。'
             }
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-3 max-w-3xl">
             {language === 'en'
-              ? 'First ¥100M in revenue, then ¥100M in profit. By helping business owners grow step by step, we turn each company\'s success into a wave that moves the whole region.'
-              : 'まずは売上1億円、次に利益1億円へ。段階を踏んで成長を重ねる経営者を増やし、一社一社の挑戦を、地域を動かす大きな波へとつなげていきます。'
+              ? 'KAIB is an entrepreneur community where business leaders in Kagawa learn from each other, support each other, and accelerate business growth.'
+              : 'KAIBは、香川で挑戦する経営者が学び合い、支え合い、事業成長を加速させるための起業家コミュニティです。'
             }
           </p>
           <p className="text-base text-white/70 mb-8 max-w-2xl">
             {language === 'en'
-              ? 'KAIB is an entrepreneur community in Kagawa where business leaders learn from and support each other, powered by EO growth methods and the nationwide xIB network.'
-              : 'KAIBは、EOの成長メソッドと全国xIBネットワークを活かし、香川で挑戦する経営者が学び合い、支え合う起業家コミュニティです。'
+              ? 'Leveraging EO growth methods and the nationwide xIB network to nurture entrepreneurs who transform the region.'
+              : 'EOの成長メソッドと全国xIBネットワークを活用し、地域を変える経営者を育てます。'
             }
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
