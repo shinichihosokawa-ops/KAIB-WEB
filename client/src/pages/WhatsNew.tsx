@@ -571,6 +571,67 @@ function NovDetails({ past }: DetailsProps) {
   );
 }
 
+function DecJointDetails({ past }: DetailsProps) {
+  const { language } = useLanguage();
+  return (
+    <>
+      <a href="/images/2026-12-18-joint-meeting.jpg" target="_blank" rel="noopener noreferrer" className="mb-6 block">
+        <img
+          src="/images/2026-12-18-joint-meeting.jpg"
+          alt={language === "en" ? "EOS × KAIB December joint meeting flyer — Yusaku Nakano" : "EOS × KAIB 12月合同月例会 告知画像（中野優作氏 特別講演）"}
+          className="w-full rounded-lg border border-border"
+          loading="lazy"
+        />
+      </a>
+
+      <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+        <p className="text-lg font-bold text-primary leading-relaxed">
+          {language === "en" ? "Encounters and challenges that change the future of business." : "経営の未来を変える、出会いと挑戦。"}
+        </p>
+        <p className="text-sm text-muted-foreground mt-1">
+          {language === "en" ? "— Special lecture by Yusaku Nakano, President & CEO, BUDDICA Inc." : "〜 特別講演：株式会社BUDDICA 代表取締役社長（CEO）中野 優作 氏 〜"}
+        </p>
+      </div>
+
+      <SpeakerBox heading={{ en: "Speaker Profile", ja: "講師プロフィール" }}>
+        <p className="font-semibold text-primary text-lg">{language === "en" ? "Yusaku Nakano" : "中野 優作（なかの ゆうさく）"}</p>
+        <p className="text-sm text-muted-foreground font-semibold">{language === "en" ? "President & CEO, BUDDICA Inc." : "株式会社BUDDICA 代表取締役社長（CEO）"}</p>
+        <p className="text-foreground leading-relaxed text-sm">
+          {language === "en"
+            ? "Born in 1982 in Sanuki City, Kagawa. After serving as store manager, headquarters executive and subsidiary president at a major used-car retailer, he founded BUDDICA in June 2017. In fiscal 2021 the company became No. 1 in used-car sales volume in Shikoku and also ranked No. 1 nationwide in units sold on the largest dealer-to-dealer sales site. In September 2023 he established BUDDICA・DIRECT Inc., which sells used cars online."
+            : "1982年、香川県さぬき市生まれ。中古車販売大手で店長、本部幹部、子会社社長を歴任したのち、2017年6月にBUDDICAを創業。2021年度には四国の中古車販売台数でNo.1となり、最大手業販サイトでも販売台数日本一の実績を築く。2023年9月には、中古車のインターネット販売を手がけるBUDDICA・DIRECT株式会社を設立した。"}
+        </p>
+        <p className="text-foreground leading-relaxed text-sm">
+          {language === "en"
+            ? 'Under the concept "CAR and LIFE.", he is expanding the business from cars into everyday life. He runs "The Neutral", a non-fiction style management school with over 500 members, sharing his management know-how with entrepreneurs and executives. His YouTube channel "中野優作 / CAR and LIFE." has over 500,000 subscribers. His books include "成長以外、全て死" (Gentosha).'
+            : "現在は「CAR and LIFE.」をコンセプトに、クルマを起点として暮らしの領域へと事業を広げている。会員数500名超のノンフィクション型経営塾「The Neutral」を主宰し、自らの経営ノウハウを起業家・経営者と共有。YouTubeチャンネル「中野優作 / CAR and LIFE.」の登録者数は50万人超で、中古車業界やクルマ選びに関する情報を発信している。著書に『成長以外、全て死』（幻冬舎）ほか。"}
+        </p>
+      </SpeakerBox>
+
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <DateTime
+          date={{ en: "Friday, December 18, 2026", ja: "12月18日（金）" }}
+          time={{ en: "6:00 PM – 7:50 PM (joint meeting)", ja: "18:00–19:50（合同例会）" }}
+          note={{ en: "Capacity: 500｜Registration deadline: Fri, Dec 11", ja: "定員500名｜申込締切 12月11日（金）" }}
+        />
+        <div className="flex gap-4">
+          <MapPin className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+          <div>
+            <h4 className="font-semibold text-foreground mb-2">{language === "en" ? "Venue" : "会場"}</h4>
+            <p className="text-muted-foreground text-sm">{language === "en" ? "Rexxam Hall, Small Hall (Takamatsu, Kagawa)" : "レクザムホール 小ホール（香川県高松市）"}</p>
+          </div>
+        </div>
+      </div>
+
+      <ApplyButton
+        href="https://peatix.com/event/5240906"
+        label={{ en: "Register (Peatix)", ja: "お申し込み（Peatix）" }}
+        past={past}
+      />
+    </>
+  );
+}
+
 function OnoDetails({ past }: DetailsProps) {
   const { language } = useLanguage();
   return (
@@ -786,7 +847,15 @@ const SCHEDULE: ScheduleItem[] = [
     day: "18",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Setouchi EO Joint IB Monthly Meeting", ja: "瀬戸内EO合同IB月例会" },
-    subtitle: { en: "From 7:00 PM", ja: "19:00〜" },
+    subtitle: {
+      en: "6:00–7:50 PM｜Rexxam Hall, Small Hall (Takamatsu)｜Capacity 500｜Apply by Dec 11",
+      ja: "18:00–19:50｜レクザムホール 小ホール（高松市）｜定員500名｜申込締切 12/11（金）",
+    },
+    speaker: {
+      name: { en: "Yusaku Nakano", ja: "中野 優作 氏" },
+      title: { en: "President & CEO, BUDDICA Inc.", ja: "株式会社BUDDICA 代表取締役社長（CEO）" },
+    },
+    Details: DecJointDetails,
     register: "https://peatix.com/event/5240906",
     type: "special",
   },
