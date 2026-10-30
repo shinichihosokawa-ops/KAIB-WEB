@@ -931,13 +931,21 @@ const SCHEDULE: ScheduleItem[] = [
     type: "special",
   },
   {
-    id: "2027-05-14",
-    end: "2027-05-14",
+    id: "2027-05-13",
+    end: "2027-05-13",
     month: { en: "MAY", ja: "5月" },
-    day: "14",
-    weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting (tentative)", ja: "月例会（仮）" },
-    subtitle: { en: "From 7:00 PM｜Tentative date｜Details TBA", ja: "19:00〜｜日程仮｜詳細未定" },
+    day: "13",
+    weekday: { en: "Thu", ja: "木" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
+    speaker: {
+      name: { en: "Naoaki Mashita", ja: "間下 直晃 様" },
+      title: {
+        en: "Co-Chair, Silicon Valley Japan Platform / Founder, V-cube, Inc. (TSE Prime: 3681)",
+        ja: "シリコンバレー・ジャパン・プラットフォーム 共同議長／株式会社ブイキューブ（東証プライム：3681）創業者",
+      },
+      links: [{ match: ["シリコンバレー・ジャパン・プラットフォーム", "Silicon Valley Japan Platform"], href: "https://svjp.org/organizations/naoaki-mashita" }],
+    },
     type: "monthly",
   },
   {
