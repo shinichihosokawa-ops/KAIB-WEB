@@ -891,8 +891,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Takeshi Ogiwara", ja: "荻原 猛 様" },
       title: {
-        en: "President & CEO, Rocket Star Inc. / Founder and former President & CEO and Chairman, SOLDOUT, Inc. (formerly TSE Prime: 6553)",
-        ja: "株式会社ロケットスター 代表取締役社長／ソウルドアウト株式会社（元 東証プライム：6553）創業者・元代表取締役社長・会長",
+        en: "President & CEO, Rocket Star Inc. / Founder and former President & CEO and Chairman, SOLDOUT, Inc. (formerly listed on TSE Prime: 6553)",
+        ja: "株式会社ロケットスター 代表取締役社長／ソウルドアウト株式会社（元 東証プライム上場：6553）創業者・元代表取締役社長・会長",
       },
       links: [
         { match: ["株式会社ロケットスター", "Rocket Star Inc."], href: "https://rocketstar.co.jp/" },
@@ -941,8 +941,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Naoaki Mashita", ja: "間下 直晃 様" },
       title: {
-        en: "Co-Chair, Silicon Valley Japan Platform / Founder, V-cube, Inc. (TSE Prime: 3681)",
-        ja: "シリコンバレー・ジャパン・プラットフォーム 共同議長／株式会社ブイキューブ（東証プライム：3681）創業者",
+        en: "Co-Chair, Silicon Valley Japan Platform / Founder, V-cube, Inc. (formerly listed on TSE Prime: 3681)",
+        ja: "シリコンバレー・ジャパン・プラットフォーム 共同議長／株式会社ブイキューブ（元 東証プライム上場：3681）創業者",
       },
       links: [{ match: ["シリコンバレー・ジャパン・プラットフォーム", "Silicon Valley Japan Platform"], href: "https://svjp.org/organizations/naoaki-mashita" }],
     },
