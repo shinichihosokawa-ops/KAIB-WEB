@@ -926,9 +926,17 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "APR", ja: "4月" },
     day: "2",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Annual General Meeting", ja: "年次総会" },
-    subtitle: { en: "From 7:00 PM｜Venue: Sanuki Peer Learning Hub｜Details TBA", ja: "19:00〜｜会場：さぬきピアラーニングハブ｜詳細未定" },
-    type: "special",
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM｜Venue: Sanuki Peer Learning Hub｜Topic: TBA", ja: "19:00〜｜会場：さぬきピアラーニングハブ｜演題：未定" },
+    speaker: {
+      name: { en: "Yasushi Fujita", ja: "藤田 恭嗣 様" },
+      title: {
+        en: "President & CEO, MEDIA DO Co., Ltd. (TSE Prime: 3678) / Representative Director, Tokushima Innovation Base (TIB)",
+        ja: "株式会社メディアドゥ（東証プライム：3678）代表取締役社長 CEO／一般社団法人徳島イノベーションベース（TIB）代表理事",
+      },
+      links: [{ match: ["株式会社メディアドゥ", "MEDIA DO Co., Ltd."], href: "https://mediado.jp/" }],
+    },
+    type: "monthly",
   },
   {
     id: "2027-05-13",
