@@ -927,7 +927,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "2",
     weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "From 7:00 PM｜Venue: Sanuki Peer Learning Hub｜Topic: TBA", ja: "19:00〜｜会場：さぬきピアラーニングハブ｜演題：未定" },
+    subtitle: { en: "From 7:00 PM｜Venue: TBA｜Topic: TBA", ja: "19:00〜｜会場：未定｜演題：未定" },
     speaker: {
       name: { en: "Yasushi Fujita", ja: "藤田 恭嗣 様" },
       title: {
