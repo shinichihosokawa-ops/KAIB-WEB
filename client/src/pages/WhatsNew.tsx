@@ -910,8 +910,8 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "MAR", ja: "3月" },
     day: "5",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Expanded Monthly Meeting (co-hosted with the Department of Regional Management, Kagawa University)", ja: "拡大版月例会（香川大学 地域マネジメント学科との共催）" },
-    subtitle: { en: "From 7:00 PM｜Venue: Kagawa University｜Topic: TBA", ja: "19:00〜｜会場：香川大学｜演題：未定" },
+    title: { en: "Monthly Meeting", ja: "月例会" },
+    subtitle: { en: "From 7:00 PM｜Venue: TBA｜Topic: TBA", ja: "19:00〜｜会場：未定｜演題：未定" },
     speaker: {
       name: { en: "Kunihiro Tanaka", ja: "田中 邦裕 様" },
       title: {
@@ -922,7 +922,6 @@ const SCHEDULE: ScheduleItem[] = [
         { match: ["さくらインターネット株式会社", "SAKURA internet Inc."], href: "https://www.sakura.ad.jp/" },
       ],
     },
-    map: "https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E5%B7%9D%E5%A4%A7%E5%AD%A6%20%E5%B9%B8%E7%94%BA%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%91%E3%82%B9",
     type: "monthly",
   },
   {
