@@ -991,8 +991,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Miki Igarashi", ja: "五十嵐 幹 様" },
       title: {
-        en: "President, Cross Marketing Group Inc. (TSE Standard: 3675) / EO Tokyo Platinum",
-        ja: "株式会社クロス・マーケティンググループ（東証スタンダード：3675）代表取締役社長／EO Tokyo Platinum",
+        en: "President, Cross Marketing Group Inc. (TSE Standard: 3675) / Former Representative Director, EO Tokyo Platinum",
+        ja: "株式会社クロス・マーケティンググループ（東証スタンダード：3675）代表取締役社長／EO Tokyo Platinum 前代表理事",
       },
       links: [
         { match: ["株式会社クロス・マーケティンググループ", "Cross Marketing Group Inc."], href: "https://www.cm-group.co.jp/" },
