@@ -910,8 +910,8 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "MAR", ja: "3月" },
     day: "5",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "Co-hosted with the Department of Regional Management, Kagawa University｜From 7:00 PM｜Venue: Kagawa University｜Topic: TBA", ja: "香川大学 地域マネジメント学科との共催｜19:00〜｜会場：香川大学｜演題：未定" },
+    title: { en: "Expanded Monthly Meeting (co-hosted with the Department of Regional Management, Kagawa University)", ja: "拡大版月例会（香川大学 地域マネジメント学科との共催）" },
+    subtitle: { en: "From 7:00 PM｜Venue: Kagawa University｜Topic: TBA", ja: "19:00〜｜会場：香川大学｜演題：未定" },
     speaker: {
       name: { en: "Kunihiro Tanaka", ja: "田中 邦裕 様" },
       title: {
