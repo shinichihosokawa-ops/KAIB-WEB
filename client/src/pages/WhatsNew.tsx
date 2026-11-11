@@ -713,6 +713,8 @@ type ScheduleItem = {
   speaker?: Speaker;
   /** External event page. */
   href?: string;
+  /** Google Maps link for the venue. */
+  map?: string;
   /** Registration page (Peatix). Hidden once the event has passed. */
   register?: string;
   /** Full event details, opened in place from the schedule row. */
@@ -866,7 +868,7 @@ const SCHEDULE: ScheduleItem[] = [
     day: "7",
     weekday: { en: "Thu", ja: "木" },
     title: { en: "Monthly Meeting", ja: "月例会" },
-    subtitle: { en: "From 7:00 PM｜Venue: Sanuki Peer Learning Hub｜Topic: TBA", ja: "19:00〜｜会場：さぬきピアラーニングハブ｜演題：未定" },
+    subtitle: { en: "From 7:00 PM｜Venue: Sanuki Peer Learning Hub｜Topic: \"Overcoming Trials to Build a Long-Lived Company\"", ja: "19:00〜｜会場：さぬきピアラーニングハブ｜演題「試練を乗り越えて長寿企業を創る」" },
     speaker: {
       name: { en: "Yuichi Kato", ja: "加藤 雄一 様" },
       title: {
@@ -878,6 +880,7 @@ const SCHEDULE: ScheduleItem[] = [
         { match: ["株式会社アドバネクス", "Advanex Inc."], href: "https://www.advanex.co.jp/" },
       ],
     },
+    map: "https://www.google.com/maps/search/?api=1&query=%E3%81%95%E3%81%AC%E3%81%8D%E3%83%94%E3%82%A2%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%83%8F%E3%83%96",
     type: "monthly",
   },
   {
@@ -899,6 +902,7 @@ const SCHEDULE: ScheduleItem[] = [
         { match: ["ソウルドアウト株式会社", "SOLDOUT, Inc."], href: "https://www.sold-out.co.jp/" },
       ],
     },
+    map: "https://www.google.com/maps/search/?api=1&query=%E3%81%95%E3%81%AC%E3%81%8D%E3%83%94%E3%82%A2%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%83%8F%E3%83%96",
     type: "monthly",
   },  {
     id: "2027-03-05",
@@ -918,6 +922,7 @@ const SCHEDULE: ScheduleItem[] = [
         { match: ["さくらインターネット株式会社", "SAKURA internet Inc."], href: "https://www.sakura.ad.jp/" },
       ],
     },
+    map: "https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E5%B7%9D%E5%A4%A7%E5%AD%A6%20%E5%B9%B8%E7%94%BA%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%91%E3%82%B9",
     type: "monthly",
   },
   {
@@ -1163,6 +1168,17 @@ function EventLinks({ event, showRegister }: { event: ScheduleItem; showRegister
           <ExternalLink className="w-3 h-3" />
         </a>
       )}
+      {event.map && (
+        <a
+          href={event.map}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:underline"
+        >
+          <MapPin className="w-3 h-3" />
+          {language === "en" ? "Map" : "地図を見る"}
+        </a>
+      )}
       {event.href && (
         <a
           href={event.href}
@@ -1205,7 +1221,7 @@ function FeaturedEvent({ event }: { event: ScheduleItem }) {
           </div>
           {event.speaker && <SpeakerLine speaker={event.speaker} large />}
           {event.subtitle && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>}
-          {(event.href || (!Details && event.register)) && (
+          {(event.href || event.map || (!Details && event.register)) && (
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
               <EventLinks event={event} showRegister={!Details} />
             </div>
@@ -1254,7 +1270,7 @@ function ScheduleRow({ event, past, open, onToggle }: { event: ScheduleItem; pas
           {event.speaker && <SpeakerLine speaker={event.speaker} />}
           {event.subtitle && <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>}
 
-          {(Details || event.href || (event.register && !past)) && (
+          {(Details || event.href || event.map || (event.register && !past)) && (
             <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
               {Details && (
                 <button

@@ -10,11 +10,11 @@ export default function Home() {
 
   useSEO(language === 'en' ? {
     title: "KAIB - Kagawa Innovation Base | Entrepreneur Community",
-    description: "KAIB (Kagawa Innovation Base) is an entrepreneur and business leader community in Kagawa Prefecture. Aiming to grow businesses beyond 100M yen revenue through EO methods and the nationwide xIB network.",
+    description: "Where Kagawa's entrepreneurs learn from each other in earnest. KAIB (Kagawa Innovation Base) is an entrepreneur community for business owners growing step by step: ¥100M in revenue, then ¥100M in profit, then global expansion — powered by EO methods and the nationwide xIB network.",
     path: "/en",
   } : {
     title: "KAIB - 香川イノベーションベース | 起業家コミュニティ",
-    description: "KAIB（香川イノベーションベース）は、香川で年商1億円を超える経営者を増やすための起業家コミュニティ。EOの成長メソッドと全国xIBネットワークを活用。",
+    description: "香川で挑む経営者が、本気で学び合う場所。KAIB（香川イノベーションベース）は、売上1億円、利益1億円、そして海外展開へと段階的な成長を目指す経営者のための起業家コミュニティです。EOの成長メソッドと全国xIBネットワークを活用。",
     path: "/",
   });
 
