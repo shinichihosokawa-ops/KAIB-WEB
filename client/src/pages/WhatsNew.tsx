@@ -833,7 +833,7 @@ const SCHEDULE: ScheduleItem[] = [
     subtitle: { en: "From 7:00 PM", ja: "19:00〜" },
     speaker: {
       name: { en: "Hideo Kuwahara", ja: "桑原英男 様" },
-      title: { en: "President & CEO, VISIA Inc.", ja: "株式会社ビジア 代表取締役" },
+      title: { en: "President & CEO, VISIA Inc. / 4th President, EO Tokyo West", ja: "株式会社ビジア 代表取締役／EO Tokyo West 第4期会長" },
       links: [
         { match: ["株式会社ビジア", "VISIA Inc."], href: "https://visia.asia/" },
       ],
@@ -895,7 +895,7 @@ const SCHEDULE: ScheduleItem[] = [
       name: { en: "Takeshi Ogiwara", ja: "荻原 猛 様" },
       title: {
         en: "President & CEO, Rocket Star Inc. / Founder and former President & CEO and Chairman, SOLDOUT, Inc. (formerly listed on TSE Prime: 6553) / Board Member, Tochigi Innovation Base (TCGIB) / EO member",
-        ja: "株式会社ロケットスター 代表取締役社長／ソウルドアウト株式会社（元 東証プライム上場：6553）創業者・元代表取締役社長・会長／栃木イノベーションベース（TCGIB）理事／EO会員",
+        ja: "株式会社ロケットスター 代表取締役社長／ソウルドアウト株式会社（元 東証プライム上場：6553）創業者・元代表取締役社長・会長／一般社団法人栃木イノベーションベース（TCGIB）理事／EO会員",
       },
       links: [
         { match: ["株式会社ロケットスター", "Rocket Star Inc."], href: "https://rocketstar.co.jp/" },
@@ -915,8 +915,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Kunihiro Tanaka", ja: "田中 邦裕 様" },
       title: {
-        en: "President & CEO, SAKURA internet Inc. (TSE Prime: 3778) / Founder, Okinawa Innovation Base (OIB) / EO Tokyo Platinum",
-        ja: "さくらインターネット株式会社（東証プライム：3778）代表取締役社長／沖縄イノベーションベース（OIB）ファウンダー／EO Tokyo Platinum",
+        en: "President & CEO, SAKURA internet Inc. (TSE Prime: 3778) / Founder & Representative Director, Okinawa Innovation Base (OIB) / 5th President, EO Tokyo Platinum",
+        ja: "さくらインターネット株式会社（東証プライム：3778）代表取締役社長／一般社団法人沖縄イノベーションベース（OIB）ファウンダー・代表理事／EO Tokyo Platinum 第5代会長",
       },
       links: [
         { match: ["さくらインターネット株式会社", "SAKURA internet Inc."], href: "https://www.sakura.ad.jp/" },
@@ -935,8 +935,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Yasushi Fujita", ja: "藤田 恭嗣 様" },
       title: {
-        en: "President & CEO, MEDIA DO Co., Ltd. (TSE Prime: 3678) / Founder & Representative Director, Tokushima Innovation Base (TIB) / EO Tokyo Central, EO Setouchi",
-        ja: "株式会社メディアドゥ（東証プライム：3678）代表取締役社長 CEO／一般社団法人徳島イノベーションベース（TIB）ファウンダー・代表理事／EO Tokyo Central・EO Setouchi",
+        en: "President & CEO, MEDIA DO Co., Ltd. (TSE Prime: 3678) / Founder & Representative Director, Tokushima Innovation Base (TIB) / 24th President, EO Tokyo Central; EO Setouchi",
+        ja: "株式会社メディアドゥ（東証プライム：3678）代表取締役社長 CEO／一般社団法人徳島イノベーションベース（TIB）ファウンダー・代表理事／EO Tokyo Central 第24期会長・EO Setouchi",
       },
       links: [{ match: ["株式会社メディアドゥ", "MEDIA DO Co., Ltd."], href: "https://mediado.jp/" }],
     },
@@ -971,8 +971,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Hiroshi Fukudome", ja: "福留 大士 様" },
       title: {
-        en: "Representative Director & President, Change Holdings, Inc. (TSE Prime: 3962) / Board Member, Kagoshima Innovation Base (KGIB) / EO member",
-        ja: "株式会社チェンジホールディングス（東証プライム：3962）代表取締役兼執行役員社長／鹿児島イノベーションベース（KGIB）理事／EO会員",
+        en: "Representative Director & President, Change Holdings, Inc. (TSE Prime: 3962) / Vice Representative Director, Kagoshima Innovation Base (KGIB) / EO Tokyo Central",
+        ja: "株式会社チェンジホールディングス（東証プライム：3962）代表取締役兼執行役員社長／一般社団法人鹿児島イノベーションベース（KGIB）副代表理事／EO Tokyo Central",
       },
       links: [
         { match: ["株式会社チェンジホールディングス", "Change Holdings, Inc."], href: "https://www.changeholdings.co.jp/" },
@@ -1011,8 +1011,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Hijiri Nakanishi", ja: "中西 聖 様" },
       title: {
-        en: "President & CEO, MIGALO HOLDINGS Inc. (TSE Prime: 5535) / Founder, Kochi Innovation Base (KOIB) / EO Setouchi",
-        ja: "ミガロホールディングス株式会社（東証プライム：5535）代表取締役社長／高知イノベーションベース（KOIB）ファウンダー／EO Setouchi",
+        en: "President & CEO, MIGALO HOLDINGS Inc. (TSE Prime: 5535) / Founder & Representative Director, Kochi Innovation Base (KOIB) / EO Setouchi",
+        ja: "ミガロホールディングス株式会社（東証プライム：5535）代表取締役社長／一般社団法人高知イノベーションベース（KOIB）ファウンダー・代表理事／EO Setouchi",
       },
       links: [
         { match: ["ミガロホールディングス株式会社", "MIGALO HOLDINGS Inc."], href: "https://www.migalo.co.jp/" },
@@ -1031,8 +1031,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Kayo Yoshida", ja: "吉田 佳代 様" },
       title: {
-        en: "President & CEO (5th-generation brewer), Umenoyado Brewery Co., Ltd. (TSE Standard: 559A)",
-        ja: "梅乃宿酒造株式会社（東証スタンダード：559A）代表取締役社長（5代目蔵元）",
+        en: "President & CEO (5th-generation brewer), Umenoyado Brewery Co., Ltd. (TSE Standard: 559A) / Vice President, EO Osaka",
+        ja: "梅乃宿酒造株式会社（東証スタンダード：559A）代表取締役社長（5代目蔵元）／EO Osaka 副会長",
       },
       links: [
         { match: ["梅乃宿酒造株式会社", "Umenoyado Brewery Co., Ltd."], href: "https://www.umenoyado.com/" },
@@ -1051,8 +1051,8 @@ const SCHEDULE: ScheduleItem[] = [
     speaker: {
       name: { en: "Kimitaka Yoshimura", ja: "吉村 公孝 様" },
       title: {
-        en: "President & CEO, Basis Corporation (TSE Growth: 4068) / Founder, Hiroshima Innovation Base (HIB) / EO Tokyo Central, EO Setouchi",
-        ja: "ベイシス株式会社（東証グロース：4068）代表取締役社長／広島イノベーションベース（HIB）ファウンダー／EO Tokyo Central・EO Setouchi",
+        en: "President & CEO, Basis Corporation (TSE Growth: 4068) / Founder & Representative Director, Hiroshima Innovation Base (HIB) / Founding President, EO Setouchi; EO Tokyo Central",
+        ja: "ベイシス株式会社（東証グロース：4068）代表取締役社長／一般社団法人広島イノベーションベース（HIB）ファウンダー・代表理事／EO Setouchi 初代会長・EO Tokyo Central",
       },
       links: [{ match: ["ベイシス株式会社", "Basis Corporation"], href: "https://www.basis-corp.jp/" }],
     },
