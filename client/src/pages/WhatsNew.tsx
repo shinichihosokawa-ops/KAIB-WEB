@@ -943,11 +943,11 @@ const SCHEDULE: ScheduleItem[] = [
     type: "monthly",
   },
   {
-    id: "2027-05-13",
-    end: "2027-05-13",
+    id: "2027-05-14",
+    end: "2027-05-14",
     month: { en: "MAY", ja: "5月" },
-    day: "13",
-    weekday: { en: "Thu", ja: "木" },
+    day: "14",
+    weekday: { en: "Fri", ja: "金" },
     title: { en: "Monthly Meeting", ja: "月例会" },
     subtitle: { en: "From 7:00 PM｜Topic: TBA", ja: "19:00〜｜演題：未定" },
     speaker: {
