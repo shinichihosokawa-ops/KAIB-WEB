@@ -713,6 +713,8 @@ type ScheduleItem = {
   speaker?: Speaker;
   /** External event page. */
   href?: string;
+  /** An additional speaker line, e.g. a special guest still to be announced. */
+  guest?: L;
   /** Google Maps link for the venue. */
   map?: string;
   /** Registration page (Peatix). Hidden once the event has passed. */
@@ -931,7 +933,7 @@ const SCHEDULE: ScheduleItem[] = [
     month: { en: "APR", ja: "4月" },
     day: "2",
     weekday: { en: "Fri", ja: "金" },
-    title: { en: "Monthly Meeting", ja: "月例会" },
+    title: { en: "Expanded Monthly Meeting & Recruiting Event", ja: "拡大版月例会　兼　リクルーティングイベント" },
     subtitle: { en: "From 7:00 PM｜Venue: TBA｜Topic: TBA", ja: "19:00〜｜会場：未定｜演題：未定" },
     speaker: {
       name: { en: "Yasushi Fujita", ja: "藤田 恭嗣 様" },
@@ -941,6 +943,7 @@ const SCHEDULE: ScheduleItem[] = [
       },
       links: [{ match: ["株式会社メディアドゥ", "MEDIA DO Co., Ltd."], href: "https://mediado.jp/" }],
     },
+    guest: { en: "Special guest: TBA", ja: "スペシャルゲスト：未定" },
     type: "monthly",
   },
   {
@@ -1227,6 +1230,7 @@ function FeaturedEvent({ event }: { event: ScheduleItem }) {
             <StatusPill past={false} />
           </div>
           {event.speaker && <SpeakerLine speaker={event.speaker} large />}
+          {event.guest && <p className="mt-2 text-sm text-muted-foreground">{event.guest[language]}</p>}
           {event.subtitle && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>}
           {(event.href || event.map || (!Details && event.register)) && (
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
@@ -1275,6 +1279,7 @@ function ScheduleRow({ event, past, open, onToggle }: { event: ScheduleItem; pas
             <StatusPill past={past} />
           </div>
           {event.speaker && <SpeakerLine speaker={event.speaker} />}
+          {event.guest && <p className="mt-1.5 text-xs text-muted-foreground">{event.guest[language]}</p>}
           {event.subtitle && <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{event.subtitle[language]}</p>}
 
           {(Details || event.href || event.map || (event.register && !past)) && (
